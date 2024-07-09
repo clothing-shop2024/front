@@ -1,3 +1,6 @@
+const ID = '';
+const PASSWORD = '';
+
 function onSignInButtonClickHandler(event) {
     const id = document.getElementById('id').value;
     const password = document.getElementById('password').value;
