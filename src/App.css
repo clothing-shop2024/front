@@ -101,7 +101,6 @@
   width: 35px;
   height: 20px;
 
-  background-image: url('./assets/image/toggle.png');
   background-size: 100% 100%;
 
   cursor: pointer;
@@ -110,8 +109,7 @@
 .toggle-active {
   width: 35px;
   height: 20px;
-  
-  background-image: url('./assets/image/toggle-active.png');
+
   background-size: 100% 100%;
 
   cursor: pointer;
@@ -191,7 +189,6 @@
 
   margin: 5px;
 
-  background-image: url('../src/assets/image/page-left.png');
   background-size: 100% 100%;
 
   cursor: pointer;
@@ -203,7 +200,6 @@
 
   margin: 5px;
 
-  background-image: url('../src/assets/image/page-right.png');
   background-size: 100% 100%;
 
   cursor: pointer;
