@@ -10,6 +10,19 @@ export const FIND_ID_PATH = 'find-id';
 export const FIND_PASSWORD_PATH = 'find-password';
 export const FIND_PASSWORD_RESET_PATH = '/find-password-reset/:userId';
 
+// 공지사항
+export const NOTICE_PATH = 'notice';
+export const NOTICE_DETAIL_PATH = '/:noticeNumber';
+
+// 문의사항
+export const QNA_PATH = 'qna';
+export const QNA_DETAIL_PATH = '/:qnaNumber';
+export const QNA_REGIST_PATH = 'regist';
+export const QNA_UPDATE_PATH = 'update/:qnaNumber';
+
+// 자주하는 질문
+export const FREQUENT_QNA_PATH = 'frequent-qna';
+
 // description: Navigation 절대 URL PATH 
 export const MAIN_ABSOLUTE_PATH = MAIN_PATH;
 
@@ -19,6 +32,19 @@ export const SIGN_UP_ABSOLUTE_PATH = `${AUTH_PATH}/${SIGN_UP_PATH}`;
 export const FIND_ID_ABSOLUTE_PATH = `${AUTH_PATH}/${FIND_ID_PATH}`;
 export const FIND_PASSWORD_ABSOLUTE_PATH = `${AUTH_PATH}/${FIND_PASSWORD_PATH}`;
 export const FIND_PASSWORD_RESET_ABSOLUTE_PATH = (userId : string) => `${AUTH_PATH}/find-password-reset/${userId}`;
+
+// 공지사항
+export const NOTICE_ABSOLUTE_PATH = `${MAIN_PATH}/${NOTICE_PATH}`;
+export const NOTICE_DETAIL_ABSOLUTE_PATH = (noticeNumber : number) => `${MAIN_PATH}/${NOTICE_PATH}/${noticeNumber}` ;
+
+// 문의사항
+export const QNA_ABSOLUTE_PATH = `${MAIN_PATH}/${QNA_PATH}`;
+export const QNA_DETAIL_ABSOLUTE_PATH = (qnaNumber : number) => `${MAIN_PATH}/${QNA_PATH}/${qnaNumber}`;
+export const QNA_REGIST_ABSOLUTE_PATH = `${MAIN_PATH}/${QNA_PATH}/${QNA_REGIST_PATH}`;
+export const QNA_UPDATE_ABSOLUTE_PATH = (qnaNumber : number) => `${MAIN_PATH}/${QNA_PATH}/${QNA_UPDATE_PATH}/${qnaNumber}`;
+
+// 자주하는 질문
+export const FREQUENT_QNA_ABSOLUTE_PATH = `${MAIN_PATH}/${FREQUENT_QNA_PATH}`;
 
 // description: API URL PATH
 export const SERVER_DOMAIN_URL = process.env.REACT_APP_REST_API_SERVER;
