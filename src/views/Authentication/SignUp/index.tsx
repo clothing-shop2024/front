@@ -27,7 +27,7 @@ export default function SignUp() {
     const [userBirthDay, setUserBirthDay] = useState<string>('');
 
     const [idButtonStatus, setIdButtonStatus] = useState<boolean>(false);
-    const [nicknameButtonStatus, setNicknameButtonStatus] = useState<boolean>(false);
+    const [NicknameButtonStatus, setNicknameButtonStatus] = useState<boolean>(false);
     const [emailButtonStatus, setEmailButtonStatus] = useState<boolean>(false);
     const [authNumberButtonStatus, setAuthNumberButtonStatus] = useState<boolean>(false);
 
@@ -44,7 +44,7 @@ export default function SignUp() {
     const [passwordMessage, setPasswordMessage] = useState<string>('');
     const [passwordCheckMessage, setPasswordCheckMessage] = useState<string>('');
     const [userNameMessage, setUserNameMessage] = useState<string>('');
-    const [nicknameMessage, setNicknameMessage] = useState<string>('');
+    const [NicknameMessage, setNicknameMessage] = useState<string>('');
     const [emailMessage, setEmailMessage] = useState<string>('');
     const [authNumberMessage, setAuthNumberMessage] = useState<string>('');
     const [userAddressMessage, setUserAddressMessage] = useState<string>('');
@@ -76,20 +76,20 @@ export default function SignUp() {
         setIdCheck(idCheck);
     };
 
-    const nickNameCheckResponse = (result: ResponseDto | null) => {
-        const nickNameMessage = 
+    const NicknameCheckResponse = (result: ResponseDto | null) => {
+        const NicknameMessage = 
             !result ? '서버에 문제가 있습니다.' :
-            result.code === 'VF' ? '아이디는 빈 값 혹은 공백으로만 이루어질 수 없습니다.' :
+            result.code === 'VF' ? '닉네임은 빈 값 혹은 공백으로만 이루어질 수 없습니다.' :
             result.code === 'DN' ?  '이미 사용중인 닉네임입니다.' :
             result.code === 'DBE' ? '서버에 문제가 있습니다.' :
             result.code === 'SU' ? '사용 가능한 닉네임입니다.' : '';
 
-        const nickNameError = !(result && result.code === 'SU');
-        const nickNameCheck = !nickNameError;
+        const NicknameError = !(result && result.code === 'SU');
+        const NicknameCheck = !NicknameError;
 
-        setNicknameMessage(nickNameMessage);
-        setNicknameError(nickNameError);
-        setNicknameCheck(nickNameCheck);
+        setNicknameMessage(NicknameMessage);
+        setNicknameError(NicknameError);
+        setNicknameCheck(NicknameCheck);
     };
 
     const emailAuthResponse = (result: ResponseDto | null) => {
@@ -193,7 +193,7 @@ export default function SignUp() {
         setUserNameMessage('');
     };
 
-    const onNickNameChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const onNicknameChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
         setNickname(value);
         setNicknameButtonStatus(value !== '');
@@ -244,11 +244,11 @@ export default function SignUp() {
         IdCheckRequest(requestBody).then(idCheckResponse);
     };
 
-    const onNickNameButtonClickHandler = () => {
-        if(!nicknameButtonStatus || !nickname || !nickname.trim()) return;
+    const onNicknameButtonClickHandler = () => {
+        if(!NicknameButtonStatus || !nickname || !nickname.trim()) return;
 
         const requestBody: NicknameCheckRequestDto = { nickname: nickname };
-        NicknameCheckRequest(requestBody).then(nickNameCheckResponse);
+        NicknameCheckRequest(requestBody).then(NicknameCheckResponse);
     };
 
     const onEmailButtonClickHandler = () => {
@@ -361,11 +361,11 @@ export default function SignUp() {
                             type="text" 
                             value={nickname} 
                             placeholder="닉네임을 입력해주세요" 
-                            onChangeHandler={ onNickNameChangeHandler } 
+                            onChangeHandler={ onNicknameChangeHandler } 
                             buttonTitle="중복 확인" 
-                            buttonStatus={nicknameButtonStatus} 
-                            onButtonClickHandler={onNickNameButtonClickHandler} 
-                            message={nicknameMessage} 
+                            buttonStatus={NicknameButtonStatus} 
+                            onButtonClickHandler={onNicknameButtonClickHandler} 
+                            message={NicknameMessage} 
                             error={isNicknameError} 
                         />
                         <InputBox 

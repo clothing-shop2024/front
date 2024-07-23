@@ -23,8 +23,6 @@ function Index() {
 // component: Application 컴포넌트
 function App() {
   return (
-    // BrowserRouter 왜 붙여야 하는지 모르지만 안 붙이면 에러나요...
-    <BrowserRouter>
       <Routes>
         <Route index element={<Index />} />
         <Route path={SNS_PATH} element={<Sns />} />
@@ -35,7 +33,6 @@ function App() {
           <Route path={SIGN_UP_PATH} element={<SignUp />} />
         </Route>
       </Routes>
-    </BrowserRouter>
   );
 }
 
