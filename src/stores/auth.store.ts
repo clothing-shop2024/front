@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 interface AuthStore { 
     id: string;
-    setId: (userEmailId: string) => void;
+    setId: (userId: string) => void;
     password: string;
     setPassword: (password: string) => void;
     userName: string;
