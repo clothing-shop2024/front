@@ -23,7 +23,7 @@ export default function SignUp() {
     const [nickname, setNickname] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [authNumber, setAuthNumber] = useState<string>('');
-    const [userAddress, setUserAddress] = useState<string>('');
+    // const [userAddress, setUserAddress] = useState<string>('');
     const [userBirthDay, setUserBirthDay] = useState<string>('');
 
     const [idButtonStatus, setIdButtonStatus] = useState<boolean>(false);
@@ -38,7 +38,7 @@ export default function SignUp() {
     const [isEmailCheck, setEmailCheck] = useState<boolean>(false);
     const [isEmailPattern, setEmailPattern] = useState<boolean>(false);
     const [isAuthNumberCheck, setAuthNumberCheck] = useState<boolean>(false);
-    const [isUserAddressPattern, setUserAddressPattern] = useState<boolean>(false);
+    // const [isUserAddressPattern, setUserAddressPattern] = useState<boolean>(false);
 
     const [idMessage, setIdMessage] = useState<string>('');
     const [passwordMessage, setPasswordMessage] = useState<string>('');
@@ -47,14 +47,14 @@ export default function SignUp() {
     const [NicknameMessage, setNicknameMessage] = useState<string>('');
     const [emailMessage, setEmailMessage] = useState<string>('');
     const [authNumberMessage, setAuthNumberMessage] = useState<string>('');
-    const [userAddressMessage, setUserAddressMessage] = useState<string>('');
+    // const [userAddressMessage, setUserAddressMessage] = useState<string>('');
 
     const [isIdError, setIdError] = useState<boolean>(false);
     const [isNicknameError, setNicknameError] = useState<boolean>(false);
     const [isEmailError, setEmailError] = useState<boolean>(false);
     const [isAuthNumberError, setAuthNumberError] = useState<boolean>(false);
 
-    const isSignUpActive = isIdCheck && isEqualPassword && isPasswordPattern && isNicknameCheck && isEmailCheck && isEmailPattern && isAuthNumberCheck && isUserAddressPattern;
+    const isSignUpActive = isIdCheck && isEqualPassword && isPasswordPattern && isNicknameCheck && isEmailCheck && isEmailPattern && isAuthNumberCheck;
     const signUpButtonClass = `${isSignUpActive ? 'primary' : 'disable'}-button full-width`;
 
     //                    function                    //
@@ -140,7 +140,6 @@ export default function SignUp() {
             return;
         }
 
-        // navigator(SIGN_IN_ABSOLUTE_PATH);
     };
 
     //                    event handler                //
@@ -218,19 +217,19 @@ export default function SignUp() {
         setAuthNumberMessage('');
     };
 
-    const onUserAddressChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        const { value } = event.target;
-        setUserAddress(value);
+    // const onUserAddressChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    //     const { value } = event.target;
+    //     setUserAddress(value);
 
-        const userAddressPattern = /^(?=.*[가-힣A-Za-z·\d~\-\.]{2,})(?=.*(로|길)\.?\d*)(?=.*(읍|동)\s?\d*).+$/;
-        const isUserAddressPattern = userAddressPattern.test(value);
-        setUserAddressPattern(isUserAddressPattern);
+    //     const userAddressPattern = /^(?=.*[가-힣A-Za-z·\d~\-\.]{2,})(?=.*(로|길)\.?\d*)(?=.*(읍|동)\s?\d*).+$/;
+    //     const isUserAddressPattern = userAddressPattern.test(value);
+    //     setUserAddressPattern(isUserAddressPattern);
 
-        const userAddressMessage = 
-            isUserAddressPattern ? '' :
-            value ? '주소를 정확히 입력해주세요' : '';
-        setUserAddressMessage(userAddressMessage);
-    };
+    //     const userAddressMessage = 
+    //         isUserAddressPattern ? '' :
+    //         value ? '주소를 정확히 입력해주세요' : '';
+    //     setUserAddressMessage(userAddressMessage);
+    // };
 
     const onUserBirthDayChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
@@ -283,11 +282,22 @@ export default function SignUp() {
     const onSignUpButtonClickHandler = () => {
         if(!isSignUpActive) return;
 
-        if(!id || !password || !passwordCheck || userName || !nickname || !email || !authNumber || !userAddress) {
+        if(!id || !password || !passwordCheck || !userName || !nickname || !email || !authNumber ) {
             alert('모든 내용을 입력해주세요.');
             return;
         };
+
+        alert('회원가입에 성공하였습니다.')
     
+        let joinPath = searchParam.get('joinPath');
+
+        joinPath = joinPath === null ? 'HOME' : joinPath;
+        
+        const snsId = searchParam.get('snsId');
+        if (snsId) setSnsId(snsId);
+
+        const joinDate = searchParam.get('joinDate');
+
         const requestBody: SignUpRequestDto = {
             userId: id,
             password: password,
@@ -295,18 +305,13 @@ export default function SignUp() {
             nickname: nickname,
             userEmail: email,
             authNumber: authNumber,
-            userAddress: userAddress,
-            userBirthDay: userBirthDay
+            userBirthDay: userBirthDay,
+            joinPath,
+            snsId,
+            joinDate
         };
         
         signUpRequest(requestBody).then(signUpResponse);
-
-        const joinPath = searchParam.get('joinPath');
-
-        if (joinPath) setJoinPath(joinPath);
-        
-        const snsId = searchParam.get('snsId');
-        if (snsId) setSnsId(snsId);
 
         navigator(SIGN_IN_ABSOLUTE_PATH);
     };
@@ -394,7 +399,8 @@ export default function SignUp() {
                             error={isAuthNumberError} 
                             />
                         }
-                        <InputBox 
+
+                        {/* <InputBox 
                             label="주소" 
                             type="text" 
                             value={userAddress} 
@@ -402,7 +408,8 @@ export default function SignUp() {
                             onChangeHandler={onUserAddressChangeHandler} 
                             message={userAddressMessage} 
                             error 
-                        />
+                        /> */}
+
                            <InputBox 
                             label="생년월일 (필수X)"
                             type="text" 

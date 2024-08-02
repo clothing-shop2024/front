@@ -13,8 +13,8 @@ interface AuthStore {
     setEmail: (email: string) => void;
     authNumber: string;
     setAuthNumber: (authNumber: string) => void;
-    userAddress: string;
-    setUserAddress: (userAddress: string) => void;
+    // userAddress: string;
+    // setUserAddress: (userAddress: string) => void;
     joinPath: string;
     setJoinPath: (joinPath: string) => void;
     snsId: string | undefined;
@@ -40,8 +40,8 @@ const useAuthStore = create<AuthStore>(set => ({
     authNumber: '',
     setAuthNumber: (authNumber: string) => set(state => ({ ...state, authNumber})),
     
-    userAddress: '',
-    setUserAddress: (userAddress: string) => set(state => ({ ...state, userAddress})),
+    // userAddress: '',
+    // setUserAddress: (userAddress: string) => set(state => ({ ...state, userAddress})),
 
     joinPath: 'HOME',
     setJoinPath: (joinPath: string) => set(state => ({...state, joinPath})),
