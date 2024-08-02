@@ -33,10 +33,11 @@ export interface SignUpRequestDto {
     nickname : string;
     userEmail : string;
     authNumber : string;
-    userAddress : string;
+    // userAddress : string;
     userBirthDay : string;
-    // joinPath : string;
-    // snsId : string | null;
+    joinPath : string;
+    snsId : string | null;
+    joinDate : string | null;
 }
 
 // description: 아이디 찾기 Request Body DTO 
