@@ -36,7 +36,6 @@ export interface SignUpRequestDto {
     // userAddress : string;
     userBirthDay : string;
     joinPath : string;
-    snsId : string | null;
     joinDate : string | null;
 }
 
