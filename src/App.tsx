@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import './App.css';
 
 import { AUTH_PATH, MAIN_ABSOLUTE_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH } from './constant';
@@ -25,7 +25,7 @@ function App() {
   return (
       <Routes>
         <Route index element={<Index />} />
-        <Route path={SNS_PATH} element={<Sns />} />
+        {/* <Route path={SNS_PATH} element={<Sns />} /> */}
         
         {/* 인증페이지 */}
         <Route path={AUTH_PATH}>

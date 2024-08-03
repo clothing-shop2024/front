@@ -13,7 +13,7 @@ import { SIGN_IN_ABSOLUTE_PATH } from "../../../constant";
 export default function SignUp() {
 
     //                      state                      //
-    const { setJoinPath, setSnsId } = useAuthStore();
+    // const { setJoinPath, setSnsId } = useAuthStore();
     const [searchParam ] = useSearchParams();
     
     const [id, setId] = useState<string>('');
@@ -293,8 +293,8 @@ export default function SignUp() {
 
         joinPath = joinPath === null ? 'HOME' : joinPath;
         
-        const snsId = searchParam.get('snsId');
-        if (snsId) setSnsId(snsId);
+        // const snsId = searchParam.get('snsId');
+        // if (snsId) setSnsId(snsId);
 
         const joinDate = searchParam.get('joinDate');
 
@@ -307,13 +307,13 @@ export default function SignUp() {
             authNumber: authNumber,
             userBirthDay: userBirthDay,
             joinPath,
-            snsId,
+            // snsId,
             joinDate
         };
         
         signUpRequest(requestBody).then(signUpResponse);
 
-        navigator(SIGN_IN_ABSOLUTE_PATH);
+        // navigator(SIGN_IN_ABSOLUTE_PATH);
     };
 
     //                    render                       //
@@ -385,7 +385,7 @@ export default function SignUp() {
                             message={emailMessage} 
                             error={isEmailError} 
                         />
-                        
+
                         {isEmailCheck && 
                             <InputBox 
                             label="인증번호" 
