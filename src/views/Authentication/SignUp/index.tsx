@@ -385,6 +385,7 @@ export default function SignUp() {
                             message={emailMessage} 
                             error={isEmailError} 
                         />
+                        
                         {isEmailCheck && 
                             <InputBox 
                             label="인증번호" 
