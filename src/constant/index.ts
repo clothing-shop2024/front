@@ -3,16 +3,16 @@
 export const MAIN_PATH = '/shop';
 
 // description : 인증 페이지 URL
-export const AUTH_PATH = '/authentication';
+export const AUTH_PATH = 'auth';
 export const SIGN_IN_PATH = 'sign-in';
 export const SIGN_UP_PATH = 'sign-up';
 export const FIND_ID_PATH = 'find-id';
 export const FIND_PASSWORD_PATH = 'find-password';
 export const FIND_PASSWORD_RESET_PATH = 'find-password-reset/:userId';
-export const SNS_PATH = '/sns/:accessToken/:expires';
+export const SNS_PATH = 'sns/:accessToken/:expires';
 
 // description : 옷 페이지 URL 
-export const CLOTH_PATH = '/cloth';
+export const CLOTH_PATH = 'cloth';
 // 옷 전체
 export const CLOTH_LIST_PATH = 'list';
 // 옷 정보
@@ -82,7 +82,7 @@ export const QNA_UPDATE_PATH = 'update/:qnaNumber';
 export const FREQUENT_QNA_PATH = 'frequent-qna';
 
 // description : 마이 페이지 URL
-export const MY_PAGE_PATH = '/my-page';
+export const MY_PAGE_PATH = 'my-page';
 // 회원 정보
 export const MY_PAGE_INFO_PATH = 'info';
 // 회원 정보 수정
@@ -123,11 +123,11 @@ export const ADMIN_BOARD_QNA_PATH = 'qna';
 export const MAIN_ABSOLUTE_PATH = MAIN_PATH;
 
 // 회원가입 - 로그인 페이지
-export const SIGN_IN_ABSOLUTE_PATH = `${AUTH_PATH}/${SIGN_IN_PATH}`;
-export const SIGN_UP_ABSOLUTE_PATH = `${AUTH_PATH}/${SIGN_UP_PATH}`;
-export const FIND_ID_ABSOLUTE_PATH = `${AUTH_PATH}/${FIND_ID_PATH}`;
-export const FIND_PASSWORD_ABSOLUTE_PATH = `${AUTH_PATH}/${FIND_PASSWORD_PATH}`;
-export const FIND_PASSWORD_RESET_ABSOLUTE_PATH = (userId : string) => `${AUTH_PATH}/find-password-reset/${userId}`;
+export const SIGN_IN_ABSOLUTE_PATH = `${MAIN_PATH}/${AUTH_PATH}/${SIGN_IN_PATH}`;
+export const SIGN_UP_ABSOLUTE_PATH = `${MAIN_PATH}/${AUTH_PATH}/${SIGN_UP_PATH}`;
+export const FIND_ID_ABSOLUTE_PATH = `${MAIN_PATH}/${AUTH_PATH}/${FIND_ID_PATH}`;
+export const FIND_PASSWORD_ABSOLUTE_PATH = `${MAIN_PATH}/${AUTH_PATH}/${FIND_PASSWORD_PATH}`;
+export const FIND_PASSWORD_RESET_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/${AUTH_PATH}/find-password-reset/${userId}`;
 
 // 공지사항
 export const NOTICE_ABSOLUTE_PATH = `${MAIN_PATH}/${NOTICE_PATH}`;

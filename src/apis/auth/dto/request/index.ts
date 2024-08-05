@@ -1,7 +1,7 @@
 // description: 로그인 Request Body DTO 
 export interface SignInRequestDto {
     userId : string;
-    userPassword : string;
+    password : string;
 }
 
 // description: 아이디 중복확인 Request Body DTO 

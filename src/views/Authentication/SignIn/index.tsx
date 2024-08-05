@@ -62,7 +62,7 @@ function SnsContainer({ title }: SnsContainerProps) {
 export default function SignIn() {
 
     // state //
-    const [, setCookie] = useCookies();
+    const [cookie, setCookie] = useCookies(); 
     const [message, setMessage] = useState<string>('');
     const [Id, setId] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -76,6 +76,7 @@ export default function SignIn() {
             !result ? '서버에 문제가 있습니다.' :
             result.code === 'VF' ? '아이디와 비밀번호를 모두 입력하세요.' :
             result.code === 'SF' ? '로그인 정보가 일치하지 않습니다.' :
+            // 토큰 생성 실패
             result.code === 'TF' ? '서버에 문제가 있습니다.' :
             result.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
         setMessage(message);
@@ -108,19 +109,19 @@ export default function SignIn() {
 
     const onSignInButtonClickHandler = () => {
         if (!Id || !password) {
-            setMessage('이에일과 비밀번호를 모두 입력하세요.');
+            setMessage('아이디와 비밀번호를 모두 입력하세요.');
             return;
         }
 
         const requestBody: SignInRequestDto = {
             userId: Id,
-            userPassword: password
+            password: password
         }
         signInRequest(requestBody).then(signInResponse);
     };
 
     const onFindIdInputClickHandler = () => navigator(FIND_ID_ABSOLUTE_PATH)
-    const onFindPasswordInputClickHandler = () => navigator(FIND_PASSWORD_ABSOLUTE_PATH)
+    const onFindPasswordClickHandler = () => navigator(FIND_PASSWORD_ABSOLUTE_PATH)
     const onSignUpClickHandler = () => navigator(SIGN_UP_ABSOLUTE_PATH)
 
     return (
@@ -139,11 +140,11 @@ export default function SignIn() {
                 </div>
                 <div className="find-container">
                     <div className="find-email">
-                        <div className="text-link" onClick={onFindIdInputClickHandler}>이메일 찾기</div>
+                        <div className="text-link" onClick={onFindIdInputClickHandler}>아이디 찾기</div>
                     </div>
                     <div className="find-divider">{'\|'}</div>
-                    <div className="reset-password">
-                        <div className="text-link" onClick={onFindPasswordInputClickHandler}>비밀번호 재설정</div>
+                    <div className="find-password">
+                        <div className="text-link" onClick={onFindPasswordClickHandler}>비밀번호 찾기</div>
                     </div>
                     <div className="find-divider">{'\|'}</div>
                     <div className="user-sign-up">

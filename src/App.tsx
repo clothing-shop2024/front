@@ -2,19 +2,24 @@ import React, { useEffect } from 'react';
 import { Route, Routes, useNavigate } from "react-router-dom";
 import './App.css';
 
-import { AUTH_PATH, MAIN_ABSOLUTE_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH } from './constant';
+import { AUTH_PATH, FIND_ID_PATH, FIND_PASSWORD_PATH, FIND_PASSWORD_RESET_PATH, MAIN_ABSOLUTE_PATH, MAIN_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH } from './constant';
 import SignIn, { Sns } from './views/Authentication/SignIn';
 import SignUp from './views/Authentication/SignUp';
+import Main from './views/Main';
+import FindId from './views/Authentication/FindId';
+import FindPassword from './views/Authentication/FindPassword';
+import FindPasswordReset from './views/Authentication/FindPasswordReset';
 
 // component: root 경로 컴포넌트
 function Index() {
+
   //   function   //
   const navigate = useNavigate();
 
   //   effect   //
   useEffect(() => {
     navigate(MAIN_ABSOLUTE_PATH);
-  }, [navigate]);
+  }, []);
 
   //   render   //
   return <></>;
@@ -24,14 +29,23 @@ function Index() {
 function App() {
   return (
       <Routes>
-        <Route index element={<Index />} />
-        {/* <Route path={SNS_PATH} element={<Sns />} /> */}
-        
-        {/* 인증페이지 */}
+      <Route index element={<Index />} />
+
+      {/* route : 메인 페이지 */}
+      <Route path={MAIN_PATH} >
+        <Route index element={<Main />} />
+
+        {/* route : 인증 페이지 */}
         <Route path={AUTH_PATH}>
           <Route path={SIGN_IN_PATH} element={<SignIn />} />
+          <Route path={SNS_PATH} element={<Sns />} />
           <Route path={SIGN_UP_PATH} element={<SignUp />} />
+          <Route path={FIND_ID_PATH} element={<FindId />} />
+          <Route path={FIND_PASSWORD_PATH} element={<FindPassword />} />
+          <Route path={FIND_PASSWORD_RESET_PATH} element={<FindPasswordReset />} />  
         </Route>
+
+      </Route>
       </Routes>
   );
 }
