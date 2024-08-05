@@ -144,7 +144,7 @@ export const FREQUENT_QNA_ABSOLUTE_PATH = `${MAIN_PATH}/${FREQUENT_QNA_PATH}`;
 
 // description: API URL PATH
 export const SERVER_DOMAIN_URL ='http://localhost:4000';
-export const SERVER_API_URL = `${SERVER_DOMAIN_URL}/api/v1`;
+export const SERVER_API_URL = `${SERVER_DOMAIN_URL}/api/shop`;
 
 // description: AUTH 모듈 내의 기능 URL
 export const SERVER_AUTH_MODULE_URL = `${SERVER_API_URL}/auth`;
