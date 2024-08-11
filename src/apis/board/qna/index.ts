@@ -1,9 +1,9 @@
 import axios from "axios";
 import { PostQnaCommentRequestDto, PostQnaRequestDto, PutQnaRequestDto } from "./dto/request";
-import { DELETE_QNA_URL, GET_QNA_DETAIL_URL, GET_QNA_LIST_URL, GET_SEARCH_QNA_LIST_URL, PATCH_QNA_VIEW_COUNT_URL, POST_QNA_COMMENT_URL, POST_QNA_URL, PUT_QNA_URL } from "../../../constant";
-import { bearerAuthorization, requestErrorHandler, requestHandler } from "../..";
 import ResponseDto from "../../response.dto";
 import { GetQnaDetailResponseDto, GetQnaListResponseDto, GetSearchQnaListResponseDto } from "./dto/response";
+import { DELETE_QNA_URL, GET_QNA_DETAIL_URL, GET_QNA_LIST_URL, GET_SEARCH_QNA_LIST_URL, PATCH_QNA_VIEW_COUNT_URL, POST_QNA_COMMENT_URL, POST_QNA_URL, PUT_QNA_URL } from "../../../constant";
+import { bearerAuthorization, requestErrorHandler, requestHandler } from "../..";
 
 // function : 문의사항 작성 API 함수 
 export const PostQnaRequest = async(requestBody: PostQnaRequestDto, accessToken: string) => {

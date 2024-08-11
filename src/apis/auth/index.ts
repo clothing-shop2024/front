@@ -1,5 +1,5 @@
 import axios from "axios";
-import { requestErrorHandler, requestHandler } from "..";
+import { requestErrorHandler, requestHandler } from "../";
 import { PATCH_FIND_PASSWORD_RESET_REQUEST_URL, POST_EMAIL_AUTH_CHECK_REQUEST_URL, POST_EMAIL_AUTH_REQUEST_URL, POST_FIND_ID_REQUEST_URL, POST_FIND_PASSWORD_REQUEST_URL, POST_ID_CHECK_REQUEST_URL, POST_NICKNAME_CHECK_REQUEST_URL, POST_SIGN_IN_REQUEST_URL, POST_SIGN_UP_REQUEST_URL } from "../../constant";
 import { EmailAuthCheckRequestDto, EmailAuthRequestDto, FindIdRequestDto, FindPasswordRequestDto, FindPasswordResetRequestDto, IdCheckRequestDto, NicknameCheckRequestDto, SignInRequestDto, SignUpRequestDto } from "./dto/request";
 import { FindIdResponseDto, SignInResponseDto } from "./dto/response";

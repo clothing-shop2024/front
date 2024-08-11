@@ -155,8 +155,15 @@ export const POST_SIGN_UP_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/sign-up`;
 export const POST_FIND_ID_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/find-id`;
 export const POST_FIND_PASSWORD_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/find-password`;
 export const PATCH_FIND_PASSWORD_RESET_REQUEST_URL = (userId: string) => `${POST_FIND_PASSWORD_REQUEST_URL}/${userId}`;
-<<<<<<< HEAD
-=======
+
+// description: USER 모듈 내의 기능 URL
+export const SERVER_USER_MODULE_URL = `${SERVER_API_URL}/user`;
+
+export const GET_USER_INFO_REQUEST_URL = `${SERVER_USER_MODULE_URL}/`;
+export const GET_MY_INFO_URL = `${SERVER_USER_MODULE_URL}/info`;
+export const PATCH_MY_INFO_PASSWORD_MODIFY_URL = `${SERVER_USER_MODULE_URL}/info/password-modify`;
+export const PATCH_MY_INFO_EMAIL_MODIFY_URL = `${SERVER_USER_MODULE_URL}/info/email-modify`;
+export const DELETE_MY_INFO_URL = (userId: string) => `${GET_MY_INFO_URL}/${userId}`;
 
 // description : 공지사항
 export const SERVER_NOTICE_MODULE_URL = `${SERVER_API_URL}/notice`;
@@ -186,4 +193,3 @@ export const GET_FAQ_LIST_URL = `${SERVER_FAQ_MODULE_URL}/list`;
 export const POST_FAQ_URL = `${SERVER_FAQ_MODULE_URL}/regist`;
 export const PUT_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODULE_URL}/${faqNumber}/modify`;
 export const DELETE_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODULE_URL}/${faqNumber}/delete`;
->>>>>>> 40f0b1b4d8c9b31f0d0c066f3874b4f98ea273e3
