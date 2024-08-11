@@ -155,3 +155,32 @@ export const POST_SIGN_UP_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/sign-up`;
 export const POST_FIND_ID_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/find-id`;
 export const POST_FIND_PASSWORD_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/find-password`;
 export const PATCH_FIND_PASSWORD_RESET_REQUEST_URL = (userId: string) => `${POST_FIND_PASSWORD_REQUEST_URL}/${userId}`;
+
+// description : 공지사항
+export const SERVER_NOTICE_MODULE_URL = `${SERVER_API_URL}/notice`;
+export const GET_NOTICE_LIST_URL = `${SERVER_NOTICE_MODULE_URL}/list`;
+export const GET_SEARCH_NOTICE_LIST_URL = `${SERVER_NOTICE_MODULE_URL}/list/search`;
+export const GET_NOTICE_DETAIL_URL = (noticeNumber: number | string) => `${SERVER_NOTICE_MODULE_URL}/list/${noticeNumber}`;
+export const POST_NOTICE_URL = `${SERVER_NOTICE_MODULE_URL}/regist`;
+export const PUT_NOTICE_URL = (noticeNumber: number | string) => `${SERVER_NOTICE_MODULE_URL}/${noticeNumber}/modify`;
+export const PATCH_NOTICE_VIEW_COUNT_URL = (noticeNumber: number | string) => `${SERVER_NOTICE_MODULE_URL}/${noticeNumber}/increase-view-count`;
+export const DELETE_NOTICE_URL = (noticeNumber: number | string) => `${SERVER_NOTICE_MODULE_URL}/${noticeNumber}/delete`;
+
+// description : 문의사항
+export const SERVER_QNA_MODULE_URL = `${SERVER_API_URL}/qna`;
+export const GET_QNA_LIST_URL = `${SERVER_QNA_MODULE_URL}/list`;
+export const GET_SEARCH_QNA_LIST_URL = `${SERVER_QNA_MODULE_URL}/list/search`;
+export const GET_QNA_DETAIL_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/list/${qnaNumber}`;
+export const GET_MY_QNA_DETAIL_URL = `${SERVER_QNA_MODULE_URL}/mylist`;
+export const POST_QNA_URL = `${SERVER_QNA_MODULE_URL}/regist`;
+export const POST_QNA_COMMENT_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/comment`;
+export const PUT_QNA_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/modify`;
+export const PATCH_QNA_VIEW_COUNT_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/increase-view-count`;
+export const DELETE_QNA_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/delete`;
+
+// description : 자주하는 질문
+export const SERVER_FAQ_MODULE_URL = `${SERVER_API_URL}/notice`;
+export const GET_FAQ_LIST_URL = `${SERVER_FAQ_MODULE_URL}/list`;
+export const POST_FAQ_URL = `${SERVER_FAQ_MODULE_URL}/regist`;
+export const PUT_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODULE_URL}/${faqNumber}/modify`;
+export const DELETE_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODULE_URL}/${faqNumber}/delete`;
