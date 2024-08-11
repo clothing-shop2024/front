@@ -2,18 +2,16 @@ import { ChangeEvent, useState } from "react";
 import "./style.css";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
-import useAuthStore from "../../../stores/auth.store";
 import ResponseDto from "../../../apis/response.dto";
 import { EmailAuthCheckRequestDto, EmailAuthRequestDto, IdCheckRequestDto, NicknameCheckRequestDto, SignUpRequestDto } from "../../../apis/auth/dto/request";
 import { emailAuthCheckRequest, emailAuthRequest, IdCheckRequest, NicknameCheckRequest, signUpRequest } from "../../../apis/auth";
 import InputBox from "../../../components/InputBox";
 import { SIGN_IN_ABSOLUTE_PATH } from "../../../constant";
 
-//                    component                    //
+//                    component : 회원가입               //
 export default function SignUp() {
 
     //                      state                      //
-    // const { setJoinPath, setSnsId } = useAuthStore();
     const [searchParam ] = useSearchParams();
     
     const [id, setId] = useState<string>('');
@@ -21,9 +19,8 @@ export default function SignUp() {
     const [passwordCheck, setPasswordCheck] = useState<string>('');
     const [userName, setUserName] = useState<string>('');
     const [nickname, setNickname] = useState<string>('');
-    const [email, setEmail] = useState<string>('');
+    const [userEmail, setUserEmail] = useState<string>('');
     const [authNumber, setAuthNumber] = useState<string>('');
-    // const [userAddress, setUserAddress] = useState<string>('');
     const [userBirthDay, setUserBirthDay] = useState<string>('');
 
     const [idButtonStatus, setIdButtonStatus] = useState<boolean>(false);
@@ -38,7 +35,6 @@ export default function SignUp() {
     const [isEmailCheck, setEmailCheck] = useState<boolean>(false);
     const [isEmailPattern, setEmailPattern] = useState<boolean>(false);
     const [isAuthNumberCheck, setAuthNumberCheck] = useState<boolean>(false);
-    // const [isUserAddressPattern, setUserAddressPattern] = useState<boolean>(false);
 
     const [idMessage, setIdMessage] = useState<string>('');
     const [passwordMessage, setPasswordMessage] = useState<string>('');
@@ -47,7 +43,6 @@ export default function SignUp() {
     const [NicknameMessage, setNicknameMessage] = useState<string>('');
     const [emailMessage, setEmailMessage] = useState<string>('');
     const [authNumberMessage, setAuthNumberMessage] = useState<string>('');
-    // const [userAddressMessage, setUserAddressMessage] = useState<string>('');
 
     const [isIdError, setIdError] = useState<boolean>(false);
     const [isNicknameError, setNicknameError] = useState<boolean>(false);
@@ -202,7 +197,7 @@ export default function SignUp() {
 
     const onEmailChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
-        setEmail(value);
+        setUserEmail(value);
         setEmailButtonStatus(value !== '');
         setEmailCheck(false);
         setAuthNumberCheck(false);
@@ -216,20 +211,6 @@ export default function SignUp() {
         setAuthNumberCheck(false);
         setAuthNumberMessage('');
     };
-
-    // const onUserAddressChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    //     const { value } = event.target;
-    //     setUserAddress(value);
-
-    //     const userAddressPattern = /^(?=.*[가-힣A-Za-z·\d~\-\.]{2,})(?=.*(로|길)\.?\d*)(?=.*(읍|동)\s?\d*).+$/;
-    //     const isUserAddressPattern = userAddressPattern.test(value);
-    //     setUserAddressPattern(isUserAddressPattern);
-
-    //     const userAddressMessage = 
-    //         isUserAddressPattern ? '' :
-    //         value ? '주소를 정확히 입력해주세요' : '';
-    //     setUserAddressMessage(userAddressMessage);
-    // };
 
     const onUserBirthDayChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         const { value } = event.target;
@@ -254,7 +235,7 @@ export default function SignUp() {
         if(!emailButtonStatus) return;
 
         const emailPattern = /^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\.[a-zA-Z]{2,4}$/;
-        const isEmailPattern = emailPattern.test(email);
+        const isEmailPattern = emailPattern.test(userEmail);
         setEmailPattern(isEmailPattern);
 
         if (!isEmailPattern) {
@@ -264,7 +245,7 @@ export default function SignUp() {
             return;
         };
 
-        const requestBody: EmailAuthRequestDto = { userEmail: email };
+        const requestBody: EmailAuthRequestDto = { userEmail: userEmail };
         emailAuthRequest(requestBody).then(emailAuthResponse);
     };
 
@@ -272,7 +253,7 @@ export default function SignUp() {
         if(!authNumberButtonStatus || !authNumber) return;
 
         const requestBody: EmailAuthCheckRequestDto = {
-            userEmail: email,
+            userEmail: userEmail,
             authNumber
         };
 
@@ -282,7 +263,7 @@ export default function SignUp() {
     const onSignUpButtonClickHandler = () => {
         if(!isSignUpActive) return;
 
-        if(!id || !password || !passwordCheck || !userName || !nickname || !email || !authNumber ) {
+        if(!id || !password || !passwordCheck || !userName || !nickname || !userEmail || !authNumber ) {
             alert('모든 내용을 입력해주세요.');
             return;
         };
@@ -292,9 +273,6 @@ export default function SignUp() {
         let joinPath = searchParam.get('joinPath');
 
         joinPath = joinPath === null ? 'HOME' : joinPath;
-        
-        // const snsId = searchParam.get('snsId');
-        // if (snsId) setSnsId(snsId);
 
         const joinDate = searchParam.get('joinDate');
 
@@ -303,17 +281,16 @@ export default function SignUp() {
             password: password,
             userName: userName,
             nickname: nickname,
-            userEmail: email,
+            userEmail: userEmail,
             authNumber: authNumber,
             userBirthDay: userBirthDay,
             joinPath,
-            // snsId,
             joinDate
         };
         
         signUpRequest(requestBody).then(signUpResponse);
 
-        // navigator(SIGN_IN_ABSOLUTE_PATH);
+        navigator(SIGN_IN_ABSOLUTE_PATH);
     };
 
     //                    render                       //
@@ -376,7 +353,7 @@ export default function SignUp() {
                         <InputBox 
                             label="이메일" 
                             type="text" 
-                            value={email} 
+                            value={userEmail} 
                             placeholder="이메일을 입력해주세요" 
                             onChangeHandler={onEmailChangeHandler} 
                             buttonTitle="이메일 인증" 
@@ -400,24 +377,12 @@ export default function SignUp() {
                             error={isAuthNumberError} 
                             />
                         }
-
-                        {/* <InputBox 
-                            label="주소" 
-                            type="text" 
-                            value={userAddress} 
-                            placeholder="주소를 입력해주세요" 
-                            onChangeHandler={onUserAddressChangeHandler} 
-                            message={userAddressMessage} 
-                            error 
-                        /> */}
-
                            <InputBox 
                             label="생년월일 (필수X)"
                             type="text" 
                             value={userBirthDay} 
                             placeholder="생년월일을 입력해주세요" 
                             onChangeHandler={ onUserBirthDayChangeHandler }
-                            // message={userNameMessage} 
                             error 
                         />
                     </div>
