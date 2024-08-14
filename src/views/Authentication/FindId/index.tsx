@@ -1,11 +1,11 @@
-import React, { ChangeEvent, KeyboardEvent, useState } from 'react'
-import { useNavigate } from 'react-router';
-import ResponseDto from '../../../apis/response.dto';
-import { GetMyInfoResponseDto } from '../../../apis/user/dto/response';
-import { emailAuthCheckRequest, emailAuthRequest, findIdRequest } from '../../../apis/auth';
-import { EmailAuthCheckRequestDto, EmailAuthRequestDto, FindIdRequestDto } from '../../../apis/auth/dto/request';
-import { FIND_PASSWORD_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from '../../../constant';
-import InputBox from '../../../components/InputBox';
+import { ChangeEvent, KeyboardEvent, useState } from "react";
+import { useNavigate } from "react-router";
+import { emailAuthCheckRequest, findIdRequest } from "src/apis/auth";
+import { EmailAuthCheckRequestDto, FindIdRequestDto } from "src/apis/auth/dto/request";
+import ResponseDto from "src/apis/response.dto";
+import { GetMyInfoResponseDto } from "src/apis/user/dto/response";
+import InputBox from "src/components/InputBox";
+import { FIND_PASSWORD_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from "src/constant";
 
 // component: 아이디 찾기 //
 export default function FindId() {
@@ -20,10 +20,10 @@ export default function FindId() {
   const [emailMessage, setEmailMessage] = useState<string>('');
   const [authNumberMessage, setAuthNumberMessage] = useState<string>('');
 
-  const [isEmailError, setEmailError] = useState<boolean>(false);
+  const [isEmailError, setIsEmailError] = useState<boolean>(false);
   const [isAuthNumberError, setAuthNumberError] = useState<boolean>(false);
 
-  const [isEmailCheck, setEmailCheck] = useState<boolean>(false);
+  const [isEmailCheck, setIsEmailCheck] = useState<boolean>(false);
   const [isAuthNumberCheck, setAuthNumberCheck] = useState<boolean>(false);
 
   const [emailButtonStatus, setEmailButtonStatus] = useState<boolean>(false);
@@ -35,22 +35,22 @@ export default function FindId() {
   // function //
   const navigator = useNavigate();
 
-  const emailAuthResponse = (result: ResponseDto | null) => {
-    const emailMessage = 
-        !result ? '서버에 문제가 있습니다.' : 
-        result.code === 'VF' ? '이메일 형식이 아닙니다.' :
-        result.code === 'DE' ? '중복된 이메일입니다.' :
-        result.code === 'MF' ? '인증번호 전송에 실패했습니다.' :
-        result.code === 'DBE' ? '서버에 문제가 있습니다.' : 
-        result.code === 'SU' ? '인증번호가 전송되었습니다.' : '';
+//   const emailAuthResponse = (result: ResponseDto | null) => {
+//     const emailMessage = 
+//         !result ? '서버에 문제가 있습니다.' : 
+//         result.code === 'VF' ? '이메일 형식이 아닙니다.' :
+//         result.code === 'DE' ? '중복된 이메일입니다.' :
+//         result.code === 'MF' ? '인증번호 전송에 실패했습니다.' :
+//         result.code === 'DBE' ? '서버에 문제가 있습니다.' : 
+//         result.code === 'SU' ? '인증번호가 전송되었습니다.' : '';
 
-    const emailCheck = result !== null && result.code === 'SU';
-    const emailError = !emailCheck;
+//     const emailCheck = result !== null && result.code === 'SU';
+//     const emailError = !emailCheck;
 
-    setEmailMessage(emailMessage);
-    setEmailCheck(emailCheck);
-    setEmailError(emailError);
-};
+//     setEmailMessage(emailMessage);
+//     setEmailCheck(emailCheck);
+//     setEmailError(emailError);
+// };
   
   const emailAuthCheckResponse = (result: ResponseDto | null) => {
     const authNumberMessage = 
@@ -79,14 +79,19 @@ export default function FindId() {
       result.code === 'VF' ? '입력 형식이 맞지 않습니다.' :
       result.code === 'DBE' ? '서버에 문제가 있습니다.' : ''
 
-    const isSuccess = result && result.code === 'SU';
-    if (!isSuccess) {
-      alert(message);
-      return;
-    }
+      const emailCheck = !(result && (result.code === 'SU'));
+      const emailError = !emailCheck;
+
+      if (!result || (result.code !== 'SU')) {
+        alert(message);
+        return;
+    };
 
     const { userId } = result as GetMyInfoResponseDto;
+    setUserEmail(userEmail);
     setUserId(userId);
+    setIsEmailError(emailError);
+    setIsEmailCheck(true);
   };
 
   // event handler //
@@ -100,7 +105,7 @@ export default function FindId() {
     const { value } = event.target;
     setUserEmail(value);
     setEmailButtonStatus(value !== '');
-    setEmailCheck(false);
+    setIsEmailCheck(false);
     setAuthNumberCheck(false);
     setEmailMessage('');
 };
@@ -113,22 +118,22 @@ const onAuthNumberChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
   setAuthNumberMessage('');
 };
 
-const onEmailButtonClickHandler = () => {
-  if(!emailButtonStatus) return;
+// const onEmailButtonClickHandler = () => {
+//   if(!emailButtonStatus) return;
 
-  const emailPattern = /^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\.[a-zA-Z]{2,4}$/;
-  const isEmailPattern = emailPattern.test(userEmail);
+//   const emailPattern = /^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\.[a-zA-Z]{2,4}$/;
+//   const isEmailPattern = emailPattern.test(userEmail);
 
-  if (!isEmailPattern) {
-      setEmailMessage('이메일 형식이 아닙니다.');
-      setEmailError(true);
-      setEmailCheck(false);
-      return;
-  };
+//   if (!isEmailPattern) {
+//       setEmailMessage('이메일 형식이 아닙니다.');
+//       setEmailError(true);
+//       setEmailCheck(false);
+//       return;
+//   };
 
-  const requestBody: EmailAuthRequestDto = { userEmail: userEmail };
-  emailAuthRequest(requestBody).then(emailAuthResponse);
-};
+//   const requestBody: EmailAuthRequestDto = { userEmail: userEmail };
+//   emailAuthRequest(requestBody).then(emailAuthResponse);
+// };
 
 const onAuthNumberButtonClickHandler = () => {
   if(!authNumberButtonStatus || !authNumber) return;
@@ -141,29 +146,30 @@ const onAuthNumberButtonClickHandler = () => {
   emailAuthCheckRequest(requestBody).then(emailAuthCheckResponse);
 };
 
-const onFindIdButtonClickHandler = () => {
-  if(!isFindIdActive) return;
+// 이메일 인증버튼이 이상함
+  const onFindIdButtonClickHandler = () => {
+    if (!emailButtonStatus) return;
 
-  if (!userName || !userEmail || !authNumber) {
-    alert('모든 내용을 입력해주세요.')
-    return;
+    const emailPattern = /^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\.[a-zA-Z]{2,4}$/;
+    const isEmailPattern = emailPattern.test(userEmail);
+
+    if (!isEmailPattern) {
+      setEmailMessage('이메일 형식이 아닙니다.');
+      setIsEmailError(true);
+      return;
+    };
+
+    const getFindIdRequest: FindIdRequestDto = { userName, userEmail, authNumber };
+
+    findIdRequest(getFindIdRequest).then(findIdResponse);
   };
-
-  const requestBody: FindIdRequestDto = {
-    userName: userName,
-    userEmail: userEmail,
-    authNumber: authNumber
-  };
-
-  findIdRequest(requestBody).then(findIdResponse);
-};
 
 const onSignInClickHandler = () => navigator(SIGN_IN_ABSOLUTE_PATH)
 const onPasswordResetInputClickHandler = () => navigator(FIND_PASSWORD_ABSOLUTE_PATH)
-// const onPasswordKeydownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-//   if (event.key !== 'Enter') return;
-//   onFindIdButtonClickHandler();
-// };
+const onPasswordKeydownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+  if (event.key !== 'Enter') return;
+  onFindIdButtonClickHandler();
+};
 
 // render //
   return (
@@ -178,6 +184,7 @@ const onPasswordResetInputClickHandler = () => navigator(FIND_PASSWORD_ABSOLUTE_
                         placeholder="이름을 입력해주세요" 
                         onChangeHandler={onUserNameChangeHandler} 
                         message={userNameMessage}
+                        onkeydownhandler={onPasswordKeydownHandler} 
                     />
                     <InputBox
                         label="이메일" 
@@ -187,11 +194,12 @@ const onPasswordResetInputClickHandler = () => navigator(FIND_PASSWORD_ABSOLUTE_
                         onChangeHandler={onEmailChangeHandler} 
                         buttonTitle='이메일 인증' 
                         buttonStatus={emailButtonStatus} 
-                        onButtonClickHandler={onEmailButtonClickHandler} 
+                        onButtonClickHandler={onFindIdButtonClickHandler} 
                         message={emailMessage} 
                         error={isEmailError} 
+                        onkeydownhandler={onPasswordKeydownHandler} 
                     />
-                    {isEmailCheck &&
+                    {/* {isEmailCheck && */}
                     <InputBox
                       label="인증번호"
                       type="text"
@@ -204,7 +212,7 @@ const onPasswordResetInputClickHandler = () => navigator(FIND_PASSWORD_ABSOLUTE_
                       message={authNumberMessage}
                       error={isAuthNumberError}
                     />
-                    } 
+                    {/* }  */}
                 </div>
                 <div className='find-id-button'>
                   <div className={findIdButtonClass} onClick={onFindIdButtonClickHandler}>아이디 찾기</div>
