@@ -1,12 +1,12 @@
 import { ChangeEvent, useState } from "react";
-import "./style.css";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
-import ResponseDto from "../../../apis/response.dto";
-import { EmailAuthCheckRequestDto, EmailAuthRequestDto, IdCheckRequestDto, NicknameCheckRequestDto, SignUpRequestDto } from "../../../apis/auth/dto/request";
 import { emailAuthCheckRequest, emailAuthRequest, IdCheckRequest, NicknameCheckRequest, signUpRequest } from "../../../apis/auth";
+import { EmailAuthCheckRequestDto, EmailAuthRequestDto, IdCheckRequestDto, NicknameCheckRequestDto, SignUpRequestDto } from "../../../apis/auth/dto/request";
+import ResponseDto from "../../../apis/response.dto";
 import InputBox from "../../../components/InputBox";
 import { SIGN_IN_ABSOLUTE_PATH } from "../../../constant";
+import "./style.css";
 
 //                    component : 회원가입               //
 export default function SignUp() {
