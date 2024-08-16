@@ -18,8 +18,8 @@ export interface GetQnaDetailResponseDto extends ResponseDto {
     qnaTitle: string;
     qnaContents: string;
     qnaImageUrl: string;
-    comment: string | null;
-    writerId: string;
+    qnaComment: string | null;
+    qnaWriterId: string;
     qnaCategory: string;
     qnaDate: string;
     qnaPublic: boolean;

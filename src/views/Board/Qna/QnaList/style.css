@@ -1,0 +1,65 @@
+.list-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 25px;
+
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 25px;
+}
+
+.list-table-th.qna{
+    gap: 65px;
+}
+
+.list-table-tr.qna{
+    gap: 65px;
+}
+
+/* 순번 */
+.qna-list-table-number {
+    width: 30px;
+}
+
+/* 제목 */
+.qna-list-table-title {
+    width: 345px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 유형 */
+.qna-list-table-category {
+    width: 45px;
+}
+
+/* 작성자 */
+.qna-list-table-writer-id {
+    width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 노출 여부 */
+.qna-list-table-public {
+    width: 80px;
+}
+
+/* 상태 */
+.qna-list-table-status {
+    width: 80px;
+}
+
+/* 조회수 */
+.qna-list-table-viewcount {
+    width: 45px;
+}
+
+/* 작성일 */
+.qna-list-table-date {
+    width: 54px;
+}

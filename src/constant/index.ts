@@ -178,7 +178,7 @@ export const DELETE_NOTICE_URL = (noticeNumber: number | string) => `${SERVER_NO
 // description : 문의사항
 export const SERVER_QNA_MODULE_URL = `${SERVER_API_URL}/qna`;
 export const GET_QNA_LIST_URL = `${SERVER_QNA_MODULE_URL}/list`;
-export const GET_SEARCH_QNA_LIST_URL = `${SERVER_QNA_MODULE_URL}/list/search`;
+export const GET_SEARCH_QNA_LIST_URL = `${GET_QNA_LIST_URL}/search`;
 export const GET_QNA_DETAIL_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/list/${qnaNumber}`;
 export const GET_MY_QNA_DETAIL_URL = `${SERVER_QNA_MODULE_URL}/mylist`;
 export const POST_QNA_URL = `${SERVER_QNA_MODULE_URL}/regist`;
@@ -193,3 +193,8 @@ export const GET_FAQ_LIST_URL = `${SERVER_FAQ_MODULE_URL}/list`;
 export const POST_FAQ_URL = `${SERVER_FAQ_MODULE_URL}/regist`;
 export const PUT_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODULE_URL}/${faqNumber}/modify`;
 export const DELETE_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODULE_URL}/${faqNumber}/delete`;
+
+//description: PAGE
+export const COUNT_PER_PAGE = 10;
+export const COUNT_PER_SECTION = 10;
+export const COUNT_RESERVATION_PAGE = 6;
