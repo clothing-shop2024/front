@@ -1,9 +1,7 @@
 // description: 문의사항 게시물 작성하기 Request Body DTO //
 export interface PostQnaRequestDto {
-    qnaTitle: string;
     qnaContents: string;
     qnaCategory: string;
-    qnaPublic: boolean;
     imageUrl: string | null;
 }
 
@@ -14,9 +12,7 @@ export interface PostQnaCommentRequestDto {
 
 // description: 문의사항 게시물 수정하기 Request Body DTO //
 export interface PutQnaRequestDto {
-    qnaTitle: string;
     qnaContents: string;
     qnaCategory: string;
-    qnaPublic: boolean;
     imageUrl: string | null;
 }

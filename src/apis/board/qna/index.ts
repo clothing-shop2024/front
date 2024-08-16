@@ -60,15 +60,6 @@ export const putQnaRequest = async(qnaNumber: number | string, requestBody: PutQ
     return result;
 };
 
-// function : Q&A 게시물 조회수 증가 API 함수
-export const increaseViewCountRequest = async (qnaNumber: number | string) => {
-    const result = await axios
-        .patch(PATCH_QNA_VIEW_COUNT_URL(qnaNumber))
-        .then(requestHandler<ResponseDto>)
-        .catch(requestErrorHandler);
-    return result;
-};
-
 // function : Q&A 게시물 삭제 API 함수
 export const deleteQnaRequest = async(qnaNumber: number | string, accessToken: string)=>{
     const result = await axios
