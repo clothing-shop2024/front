@@ -15,26 +15,26 @@ export const PostQnaRequest = async(requestBody: PostQnaRequestDto, accessToken:
 };
 
 // function : 문의사항 답글 작성 API 함수
-export const PostQnaCommentRequest = async(noticeNumber: number | string, requestBody: PostQnaCommentRequestDto, accessToken: string) => {
+export const PostQnaCommentRequest = async(qnaNumber: number | string, requestBody: PostQnaCommentRequestDto, accessToken: string) => {
     const result = await axios
-        .post(POST_QNA_COMMENT_URL(noticeNumber), requestBody, bearerAuthorization(accessToken))
+        .post(POST_QNA_COMMENT_URL(qnaNumber), requestBody, bearerAuthorization(accessToken))
         .then(requestHandler<ResponseDto>)
         .catch(requestErrorHandler);
     return result;
 };
 
 // function : 문의사항 전체 리스트 불러오기 API 함수
-export const getQnaListRequest = async() => {
+export const getQnaListRequest = async(accessToken: string) => {
     const result = await axios
-        .get(GET_QNA_LIST_URL)
+        .get(GET_QNA_LIST_URL, bearerAuthorization(accessToken))
         .then(requestHandler<GetQnaListResponseDto>)
         .catch(requestErrorHandler)
     return result;
 };
 
 // function : 문의사항 검색 리스트 불러오기 API 함수
-export const gethSearchQnaListRequest = async(word: string) => {
-    const config = { params: {word}}
+export const getSearchQnaListRequest = async(searchWord: string) => {
+    const config = { params: {searchWord}}
     const result = await axios
         .get(GET_SEARCH_QNA_LIST_URL,config)
         .then(requestHandler<GetSearchQnaListResponseDto>) 
@@ -43,27 +43,27 @@ export const gethSearchQnaListRequest = async(word: string) => {
 };
 
 // function : 문의사항 게시물 불러오기 API 함수
-export const getQnaDetailRequest = async(noticeNumber: number | string) => {
+export const getQnaDetailRequest = async(qnaNumber: number | string) => {
     const result = await axios
-        .get(GET_QNA_DETAIL_URL(noticeNumber))
+        .get(GET_QNA_DETAIL_URL(qnaNumber))
         .then(requestHandler<GetQnaDetailResponseDto>)
         .catch(requestErrorHandler);
     return result;
 };
 
 // function : Q&A 게시물 수정 API 함수
-export const putQnaRequest = async(noticeNumber: number | string, requestBody: PutQnaRequestDto, accessToken: string) =>{
+export const putQnaRequest = async(qnaNumber: number | string, requestBody: PutQnaRequestDto, accessToken: string) =>{
     const result = await axios
-        .put(PUT_QNA_URL(noticeNumber), requestBody, bearerAuthorization(accessToken))
+        .put(PUT_QNA_URL(qnaNumber), requestBody, bearerAuthorization(accessToken))
         .then(requestHandler<ResponseDto>)
         .catch(requestErrorHandler);
     return result;
 };
 
 // function : Q&A 게시물 조회수 증가 API 함수
-export const increaseViewCountRequest = async (noticeNumber: number | string) => {
+export const increaseViewCountRequest = async (qnaNumber: number | string) => {
     const result = await axios
-        .patch(PATCH_QNA_VIEW_COUNT_URL(noticeNumber))
+        .patch(PATCH_QNA_VIEW_COUNT_URL(qnaNumber))
         .then(requestHandler<ResponseDto>)
         .catch(requestErrorHandler);
     return result;
