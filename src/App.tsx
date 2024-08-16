@@ -10,6 +10,14 @@ import SignIn, { Sns } from './views/Authentication/SignIn';
 import SignUp from './views/Authentication/SignUp';
 import Main from './views/Main';
 import MyPageInfo from './views/MyPage/MyPageInfo';
+import { AUTH_PATH, FIND_ID_PATH, FIND_PASSWORD_PATH, FIND_PASSWORD_RESET_PATH, MAIN_ABSOLUTE_PATH, MAIN_PATH, QNA_LIST_PATH, QNA_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH } from './constant';
+import SignIn, { Sns } from './views/Authentication/SignIn';
+import SignUp from './views/Authentication/SignUp';
+import Main from './views/Main';
+import FindId from './views/Authentication/FindId';
+import FindPassword from './views/Authentication/FindPassword';
+import FindPasswordReset from './views/Authentication/FindPasswordReset';
+import QnaList from './views/Board/Qna/QnaList';
 
 // component: root 경로 컴포넌트
 function Index() {
@@ -49,7 +57,10 @@ function App() {
         {/* route : 인증 페이지 */}
         <Route path={MY_PAGE_PATH}>
           <Route path={MY_PAGE_INFO_PATH} element={<MyPageInfo />} />
-          
+
+        {/* route : 문의사항 페이지 */}
+        <Route path={QNA_PATH}>
+          <Route path={QNA_LIST_PATH} element={<QnaList />}></Route>
         </Route>
 
       </Route>

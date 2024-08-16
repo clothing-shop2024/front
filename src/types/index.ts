@@ -2,7 +2,7 @@
 export interface QnaListItem {
     qnaNumber: number;
     qnaTitle: string;
-    writerId: string;
+    qnaWriterId: string;
     qnaCategory: string;
     qnaDate: string;
     viewCount: number;

@@ -14,8 +14,8 @@ export interface PostQnaCommentRequestDto {
 
 // description: 문의사항 게시물 수정하기 Request Body DTO //
 export interface PutQnaRequestDto {
-    title: string;
-    contents: string;
+    qnaTitle: string;
+    qnaContents: string;
     qnaCategory: string;
     qnaPublic: boolean;
     imageUrl: string | null;
