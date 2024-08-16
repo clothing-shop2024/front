@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Route, Routes, useNavigate } from "react-router-dom";
 import './App.css';
 
-import { AUTH_PATH, FIND_ID_PATH, FIND_PASSWORD_PATH, FIND_PASSWORD_RESET_PATH, MAIN_ABSOLUTE_PATH, MAIN_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH } from './constant';
-import SignIn, { Sns } from './views/Authentication/SignIn';
-import SignUp from './views/Authentication/SignUp';
-import Main from './views/Main';
+import { AUTH_PATH, FIND_ID_PATH, FIND_PASSWORD_PATH, FIND_PASSWORD_RESET_PATH, MAIN_ABSOLUTE_PATH, MAIN_PATH, MY_PAGE_INFO_PATH, MY_PAGE_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH } from './constant';
 import FindId from './views/Authentication/FindId';
 import FindPassword from './views/Authentication/FindPassword';
 import FindPasswordReset from './views/Authentication/FindPasswordReset';
+import SignIn, { Sns } from './views/Authentication/SignIn';
+import SignUp from './views/Authentication/SignUp';
+import Main from './views/Main';
+import MyPageInfo from './views/MyPage/MyPageInfo';
 
 // component: root 경로 컴포넌트
 function Index() {
@@ -43,6 +44,12 @@ function App() {
           <Route path={FIND_ID_PATH} element={<FindId />} />
           <Route path={FIND_PASSWORD_PATH} element={<FindPassword />} />
           <Route path={FIND_PASSWORD_RESET_PATH} element={<FindPasswordReset />} />  
+        </Route>
+
+        {/* route : 인증 페이지 */}
+        <Route path={MY_PAGE_PATH}>
+          <Route path={MY_PAGE_INFO_PATH} element={<MyPageInfo />} />
+          
         </Route>
 
       </Route>
