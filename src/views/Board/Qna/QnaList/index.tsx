@@ -14,12 +14,9 @@ import './style.css';
 function ListItem ({
     index,
     qnaNumber,
-    qnaTitle,
     qnaWriterId,
     qnaCategory,
     qnaDate,
-    viewCount,
-    qnaPublic,
     status
 }: QnaListItem & { index: number }) {
 
@@ -32,10 +29,10 @@ function ListItem ({
     //                  event handler                   //
     const onClickHandler = () => {
 
-        if (!qnaPublic && (loginUserRole !== 'ROLE_ADMIN' && loginUserId !== qnaWriterId )) {
-            alert("비공개글은 작성자 혹은 관리자만 볼 수 있습니다.");
-            return;
-        }
+        // if (!qnaPublic && (loginUserRole !== 'ROLE_ADMIN' && loginUserId !== qnaWriterId )) {
+        //     alert("비공개글은 작성자 혹은 관리자만 볼 수 있습니다.");
+        //     return;
+        // }
         navigator(QNA_DETAIL_ABSOLUTE_PATH(qnaNumber), { state: {previousPage: 'ALL_QNA_LIST'} });
     };
 
@@ -45,17 +42,16 @@ function ListItem ({
     return (
         <div className='list-table-tr qna' onClick={onClickHandler}>
             <div className='qna-list-table-number'>{index + 1}</div>
-            <div className={`qna-list-table-title ${qnaPublic ? 'public' : 'private'}`} style={{ textAlign: 'left' }}>{qnaPublic ? qnaTitle : '비공개글입니다.'}</div>
+            {/* <div className={`qna-list-table-title ${qnaPublic ? 'public' : 'private'}`} style={{ textAlign: 'left' }}>{qnaPublic ? qnaTitle : '비공개글입니다.'}</div> */}
             <div className='qna-list-table-category'>{qnaCategory}</div>
             <div className='qna-list-table-writer-id'>{coverdWriterId}</div>
-            <div className='qna-list-table-public'>{qnaPublic ? '공개' : '비공개'}</div>
+            {/* <div className='qna-list-table-public'>{qnaPublic ? '공개' : '비공개'}</div> */}
             <div className='qna-list-table-status'>
                     {status ? 
                     <div className='disable-bedge'>완료</div> :
                     <div className='primary-bedge'>접수</div>
                     }
             </div>
-            <div className='qna-list-table-viewcount'>{viewCount}</div>
             <div className='qna-list-table-date'>{qnaDate}</div>
         </div>
     );
@@ -182,9 +178,7 @@ export default function QnaList() {
                     <div className='qna-list-table-title'>제목</div>
                     <div className='qna-list-table-category'>유형</div>
                     <div className='qna-list-table-writer-id'>작성자</div>
-                    <div className='qna-list-table-public'>노출여부</div>
                     <div className='qna-list-table-status'>답변상태</div>
-                    <div className='qna-list-table-viewcount'>조회수</div>
                     <div className='qna-list-table-date'>작성일</div>
                 </div>
                 {viewList.map((item, index) => <ListItem {...item} index={totalLength - (currentPage - 1) * COUNT_PER_PAGE - (index + 1)} key={item.qnaNumber} />)}

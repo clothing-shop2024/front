@@ -54,11 +54,6 @@
     width: 80px;
 }
 
-/* 조회수 */
-.qna-list-table-viewcount {
-    width: 45px;
-}
-
 /* 작성일 */
 .qna-list-table-date {
     width: 54px;
