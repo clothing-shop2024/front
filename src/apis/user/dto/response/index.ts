@@ -1,7 +1,7 @@
 import ResponseDto from "../../../response.dto";
 
 // description: 로그인 유저 정보 반환 Response Body DTO
-export interface GetUserInfoResponseDto extends ResponseDto {
+export interface GetSignInUserResponseDto extends ResponseDto {
   userId: string;
   nickname: string;
   userRole: string;
@@ -13,7 +13,6 @@ export interface GetMyInfoResponseDto extends ResponseDto{
   userName: string;
   nickname: string;
   userEmail: string;
-  userAddress: string;
   userBirthDay: string;
   userRole: string;
   joinPath: String;
@@ -22,11 +21,9 @@ export interface GetMyInfoResponseDto extends ResponseDto{
 
 // description: 내 정보 수정하기 Response Body DTO
 export interface PatchUserInfoResponseDto extends ResponseDto{
-  userId: string;
-  userName: string;
+  password: string;
   nickname: string;
   userEmail: string;
-  userAddress: string;
   userBirthDay: string;
   userRole: string;
   joinPath: String;
