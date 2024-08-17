@@ -377,13 +377,13 @@ export default function SignUp() {
                             error={isAuthNumberError} 
                             />
                         }
-                           <InputBox 
-                            label="생년월일 (필수X)"
-                            type="text" 
-                            value={userBirthDay} 
-                            placeholder="생년월일을 입력해주세요" 
-                            onChangeHandler={ onUserBirthDayChangeHandler }
-                            error 
+                        <InputBox 
+                        label="생년월일 (필수X)"
+                        type="text" 
+                        value={userBirthDay} 
+                        placeholder="생년월일을 입력해주세요" 
+                        onChangeHandler={ onUserBirthDayChangeHandler }
+                        error 
                         />
                     </div>
                     <div className="authentication-button-container">
