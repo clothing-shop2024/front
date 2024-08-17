@@ -3,13 +3,13 @@ import { bearerAuthorization, requestErrorHandler, requestHandler } from "..";
 import { DELETE_MY_INFO_URL, GET_MY_INFO_URL_REQUEST_URL, GET_USER_INFO_REQUEST_URL, PATCH_MY_INFO_EMAIL_MODIFY_REQUEST_URL, PATCH_MY_INFO_PASSWORD_MODIFY_REQUEST_URL, POST_EMAIL_AUTH_REQUEST_URL } from "../../constant";
 import ResponseDto from "../response.dto";
 import { EmailAuthRequestDto, PutMyInfoEmailRequestDto, PutMyInfoPasswordRequestDto } from "./dto/request";
-import { GetMyInfoResponseDto, GetUserInfoResponseDto } from "./dto/response";
+import { GetMyInfoResponseDto, GetSignInUserResponseDto, } from "./dto/response";
 
 // function: 로그인 유저 정보 불러오기 API 함수
 export const getSignInUserRequest = async (accessToken: string) => {
     const result = await axios
         .get(GET_USER_INFO_REQUEST_URL, bearerAuthorization(accessToken))
-        .then(requestHandler<GetUserInfoResponseDto>)
+        .then(requestHandler<GetSignInUserResponseDto>)
         .catch(requestErrorHandler);
     return result;
 };

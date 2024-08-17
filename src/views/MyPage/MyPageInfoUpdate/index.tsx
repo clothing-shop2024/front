@@ -43,7 +43,7 @@ export default function MyPageInfoUpdate() {
         return;
     };
 
-    const { userId, userName, nickname, userEmail, userAddress, userBirthDay, joinDate } = result as GetMyInfoResponseDto;
+    const { userId, userName, nickname, userEmail, userBirthDay, joinDate } = result as GetMyInfoResponseDto;
     
 };
 

@@ -4,19 +4,20 @@ import { useNavigate } from "react-router";
 import ResponseDto from "src/apis/response.dto";
 import { getMyInfoRequest } from "src/apis/user";
 import { GetMyInfoResponseDto } from "src/apis/user/dto/response";
-import { MY_PAGE_INFO_ABSOLUTE_PATH, MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH } from "src/constant";
+import { MAIN_ABSOLUTE_PATH, MY_PAGE_INFO_ABSOLUTE_PATH, MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH } from "src/constant";
+import useUserStore from "src/stores/user.store";
 import "./style.css";
 
 // component : 마이페이지 //
 export default function MyPageInfo() {
 
   // state //
+  const { loginUserRole } = useUserStore();
+
   const [cookies, setCookie, removeCookie] = useCookies();
 
-  const [userRole, setUserRole] = useState<string>('');
   const [userId, setUserId] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
-  const [joinDate, setJoinDate] = useState<string>('');
 
   // function //
   const navigator = useNavigate();
@@ -38,11 +39,9 @@ export default function MyPageInfo() {
         return;
     };
 
-    const { userId, nickname, joinDate } = result as GetMyInfoResponseDto;
+    const { userId, nickname } = result as GetMyInfoResponseDto;
     setUserId(userId);
     setNickname(nickname);
-    // joinDate String으로 안 받아짐
-    // setJoinDate(joinDate);
 };
 
   // event handler //
@@ -50,9 +49,11 @@ export default function MyPageInfo() {
   const onMyPageInfoUpdateClickHandler = (userId:string) => navigator(MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH(userId));
 
   //   effect   //
-  useEffect(() => {
-    getMyInfoRequest(cookies.accessToken).then(getMyInfoResponse);
-  }, []);
+  useEffect (() => {
+    // loginUserRole !== 'ROLE_USER' 이거 때문에 튕김 
+    if (!cookies.accessToken) navigator(MAIN_ABSOLUTE_PATH);
+    else getMyInfoRequest(cookies.accessToken).then(getMyInfoResponse);
+}, []);
 
   return (
     <div id="my-page-info-wrapper">
