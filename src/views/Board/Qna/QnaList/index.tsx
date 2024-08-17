@@ -10,7 +10,7 @@ import ResponseDto from 'src/apis/response.dto';
 import { getSearchQnaListRequest } from 'src/apis/board/qna';
 import './style.css';
 
-    //                    component                    //
+//                    component                    //
 function ListItem ({
     index,
     qnaNumber,

@@ -177,7 +177,7 @@ export const GET_SEARCH_NOTICE_LIST_URL = `${SERVER_NOTICE_MODULE_URL}/list/sear
 export const GET_NOTICE_DETAIL_URL = (noticeNumber: number | string) => `${SERVER_NOTICE_MODULE_URL}/list/${noticeNumber}`;
 export const POST_NOTICE_URL = `${SERVER_NOTICE_MODULE_URL}/regist`;
 export const PUT_NOTICE_URL = (noticeNumber: number | string) => `${SERVER_NOTICE_MODULE_URL}/${noticeNumber}/modify`;
-export const PATCH_NOTICE_VIEW_COUNT_URL = (noticeNumber: number | string) => `${SERVER_NOTICE_MODULE_URL}/${noticeNumber}/increase-view-count`;
+export const INCREASE_NOTICE_VIEW_COUNT_URL = (noticeNumber: number | string) => `${SERVER_NOTICE_MODULE_URL}/${noticeNumber}/increase-view-count`;
 export const DELETE_NOTICE_URL = (noticeNumber: number | string) => `${SERVER_NOTICE_MODULE_URL}/${noticeNumber}/delete`;
 
 // description : 문의사항
@@ -189,7 +189,6 @@ export const GET_MY_QNA_DETAIL_URL = `${SERVER_QNA_MODULE_URL}/mylist`;
 export const POST_QNA_URL = `${SERVER_QNA_MODULE_URL}/regist`;
 export const POST_QNA_COMMENT_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/comment`;
 export const PUT_QNA_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/modify`;
-export const PATCH_QNA_VIEW_COUNT_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/increase-view-count`;
 export const DELETE_QNA_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/delete`;
 
 // description : 자주하는 질문
