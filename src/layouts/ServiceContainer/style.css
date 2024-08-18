@@ -1,0 +1,83 @@
+#wrapper {
+    display: grid;
+    grid-template-columns: 280px minmax(1182px, 1fr);
+    grid-template-rows: 85px minmax(1000px, auto) 320px;
+    grid-template-areas:
+        "topbar topbar"
+        "main main"
+        ;
+}
+
+/* TopBar */
+.topbar {
+    grid-area: topbar;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.all-category-box {
+    /* grid-area: category; */
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-container:hover{
+    cursor: pointer;
+    opacity: 0.85;
+}
+
+.logo-button {
+    /* grid-area: logo; */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.topbar-right {
+    /* grid-area: topbar-right; */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.topbar-right-search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-cloth-button {
+    width: 20px;
+    height: 20px;
+    background-size: 100% 100%;
+}
+
+.search-cloth-button.search {
+    gap: 12px;
+
+    background-image: url('../../assets/image/search-button.png');
+}
+
+.topbar-right-user {
+    padding: 8px 12px;
+}
+
+.topbar-right-cart {
+    padding: 8px 12px;
+}
+
+
+
+/* 메인 */
+.main-container {
+    grid-area: main;
+    min-width: 1182px;
+}

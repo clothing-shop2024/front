@@ -12,6 +12,7 @@ import QnaList from './views/Board/Qna/QnaList';
 import Main from './views/Main';
 import MyPageInfo from './views/MyPage/MyPageInfo';
 import NoticeList from './views/Board/Notice/NoticeList';
+import ServiceContainer from './layouts/ServiceContainer';
 
 // component: root 경로 컴포넌트
 function Index() {
@@ -35,35 +36,35 @@ function App() {
     <Route index element={<Index />} />
 
     {/* 메인 페이지 */}
-    <Route path={MAIN_PATH} >
+    <Route path={MAIN_PATH} element={<ServiceContainer />}>
       <Route index element={<Main />} />
 
-    {/* 인증 페이지 */}
-    <Route path={AUTH_PATH}>
-      <Route path={SIGN_IN_PATH} element={<SignIn />} />
-      <Route path={SNS_PATH} element={<Sns />} />
-      <Route path={SIGN_UP_PATH} element={<SignUp />} />
-      <Route path={FIND_ID_PATH} element={<FindId />} />
-      <Route path={FIND_PASSWORD_PATH} element={<FindPassword />} />
-      <Route path={FIND_PASSWORD_RESET_PATH} element={<FindPasswordReset />} />
-    </Route>
+      {/* 인증 페이지 */}
+      <Route path={AUTH_PATH}>
+        <Route path={SIGN_IN_PATH} element={<SignIn />} />
+        <Route path={SNS_PATH} element={<Sns />} />
+        <Route path={SIGN_UP_PATH} element={<SignUp />} />
+        <Route path={FIND_ID_PATH} element={<FindId />} />
+        <Route path={FIND_PASSWORD_PATH} element={<FindPassword />} />
+        <Route path={FIND_PASSWORD_RESET_PATH} element={<FindPasswordReset />} />
+      </Route>
 
-    {/* 마이 페이지 */}
-    <Route path={MY_PAGE_PATH}>
-      <Route path={MY_PAGE_INFO_PATH} element={<MyPageInfo />} />
-    </Route>
+      {/* 마이 페이지 */}
+      <Route path={MY_PAGE_PATH}>
+        <Route path={MY_PAGE_INFO_PATH} element={<MyPageInfo />} />
+      </Route>
 
-    {/* 공지사항 페이지 */}
-    <Route path={NOTICE_PATH}>
-      <Route path={NOTICE_LIST_PATH} element={<NoticeList />} />
-    </Route>
+      {/* 공지사항 페이지 */}
+      <Route path={NOTICE_PATH}>
+        <Route path={NOTICE_LIST_PATH} element={<NoticeList />} />
+      </Route>
 
-    {/* 문의사항 페이지 */}
-    <Route path={QNA_PATH}>
-      <Route path={QNA_LIST_PATH} element={<QnaList />} />
-    </Route>
-    
-    </Route>
+      {/* 문의사항 페이지 */}
+      <Route path={QNA_PATH}>
+        <Route path={QNA_LIST_PATH} element={<QnaList />} />
+      </Route>
+      
+      </Route>
     </Routes>
   );
 }
