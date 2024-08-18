@@ -16,8 +16,10 @@ export interface PutMyInfoEmailRequestDto {
 
 // description: 회원정보 수정 Request Body DTO
 export interface PatchUserInfoRequestDto {
+    // password: string;
+    userEmail: string;
     nickname: string;
-    userAddress: string;
+    // userAddress: string;
     userBirthDay: string;
 }
 
