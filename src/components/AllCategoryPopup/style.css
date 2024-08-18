@@ -1,0 +1,33 @@
+.all-category-side-bar {
+    display: flex;
+    flex-direction: column; /* 세로 정렬을 위한 설정 */
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 15%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    font-size: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.close-all-category {
+    align-self: flex-end;
+    margin-bottom: 20px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.all-cloth-category-detail {
+    
+    margin-bottom: 30px;
+}
+
+.all-board-category {
+    margin-bottom: 30px;
+}
+
+.all-auth-category {
+    margin-bottom: 30px;
+}
