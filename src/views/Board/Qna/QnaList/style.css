@@ -1,13 +1,18 @@
-.list-title {
+.category-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 24px;
-    padding: 25px;
 
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 25px;
+    gap: 20px;
+    padding: 10px 0px;
+}
+
+.list-table-top-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
 }
 
 .list-table-th.qna{
@@ -21,19 +26,61 @@
 /* 순번 */
 .qna-list-table-number {
     width: 30px;
+
 }
 
-/* 제목 */
+/* 유형, 제목 */
 .qna-list-table-title {
-    width: 345px;
+    width: 300px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-/* 유형 */
 .qna-list-table-category {
-    width: 45px;
+    padding: 0 5px;
+}
+
+.primary-bedge {
+    /* width: 45px;
+    height: 20px; */
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    background-color: rgba(45, 104, 255, 0.8);
+    border-radius: 10px;
+    padding: 0px 5px;
+
+    font-family: 'NanumSquareRound';
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 150%;
+    color: rgba(255, 255, 255, 1);
+}
+  
+  .disable-bedge {
+    /* width: 45px;
+    height: 20px; */
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    background-color: rgba(238, 238, 238, 1);
+    border-radius: 8px;
+  
+    font-family: 'NanumSquareRound';
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 150%;
+    color: rgba(138, 146, 166, 1);
 }
 
 /* 작성자 */
@@ -44,17 +91,7 @@
     white-space: nowrap;
 }
 
-/* 노출 여부 */
-.qna-list-table-public {
-    width: 80px;
-}
-
-/* 상태 */
-.qna-list-table-status {
-    width: 80px;
-}
-
 /* 작성일 */
 .qna-list-table-date {
-    width: 54px;
+    width: 100px;
 }

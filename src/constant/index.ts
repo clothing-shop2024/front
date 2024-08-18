@@ -53,12 +53,12 @@ export const REGIST_PATH = 'regist';
 // description : 공지사항 페이지 URL
 export const NOTICE_PATH = 'notice';
 export const NOTICE_LIST_PATH = 'list';
-export const NOTICE_DETAIL_PATH = '/:noticeNumber';
+export const NOTICE_DETAIL_PATH = ':noticeNumber';
 
 // description : 문의사항 페이지 URL
 export const QNA_PATH = 'qna';
 export const QNA_LIST_PATH = 'list';
-export const QNA_DETAIL_PATH = '/:qnaNumber';
+export const QNA_DETAIL_PATH = ':qnaNumber';
 // export const QNA_REGIST_PATH = 'regist';
 export const QNA_UPDATE_PATH = 'update/:qnaNumber';
 export const QNA_DELETE_PATH = 'delete/:qnaNumber'
@@ -80,7 +80,7 @@ export const MY_ORDER_PATH = 'order';
 export const MY_ORDER_DATAIL_PATH = 'detail';
 
 // description : 관리자 페이지 URL
-export const ADMIN_PATH = '/admin';
+export const ADMIN_PATH = 'admin';
 
 // description : 관리자 - 회원관리
 export const ADMIN_USER_PATH = 'user';
@@ -89,9 +89,10 @@ export const ADMIN_PRODUCT_PATH = 'product';
 export const ADMIN_ORDER_PATH = 'order';
 
 // description : 관리자 - 공지사항
+export const ADMIN_BOARD_NOTICE_PATH = 'notice';
 // export const ADMIN_NOTICE_REGIST_PATH = 'regist';
-export const ADMIN_NOTICE_UPDATE_PATH = 'update/:noticeNumber';
-export const ADMIN_NOTICE_DELETE_PATH = 'delete/:noticeNumber';
+export const ADMIN_NOTICE_UPDATE_PATH = 'update';
+export const ADMIN_NOTICE_DELETE_PATH = 'delete';
 
 // description : 관리자 - 문의사항 답변
 export const ADMIN_QNA_COMMENT_PATH = 'comment';
@@ -117,8 +118,9 @@ export const MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH = (userId : string) => `${MAIN_PA
 export const MY_PAGE_DELETE_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/${MY_PAGE_PATH}/delete/${userId}`;
 
 // description: 공지사항 절대 URL PATH 
-export const NOTICE_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${NOTICE_PATH}/${NOTICE_LIST_PATH}`;
-export const NOTICE_DETAIL_ABSOLUTE_PATH = (noticeNumber : number) => `${MAIN_PATH}/${NOTICE_PATH}/${noticeNumber}` ;
+// ???? NOTICE_LIST 뺌
+export const NOTICE_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${NOTICE_PATH}`;
+export const NOTICE_DETAIL_ABSOLUTE_PATH = (noticeNumber : string | number) => `${MAIN_PATH}/${NOTICE_PATH}/${noticeNumber}` ;
 
 // description: 문의사항 절대 URL PATH 
 export const QNA_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${QNA_PATH}/${QNA_LIST_PATH}`;
@@ -131,9 +133,9 @@ export const QNA_DELETE_ABSOLUTE_PATH = (qnaNumber : number) => `${MAIN_PATH}/${
 export const FAQ_ABSOLUTE_PATH = `${MAIN_PATH}/${FAQ_PATH}`;
 
 // description : 관리자 - 공지사항 절대 URL PATH
-export const NOTICE_REGIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${NOTICE_PATH}/${REGIST_PATH}`;
-export const NOTICE_UPDATE_ABSOLUTE_PATH = (noticeNumber : number) => `${MAIN_PATH}/${ADMIN_PATH}/${NOTICE_PATH}/${ADMIN_NOTICE_UPDATE_PATH}/${noticeNumber}`;
-export const NOTICE_DELETE_ABSOLUTE_PATH = (noticeNumber : number) => `${MAIN_PATH}/${NOTICE_PATH}/${QNA_DELETE_PATH}/${noticeNumber}`;
+export const ADMIN_NOTICE_REGIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${NOTICE_PATH}/${REGIST_PATH}`;
+export const ADMIN_NOTICE_UPDATE_ABSOLUTE_PATH = (noticeNumber : string | number) => `${MAIN_PATH}/${ADMIN_PATH}/${NOTICE_PATH}/${ADMIN_NOTICE_UPDATE_PATH}/${noticeNumber}`;
+export const ADMIN_NOTICE_DELETE_ABSOLUTE_PATH = (noticeNumber : string | number) => `${MAIN_PATH}/${ADMIN_PATH}/${NOTICE_PATH}/${ADMIN_NOTICE_DELETE_PATH}/${noticeNumber}`;
 
 // description : 관리자 - 문의사항 절대 URL PATH
 export const QNA_COMMENT_ABSOLUTE_PATH = (qnaNumber : number) => `${MAIN_PATH}/${QNA_PATH}/${QNA_DETAIL_PATH}/${qnaNumber}/${ADMIN_QNA_COMMENT_PATH}`;
@@ -171,17 +173,16 @@ export const PATCH_MY_INFO_PASSWORD_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_U
 export const PATCH_MY_INFO_EMAIL_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info/email-modify`;
 export const DELETE_MY_INFO_URL = (userId: string) => `${SERVER_USER_MODULE_URL}/info/delete/${userId}`;
 
-// description : 공지사항
+// description : 공지사항 모듈 내의 기능 URL
 export const SERVER_NOTICE_MODULE_URL = `${SERVER_API_URL}/notice`;
 export const GET_NOTICE_LIST_URL = `${SERVER_NOTICE_MODULE_URL}/list`;
-export const GET_SEARCH_NOTICE_LIST_URL = `${SERVER_NOTICE_MODULE_URL}/list/search`;
-export const GET_NOTICE_DETAIL_URL = (noticeNumber: number | string) => `${SERVER_NOTICE_MODULE_URL}/list/${noticeNumber}`;
+export const GET_NOTICE_DETAIL_URL = (noticeNumber: number | string) => `${GET_NOTICE_LIST_URL}/${noticeNumber}`;
 export const POST_NOTICE_URL = `${SERVER_NOTICE_MODULE_URL}/regist`;
 export const PUT_NOTICE_URL = (noticeNumber: number | string) => `${SERVER_NOTICE_MODULE_URL}/${noticeNumber}/modify`;
 export const INCREASE_NOTICE_VIEW_COUNT_URL = (noticeNumber: number | string) => `${SERVER_NOTICE_MODULE_URL}/${noticeNumber}/increase-view-count`;
 export const DELETE_NOTICE_URL = (noticeNumber: number | string) => `${SERVER_NOTICE_MODULE_URL}/${noticeNumber}/delete`;
 
-// description : 문의사항
+// description : 문의사항 모듈 내의 기능 URL
 export const SERVER_QNA_MODULE_URL = `${SERVER_API_URL}/qna`;
 export const GET_QNA_LIST_URL = `${SERVER_QNA_MODULE_URL}/list`;
 export const GET_SEARCH_QNA_LIST_URL = `${GET_QNA_LIST_URL}/search`;
@@ -192,7 +193,7 @@ export const POST_QNA_COMMENT_URL = (qnaNumber: number | string) => `${SERVER_QN
 export const PUT_QNA_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/modify`;
 export const DELETE_QNA_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/delete`;
 
-// description : 자주하는 질문
+// description : 자주하는 질문 모듈 내의 기능 URL
 export const SERVER_FAQ_MODULE_URL = `${SERVER_API_URL}/notice`;
 export const GET_FAQ_LIST_URL = `${SERVER_FAQ_MODULE_URL}/list`;
 export const POST_FAQ_URL = `${SERVER_FAQ_MODULE_URL}/regist`;
@@ -203,3 +204,6 @@ export const DELETE_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODU
 export const COUNT_PER_PAGE = 10;
 export const COUNT_PER_SECTION = 10;
 export const COUNT_RESERVATION_PAGE = 6;
+
+// description : IMAGE
+export const IMAGE_URL = `${SERVER_DOMAIN_URL}/upload`;

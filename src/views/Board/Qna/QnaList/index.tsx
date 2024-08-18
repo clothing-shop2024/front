@@ -29,10 +29,10 @@ function ListItem ({
     //                  event handler                   //
     const onClickHandler = () => {
 
-        // if (!qnaPublic && (loginUserRole !== 'ROLE_ADMIN' && loginUserId !== qnaWriterId )) {
-        //     alert("비공개글은 작성자 혹은 관리자만 볼 수 있습니다.");
-        //     return;
-        // }
+        if ((loginUserRole !== 'ROLE_ADMIN' && loginUserId !== qnaWriterId )) {
+            alert("비공개글은 작성자 혹은 관리자만 볼 수 있습니다.");
+            return;
+        }
         navigator(QNA_DETAIL_ABSOLUTE_PATH(qnaNumber), { state: {previousPage: 'ALL_QNA_LIST'} });
     };
 
@@ -42,16 +42,14 @@ function ListItem ({
     return (
         <div className='list-table-tr qna' onClick={onClickHandler}>
             <div className='qna-list-table-number'>{index + 1}</div>
-            {/* <div className={`qna-list-table-title ${qnaPublic ? 'public' : 'private'}`} style={{ textAlign: 'left' }}>{qnaPublic ? qnaTitle : '비공개글입니다.'}</div> */}
-            <div className='qna-list-table-category'>{qnaCategory}</div>
-            <div className='qna-list-table-writer-id'>{coverdWriterId}</div>
-            {/* <div className='qna-list-table-public'>{qnaPublic ? '공개' : '비공개'}</div> */}
-            <div className='qna-list-table-status'>
-                    {status ? 
-                    <div className='disable-bedge'>완료</div> :
-                    <div className='primary-bedge'>접수</div>
-                    }
+            <div className='qna-list-table-title'>
+                <div className='qna-list-table-category'>{qnaCategory} 문의합니다.</div>
+                {status ? 
+                    <div className='disable-bedge'>[1]</div> :
+                    <div className='primary-bedge'>new</div>
+                }
             </div>
+            <div className='qna-list-table-writer-id'>{coverdWriterId}</div>
             <div className='qna-list-table-date'>{qnaDate}</div>
         </div>
     );
@@ -136,9 +134,9 @@ export default function QnaList() {
     };
 
     //                    effect                       //
-    // useEffect(() => {
-    //     getSearchQnaListRequest(searchWord).then(getSearchQnaListResponse);
-    // }, [isToggleOn]);
+    useEffect(() => {
+        getSearchQnaListRequest(searchWord).then(getSearchQnaListResponse);
+    }, [isToggleOn]);
 
     //                  render                  //
     const toggleClass = isToggleOn ? 'toggle-active' : 'toggle';
@@ -146,7 +144,7 @@ export default function QnaList() {
 
     return (
         <>
-            <div className='list-title'>문의사항</div>
+            <div className='page-big-title'>문의사항</div>
             <div className='category-button'>
                 <div>전체</div>
                 <div>주문/배송</div>
@@ -156,18 +154,16 @@ export default function QnaList() {
             </div>
 
             <div className='list-table-top'>
-                <div className='list-table-total-board'>전체<span className='emphasis'>{totalLength}건</span> | 페이지 <span className='emphasis'>{currentPage}/{totalPage}</span>
+                <div className='list-table-total-board'>전체<span className='emphasis'> {totalLength}건</span> | 페이지<span className='emphasis'> {currentPage} / {totalPage}</span>
                 </div>
                 <span className='now-board'></span>
                 <div className='list-table-top-right'>
                     {loginUserRole === 'ROLE_ADMIN'?
-                    <>
-                    <div className={toggleClass} onClick={onToggleClickHandler}></div>
-                    <div className='qna-list-top-admin-text'>미완료 보기</div>
-                    </> :
-                    <>
-                    <div className='primary-button' onClick={onWriteButtonClickHandler}>글쓰기</div>
-                    </>
+                        <div className='list-table-top-toggle'>
+                            <div className='qna-list-top-admin-text'>미완료 보기</div>
+                            <div className={toggleClass} onClick={onToggleClickHandler}></div>
+                        </div> : 
+                        <div className='primary-button' onClick={onWriteButtonClickHandler}>글쓰기</div>
                     }
                 </div>
             </div>
@@ -175,10 +171,8 @@ export default function QnaList() {
             <div className='list-table'>
                 <div className='list-table-th qna'>
                     <div className='qna-list-table-number'>순번</div>
-                    <div className='qna-list-table-title'>제목</div>
-                    <div className='qna-list-table-category'>유형</div>
+                    <div className='qna-list-table-category'>제목</div>
                     <div className='qna-list-table-writer-id'>작성자</div>
-                    <div className='qna-list-table-status'>답변상태</div>
                     <div className='qna-list-table-date'>작성일</div>
                 </div>
                 {viewList.map((item, index) => <ListItem {...item} index={totalLength - (currentPage - 1) * COUNT_PER_PAGE - (index + 1)} key={item.qnaNumber} />)}
@@ -190,19 +184,17 @@ export default function QnaList() {
                 </div>
                 <div className={searchButtonClass} onClick={onSearchButtonClickHandler}>검색</div>
             </div>
-            <div className='list-table-bottom'>
-                <div style={{ width: '299px' }}></div>
-                <div className='list-table-pagenation'>
-                    <div className='list-table-page-left' onClick={onPreSectionClickHandler}>&lt;</div>
-                    <div className='list-table-page-box'>
-                        {pageList.map(page => 
-                            page === currentPage ?
-                            <div className='list-table-page-active'>{page}</div> :
-                            <div className='list-table-page' onClick={() => onPageClickHandler(page)}>{page}</div>
-                        )}
-                    </div>
-                    <div className='list-table-page-right' onClick={onNextSectionClickHandler}>&gt;</div>
+
+            <div className='list-table-pagenation'>
+                <div className='list-table-page-left' onClick={onPreSectionClickHandler}></div>
+                <div className='list-table-page-box'>
+                    {pageList.map(page => 
+                        page === currentPage ?
+                        <div className='list-table-page-active'>{page}</div> :
+                        <div className='list-table-page' onClick={() => onPageClickHandler(page)}>{page}</div>
+                    )}
                 </div>
+                <div className='list-table-page-right' onClick={onNextSectionClickHandler}></div>
             </div>
         </>
     )
