@@ -15,7 +15,7 @@ export default function QnaDetail() {
     //                      state                      //
     return (
         <div id='qna-detail-wrapper'>
-            <div className='qna-detail-title'>Q&A</div>
+            <div className='page-big-title'>문의사항</div>
             <div className='qna-detail-top'>
                 <div className='qna-detail-title'>제목</div>
                 <div className='qna-detail-category'>유형</div>

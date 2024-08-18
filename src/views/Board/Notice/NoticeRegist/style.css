@@ -1,0 +1,64 @@
+
+.notice-regist-main {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 200px;
+
+    gap: 20px;
+}
+
+.notice-regist-title {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+    font-size: 20px;
+}
+
+.notice-regist-top-input {
+    width: 500px;
+
+    padding: 10px;
+
+    border: 2px solid rgba(194, 194, 194, 0.6);
+    border-radius: 4px;
+}
+
+.notice-regist-contents {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.qna-write-contents-textarea {
+    border: none;
+    outline: none;
+    background: none;
+    resize: none;
+
+    padding: 20px;
+
+    font-size: 16px;
+    line-height: 1.5;
+    border: 2px solid rgba(194, 194, 194, 0.6);
+    border-radius: 4px;
+}
+
+.regist-bottom-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.regist-button, .cancel-button {
+    padding: 12px;
+    background-color: rgba(80, 190, 150, 0.5);
+    border-radius: 4px;
+}
+
+.regist-button:hover, .cancel-button:hover {
+    cursor: pointer;
+    opacity: 0.85;
+}

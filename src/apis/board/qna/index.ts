@@ -6,7 +6,7 @@ import { DELETE_QNA_URL, GET_QNA_DETAIL_URL, GET_QNA_LIST_URL, GET_SEARCH_QNA_LI
 import { bearerAuthorization, requestErrorHandler, requestHandler } from "../..";
 
 // function : 문의사항 작성 API 함수 
-export const PostQnaRequest = async(requestBody: PostQnaRequestDto, accessToken: string) => {
+export const postQnaRequest = async(requestBody: PostQnaRequestDto, accessToken: string) => {
     const result = await axios
         .post(POST_QNA_URL, requestBody, bearerAuthorization(accessToken))
         .then(requestHandler<ResponseDto>)
@@ -15,7 +15,7 @@ export const PostQnaRequest = async(requestBody: PostQnaRequestDto, accessToken:
 };
 
 // function : 문의사항 답글 작성 API 함수
-export const PostQnaCommentRequest = async(qnaNumber: number | string, requestBody: PostQnaCommentRequestDto, accessToken: string) => {
+export const postQnaCommentRequest = async(qnaNumber: number | string, requestBody: PostQnaCommentRequestDto, accessToken: string) => {
     const result = await axios
         .post(POST_QNA_COMMENT_URL(qnaNumber), requestBody, bearerAuthorization(accessToken))
         .then(requestHandler<ResponseDto>)
@@ -33,8 +33,8 @@ export const getQnaListRequest = async(accessToken: string) => {
 };
 
 // function : 문의사항 검색 리스트 불러오기 API 함수
-export const getSearchQnaListRequest = async(searchWord: string) => {
-    const config = { params: {searchWord}}
+export const getSearchQnaListRequest = async(word: string) => {
+    const config = { params: {word}}
     const result = await axios
         .get(GET_SEARCH_QNA_LIST_URL,config)
         .then(requestHandler<GetSearchQnaListResponseDto>) 

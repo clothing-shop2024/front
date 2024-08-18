@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { getNoticeListRequest } from "src/apis/board/notice";
 import { GetNoticeListResponseDto } from "src/apis/board/notice/dto/response";
 import ResponseDto from "src/apis/response.dto";
-import { COUNT_PER_PAGE, COUNT_PER_SECTION, MAIN_PATH, NOTICE_DETAIL_ABSOLUTE_PATH, NOTICE_REGIST_ABSOLUTE_PATH } from "src/constant";
+import { ADMIN_NOTICE_REGIST_ABSOLUTE_PATH, COUNT_PER_PAGE, COUNT_PER_SECTION, MAIN_PATH, NOTICE_DETAIL_ABSOLUTE_PATH } from "src/constant";
 import { usePagination } from "src/hooks";
 import useUserStore from "src/stores/user.store";
 import { NoticeListItem } from "src/types";
@@ -41,7 +41,6 @@ export default function NoticeList() {
 
     //                      state                      //
     const {loginUserRole} = useUserStore();
-    console.log(loginUserRole)
 
     const [cookies] = useCookies();
 
@@ -86,16 +85,21 @@ export default function NoticeList() {
     const onWriteButtonClickHandler = () => {
         
         // 관리자일 경우에 글쓰기 버튼 보이는데 관리자가 아닐경우 alert 해야할지?
-        navigator(NOTICE_REGIST_ABSOLUTE_PATH);
+        navigator(ADMIN_NOTICE_REGIST_ABSOLUTE_PATH);
     };
+
+    //                    effect                       //
+    useEffect (() => {
+        getNoticeListRequest(cookies.accessToken).then(getNoticeListResponse);
+    }, []);
 
     //                    render                       //
      return (
         <>
-            <div className='list-title'>공지사항</div>
+            <div className='page-big-title'>공지사항</div>
 
             <div className='list-table-top'>
-                <div className='list-table-total-board'>전체<span className='emphasis'>{totalLength}건</span> | 페이지 <span className='emphasis'>{currentPage}/{totalPage}</span>
+                <div className='list-table-total-board'>전체<span className='emphasis'> {totalLength}건</span> | 페이지<span className='emphasis'> {currentPage} / {totalPage}</span>
                 </div>
                 <span className='now-board'></span>
 
@@ -115,19 +119,17 @@ export default function NoticeList() {
                 </div>
                 {viewList.map((item, index) => <ListItem {...item} index={totalLength - (currentPage - 1) * COUNT_PER_PAGE - (index + 1)} key={item.noticeNumber} />)}
             </div>
-            <div className='list-table-bottom'>
-                <div style={{ width: '299px' }}></div>
-                <div className='list-table-pagenation'>
-                    <div className='list-table-page-left' onClick={onPreSectionClickHandler}>&lt;</div>
-                    <div className='list-table-page-box'>
-                        {pageList.map(page => 
-                            page === currentPage ?
-                            <div className='list-table-page-active'>{page}</div> :
-                            <div className='list-table-page' onClick={() => onPageClickHandler(page)}>{page}</div>
-                        )}
-                    </div>
-                    <div className='list-table-page-right' onClick={onNextSectionClickHandler}>&gt;</div>
+            
+            <div className='list-table-pagenation'>
+                <div className='list-table-page-left' onClick={onPreSectionClickHandler}></div>
+                <div className='list-table-page-box'>
+                    {pageList.map(page => 
+                        page === currentPage ?
+                        <div className='list-table-page-active'>{page}</div> :
+                        <div className='list-table-page' onClick={() => onPageClickHandler(page)}>{page}</div>
+                    )}
                 </div>
+                <div className='list-table-page-right' onClick={onNextSectionClickHandler}></div>
             </div>
         </>
     )

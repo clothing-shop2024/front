@@ -1,0 +1,58 @@
+
+.page-big-title {
+    padding: 100px 0px;
+}
+
+.notice-detail-main {
+    display: flex;
+    flex-direction: column;
+    
+    padding: 0px 200px;
+    gap: 10px;
+
+    font-size: 20px;
+}
+
+.notice-detail-date-view-count {
+    gap: 20px;
+    color: rgba(157, 159, 163, 0.6);
+}
+
+.notice-detail-contents {
+    padding: 20px;
+    
+    border-top: 4px solid rgba(230, 230, 100, 0.6);
+    white-space: pre-wrap; /* 자동 줄바꿈 */
+}
+
+.notice-detail-image {
+    padding: 20px;
+
+    border-bottom: 4px solid rgba(230, 230, 100, 0.6);
+}
+
+.board-detail-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 200px;
+}
+
+.board-detail-bottom-left, .update-button, .delete-button {
+    width: 30px;
+    height: 20px;
+    padding: 12px;
+    background-color: rgba(80, 190, 150, 0.5);
+    border-radius: 4px;
+}
+
+.board-detail-bottom-left:hover, .update-button:hover, .delete-button:hover {
+    cursor: pointer;
+    opacity: 0.85;
+} 
+
+.board-detail-bottom-right {
+    display: flex;
+
+    gap: 10px;
+}
