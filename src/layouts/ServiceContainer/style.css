@@ -70,6 +70,17 @@
     padding: 8px 12px;
 }
 
+.top-bar-role {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logout-button {
+    padding: 8px 12px;
+}
+
+
 .topbar-right-cart {
     padding: 8px 12px;
 }

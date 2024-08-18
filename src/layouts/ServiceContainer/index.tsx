@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { Outlet, useLocation, useNavigate } from "react-router"
 import ResponseDto from "src/apis/response.dto";
-import { GetMyInfoResponseDto } from "src/apis/user/dto/response";
+import { GetMyInfoResponseDto, GetSignInUserResponseDto } from "src/apis/user/dto/response";
 import AllCategoryPopup from "src/components/AllCategoryPopup";
 import { MAIN_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from "src/constant";
 import useUserStore from "src/stores/user.store";
 import './style.css';
+import { getMyInfoRequest, getSignInUserRequest } from "src/apis/user";
 
 //                    component                    //
 function TopBar() {
@@ -60,6 +61,11 @@ function TopBar() {
         window.location.reload();
     };
 
+    //                    effect                       //
+    useEffect(() => {
+        if (!cookies.accessToken) return;
+        getMyInfoRequest(cookies.accessToken).then(getMyInfoResponse);
+    }, [cookies.accessToken]);
 
     //                    render                        //
     return (
@@ -80,7 +86,7 @@ function TopBar() {
                 </div>
                 <div className='topbar-right-user'>
                 { notLoginInState &&
-                    <div className='sign-in-button' onClick={() => onSignInClickHandler}>Login</div>
+                    <div className='sign-in-button' onClick={onSignInClickHandler}>Login</div>
                 }
                 {loginUserRole === 'ROLE_USER' &&
                 <div className="top-bar-role">
@@ -111,13 +117,39 @@ function TopBar() {
 //                    component                    //
 export default function ServiceContainer() {
 
+    //                      state                      //
+    const { setLoginUserId, setLoginUserRole } = useUserStore();
 
-  return (
-    <div id="wrapper">
-        <TopBar />
-        <div className="main-container">
-            <Outlet />
+    const [cookies] = useCookies();
+
+    //                    function                    //
+    const getSignInUserResponse = (result: GetSignInUserResponseDto | ResponseDto | null) => {
+        if (!result) return;
+    
+        const { userId, userRole } = result as GetSignInUserResponseDto;
+
+        setLoginUserId(userId);
+        setLoginUserRole(userRole);
+    };
+
+    //                    effect                    //
+    useEffect(() => {
+        if (!cookies.accessToken) {
+            return;
+        }
+
+        getSignInUserRequest(cookies.accessToken).then(getSignInUserResponse);
+    }, [cookies.accessToken]);
+
+
+
+    //                    render                    //
+    return (
+        <div id="wrapper">
+            <TopBar />
+            <div className="main-container">
+                <Outlet />
+            </div>
         </div>
-    </div>
-  )
+    )
 }
