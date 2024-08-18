@@ -1,0 +1,99 @@
+/* General container styles */
+#my-page-update-wrapper {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.my-page-update-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.my-page-info-top {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.my-page-info-top-title {
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+}
+
+.my-page-info-top-title:hover {
+    color: #007bff;
+}
+
+.short-divider-bottom-line {
+    border-bottom: 2px solid #eee;
+    margin: 10px 0;
+}
+
+.my-page-update-contents-title {
+    font-size: 22px;
+    font-weight: bold;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+}
+
+.my-page-update-contents-box {
+    padding: 20px;
+}
+
+.my-page-update-info-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.my-page-update-info-left {
+    font-weight: bold;
+    color: #333;
+}
+
+.my-page-update-info {
+    font-size: 16px;
+    color: #555;
+}
+
+.my-page-input-box {
+    flex: 1;
+}
+
+.InputBox {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.InputBox:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.my-page-update-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.my-page-update-button:hover {
+    background-color: #0056b3;
+}

@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { Outlet, useLocation, useNavigate } from "react-router"
+import { Outlet, useLocation, useNavigate } from "react-router";
 import ResponseDto from "src/apis/response.dto";
+import { getMyInfoRequest, getSignInUserRequest } from "src/apis/user";
 import { GetMyInfoResponseDto, GetSignInUserResponseDto } from "src/apis/user/dto/response";
 import AllCategoryPopup from "src/components/AllCategoryPopup";
 import { MAIN_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from "src/constant";
 import useUserStore from "src/stores/user.store";
+import { MY_PAGE_INFO_ABSOLUTE_PATH } from '../../constant/index';
 import './style.css';
-import { getMyInfoRequest, getSignInUserRequest } from "src/apis/user";
 
 //                    component                    //
 function TopBar() {
@@ -52,6 +53,7 @@ function TopBar() {
     }
 
     const onSignInClickHandler = () => navigator(SIGN_IN_ABSOLUTE_PATH);
+    const onMyPageClickHandler = () => navigator(MY_PAGE_INFO_ABSOLUTE_PATH)
 
     const onLogOutClickHandler = () => {
         removeCookie('accessToken', { path: '/' });
@@ -92,7 +94,7 @@ function TopBar() {
                 <div className="top-bar-role">
                     <div className="sign-in-wrapper">
                         <div className="user-mypage-button person"></div>
-                        <div className="user-button">{userName}님</div>
+                        <div className="user-button" onClick={onMyPageClickHandler}>{userName}님</div>
                     </div>
                     <div className="logout-button" onClick={onLogOutClickHandler}>로그아웃</div>
                 </div>

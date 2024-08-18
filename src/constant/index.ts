@@ -113,7 +113,7 @@ export const FIND_PASSWORD_RESET_ABSOLUTE_PATH = (userId : string) => `${MAIN_PA
 
 // description: 마이페이지 URL PATH 
 export const MY_PAGE_INFO_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${MY_PAGE_INFO_PATH}`;
-export const MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/${MY_PAGE_PATH}/$update/${userId}`;
+export const MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/${MY_PAGE_PATH}/update/${userId}`;
 export const MY_PAGE_DELETE_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/${MY_PAGE_PATH}/delete/${userId}`;
 
 // description: 공지사항 절대 URL PATH 
@@ -166,9 +166,10 @@ export const SERVER_USER_MODULE_URL = `${SERVER_API_URL}/user`;
 
 export const GET_USER_INFO_REQUEST_URL = `${SERVER_USER_MODULE_URL}/`;
 export const GET_MY_INFO_URL_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info`;
+export const PATCH_MY_INFO_UPDATE_URL_REQUEST_URL = (userId: string) => `${SERVER_USER_MODULE_URL}/info/update/${userId}`;
 export const PATCH_MY_INFO_PASSWORD_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info/password-modify`;
 export const PATCH_MY_INFO_EMAIL_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info/email-modify`;
-export const DELETE_MY_INFO_URL = (userId: string) => `${SERVER_USER_MODULE_URL}/${userId}`;
+export const DELETE_MY_INFO_URL = (userId: string) => `${SERVER_USER_MODULE_URL}/info/delete/${userId}`;
 
 // description : 공지사항
 export const SERVER_NOTICE_MODULE_URL = `${SERVER_API_URL}/notice`;

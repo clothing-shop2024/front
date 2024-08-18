@@ -1,8 +1,8 @@
 import axios from "axios";
 import { bearerAuthorization, requestErrorHandler, requestHandler } from "..";
-import { DELETE_MY_INFO_URL, GET_MY_INFO_URL_REQUEST_URL, GET_USER_INFO_REQUEST_URL, PATCH_MY_INFO_EMAIL_MODIFY_REQUEST_URL, PATCH_MY_INFO_PASSWORD_MODIFY_REQUEST_URL, POST_EMAIL_AUTH_REQUEST_URL } from "../../constant";
+import { DELETE_MY_INFO_URL, GET_MY_INFO_URL_REQUEST_URL, GET_USER_INFO_REQUEST_URL, PATCH_MY_INFO_EMAIL_MODIFY_REQUEST_URL, PATCH_MY_INFO_PASSWORD_MODIFY_REQUEST_URL, PATCH_MY_INFO_UPDATE_URL_REQUEST_URL, POST_EMAIL_AUTH_REQUEST_URL } from "../../constant";
 import ResponseDto from "../response.dto";
-import { EmailAuthRequestDto, PutMyInfoEmailRequestDto, PutMyInfoPasswordRequestDto } from "./dto/request";
+import { EmailAuthRequestDto, PatchUserInfoRequestDto, PutMyInfoEmailRequestDto, PutMyInfoPasswordRequestDto } from "./dto/request";
 import { GetMyInfoResponseDto, GetSignInUserResponseDto, } from "./dto/response";
 
 // function: 로그인 유저 정보 불러오기 API 함수
@@ -28,6 +28,14 @@ export const getMyInfoRequest = async (accessToken: string) => {
     const result = await axios
         .get(GET_MY_INFO_URL_REQUEST_URL, bearerAuthorization(accessToken))
         .then(requestHandler<GetMyInfoResponseDto>)
+        .catch(requestErrorHandler);
+    return result;
+};
+
+// function: 회원정보 수정 API 함수 
+export const patchUserInfoRequest = async (userId: string, requestBody: PatchUserInfoRequestDto,  accessToken: string) => {
+    const result = await axios.patch(PATCH_MY_INFO_UPDATE_URL_REQUEST_URL(userId), requestBody, bearerAuthorization(accessToken))
+        .then(requestHandler<ResponseDto>)
         .catch(requestErrorHandler);
     return result;
 };

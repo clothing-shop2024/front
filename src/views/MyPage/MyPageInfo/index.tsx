@@ -31,10 +31,10 @@ export default function MyPageInfo() {
     if (!result || result.code !== 'SU') {
         alert(message);
 
-        // if (result?.code === 'AF') {
-        //     navigator(MAIN_ABSOLUTE_PATH);
-        //     return;
-        // };
+        if (result?.code === 'AF') {
+            navigator(MAIN_ABSOLUTE_PATH);
+            return;
+        };
         
         return;
     };
@@ -61,7 +61,7 @@ export default function MyPageInfo() {
 
         <div className="my-page-info-top">
           <div className="my-page-info-top-title" onClick={onMyPageInfoClickHandler}>마이페이지</div>
-          <div className="my-page-info-top-title" onClick={() => onMyPageInfoUpdateClickHandler}>회원정보 수정</div>
+          <div className="my-page-info-top-title" onClick={() => onMyPageInfoUpdateClickHandler(userId)}>회원정보 수정</div>
         </div>
 
         <div className="my-page-info-profile">
