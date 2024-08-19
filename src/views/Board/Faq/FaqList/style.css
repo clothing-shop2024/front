@@ -1,0 +1,30 @@
+
+
+.faq-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 100px 0px 10px 0px;
+
+    font-size: 30px;
+    font-weight: 400px;
+    line-height: 25px;
+}
+
+.faq-page-big-title-explanation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.board-category {
+    display: flex;
+    justify-content: center;
+
+    gap: 20px;
+    padding: 100px 0px 50px 0px;
+
+    font-size: 20px;
+
+}

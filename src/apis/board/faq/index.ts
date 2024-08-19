@@ -1,5 +1,5 @@
 import { bearerAuthorization, requestErrorHandler, requestHandler } from "src/apis"
-import { GET_FAQ_LIST_URL, POST_FAQ_URL, PUT_FAQ_URL } from "src/constant"
+import { DELETE_FAQ_URL, GET_FAQ_LIST_URL, POST_FAQ_URL, PUT_FAQ_URL } from "src/constant"
 import { GetFaqListResponseDto } from "./dto/response"
 import axios from "axios";
 import { PostFaqRequestDto, PutFaqRequestDto } from "./dto/request";
@@ -30,4 +30,14 @@ export const putFaqRequest = async(faqNumber: number | string, requestBody: PutF
         .then(requestHandler<ResponseDto>)
         .catch(requestErrorHandler);
     return result;
+};
+
+
+// function : 공지사항 게시물 삭제 API 함수
+export const deleteFaqRequest = async(faqNumber: number | string, accessToken: string)=>{
+    const result = await axios
+        .delete(DELETE_FAQ_URL(faqNumber), bearerAuthorization(accessToken))
+        .then(requestHandler<ResponseDto>)  
+        .catch(requestErrorHandler);      
+    return result; 
 };

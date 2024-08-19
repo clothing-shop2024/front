@@ -90,17 +90,18 @@ export const ADMIN_ORDER_PATH = 'order';
 
 // description : 관리자 - 공지사항
 export const ADMIN_BOARD_NOTICE_PATH = 'notice';
-export const ADMIN_NOTICE_REGIST_PATH = 'regist';
+// export const ADMIN_NOTICE_REGIST_PATH = 'regist';
 export const ADMIN_NOTICE_UPDATE_PATH = 'update/:noticeNumber';
-export const ADMIN_NOTICE_DELETE_PATH = 'delete';
+// export const ADMIN_NOTICE_DELETE_PATH = 'delete';
 
 // description : 관리자 - 문의사항 답변
 export const ADMIN_QNA_COMMENT_PATH = 'comment';
 
-// description : 관리자 - 문의사항 답변
+// description : 관리자 - 자주하는 질문
+export const ADMIN_FAQ_PATH = 'faq';
 // export const ADMIN_FAQ_REGIST_PATH = 'regist';
 export const ADMIN_FAQ_UPDATE_PATH = 'update/:faqNumber';
-export const ADMIN_FAQ_DELETE_PATH = 'delete/:faqNumber';
+// export const ADMIN_FAQ_DELETE_PATH = 'delete/:faqNumber';
 
 // description: Navigation 절대 URL PATH 
 export const MAIN_ABSOLUTE_PATH = MAIN_PATH;
@@ -135,15 +136,15 @@ export const FAQ_ABSOLUTE_PATH = `${MAIN_PATH}/${FAQ_PATH}`;
 // description : 관리자 - 공지사항 절대 URL PATH
 export const ADMIN_NOTICE_REGIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${NOTICE_PATH}/${REGIST_PATH}`;
 export const ADMIN_NOTICE_UPDATE_ABSOLUTE_PATH = (noticeNumber : string | number) => `${MAIN_PATH}/${ADMIN_PATH}/${NOTICE_PATH}/update/${noticeNumber}`;
-export const ADMIN_NOTICE_DELETE_ABSOLUTE_PATH = (noticeNumber : string | number) => `${MAIN_PATH}/${ADMIN_PATH}/${NOTICE_PATH}/${ADMIN_NOTICE_DELETE_PATH}/${noticeNumber}`;
+export const ADMIN_NOTICE_DELETE_ABSOLUTE_PATH = (noticeNumber : string | number) => `${MAIN_PATH}/${ADMIN_PATH}/${NOTICE_PATH}/delete/${noticeNumber}`;
 
 // description : 관리자 - 문의사항 절대 URL PATH
 export const QNA_COMMENT_ABSOLUTE_PATH = (qnaNumber : number) => `${MAIN_PATH}/${QNA_PATH}/${QNA_DETAIL_PATH}/${qnaNumber}/${ADMIN_QNA_COMMENT_PATH}`;
 
 // description : 관리자 - 자주하는 질문 절대 URL PATH
-export const FAQ_REGIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${FAQ_PATH}/${REGIST_PATH}`;
-export const FAQ_UPDATE_ABSOLUTE_PATH = (faqNumber : number) => `${MAIN_PATH}/${ADMIN_PATH}/${FAQ_PATH}/${ADMIN_FAQ_UPDATE_PATH}/${faqNumber}`;
-export const FAQ_DELETE_ABSOLUTE_PATH = (faqNumber : number) => `${MAIN_PATH}/${FAQ_PATH}/${ADMIN_FAQ_DELETE_PATH}/${faqNumber}`;
+export const ADMIN_FAQ_REGIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${FAQ_PATH}/${REGIST_PATH}`;
+export const ADMIN_FAQ_UPDATE_ABSOLUTE_PATH = (faqNumber : number | string) => `${MAIN_PATH}/${ADMIN_PATH}/${FAQ_PATH}/update/${faqNumber}`;
+export const ADMIN_FAQ_DELETE_ABSOLUTE_PATH = (faqNumber : number | string) => `${MAIN_PATH}/${FAQ_PATH}/delete/${faqNumber}`;
 
 // description: API URL PATH
 export const SERVER_DOMAIN_URL ='http://localhost:4000';
@@ -194,7 +195,7 @@ export const PUT_QNA_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_
 export const DELETE_QNA_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/delete`;
 
 // description : 자주하는 질문 모듈 내의 기능 URL
-export const SERVER_FAQ_MODULE_URL = `${SERVER_API_URL}/notice`;
+export const SERVER_FAQ_MODULE_URL = `${SERVER_API_URL}/faq`;
 export const GET_FAQ_LIST_URL = `${SERVER_FAQ_MODULE_URL}/list`;
 export const POST_FAQ_URL = `${SERVER_FAQ_MODULE_URL}/regist`;
 export const PUT_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODULE_URL}/${faqNumber}/modify`;
