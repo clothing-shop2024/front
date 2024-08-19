@@ -18,7 +18,7 @@ export interface QnaListItem {
 // description: 자주하는 질문 리스트
 export interface FaqListItem {
     faqNumber: number;
-    faqQustion: string;
+    faqQuestion: string;
     faqAnswer: string;
     faqCategory: string;
     faqDate: string;

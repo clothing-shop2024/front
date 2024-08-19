@@ -83,8 +83,6 @@ export default function NoticeList() {
 
     //                event handler                    //
     const onWriteButtonClickHandler = () => {
-        
-        // 관리자일 경우에 글쓰기 버튼 보이는데 관리자가 아닐경우 alert 해야할지?
         navigator(ADMIN_NOTICE_REGIST_ABSOLUTE_PATH);
     };
 
