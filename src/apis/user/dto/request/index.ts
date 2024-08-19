@@ -27,3 +27,13 @@ export interface PatchUserInfoRequestDto {
 export interface DeleteUserRequestDto {
     password: string;
 }
+
+// description: 등급 변경 Request Body DTO
+export interface PatchUserGradeRequestDto {
+    newGrade: string;
+}
+
+// description: 포인트 Request Body DTO
+export interface PostUserPointRequestDto {
+    points: number;
+}
