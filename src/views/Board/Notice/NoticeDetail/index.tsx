@@ -124,9 +124,19 @@ export default function NoticeDetail () {
         <div>
             <div className='page-big-title' onClick={onListClickHandler}>공지사항</div>
             <div className='notice-detail-main'>
-                <div className='notice-detail-title'>{noticeTitle}</div>
-                <div notice-detail-date-view-count>
-                    등록일 {noticeDate} | 조회수 {viewCount}
+                <div className='notice-detail-title'>
+                    <div>제목</div>
+                    <div>{noticeTitle}</div>
+                </div>
+                <div className='notice-detail-date-view-count'>
+                    <div className='notice-detail-date'>
+                        <div>작성일</div>
+                        <div>{noticeDate} </div>
+                    </div>
+                    <div className='notice-detail-view-count'>
+                        <div>조회수</div>
+                        <div>{viewCount}</div>
+                    </div>
                 </div>
                 <div className='notice-detail-contents'>{noticeContents}</div>
                 <div className='notice-detail-image'>

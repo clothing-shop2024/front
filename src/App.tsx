@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Route, Routes, useNavigate } from "react-router-dom";
 import './App.css';
 
-import { ADMIN_NOTICE_REGIST_ABSOLUTE_PATH, ADMIN_PATH, AUTH_PATH, FIND_ID_PATH, FIND_PASSWORD_PATH, FIND_PASSWORD_RESET_PATH, MAIN_ABSOLUTE_PATH, MAIN_PATH, MY_PAGE_INFO_PATH, MY_PAGE_INFO_UPDATE_PATH, MY_PAGE_PATH, NOTICE_DETAIL_PATH, NOTICE_PATH, QNA_LIST_PATH, QNA_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH } from './constant';
+import { ADMIN_NOTICE_REGIST_PATH, ADMIN_NOTICE_UPDATE_PATH, ADMIN_PATH, AUTH_PATH, FIND_ID_PATH, FIND_PASSWORD_PATH, FIND_PASSWORD_RESET_PATH, MAIN_ABSOLUTE_PATH, MAIN_PATH, MY_PAGE_INFO_PATH, MY_PAGE_INFO_UPDATE_PATH, MY_PAGE_PATH, NOTICE_DETAIL_PATH, NOTICE_PATH, QNA_LIST_PATH, QNA_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH } from './constant';
 import ServiceContainer from './layouts/ServiceContainer';
 import FindId from './views/Authentication/FindId';
 import FindPassword from './views/Authentication/FindPassword';
@@ -16,6 +16,7 @@ import QnaList from './views/Board/Qna/QnaList';
 import Main from './views/Main';
 import MyPageInfo from './views/MyPage/MyPageInfo';
 import MyPageInfoUpdate from './views/MyPage/MyPageInfoUpdate';
+import NoticeUpdate from './views/Board/Notice/NoticeUpdate';
 
 // component: root 경로 컴포넌트
 function Index() {
@@ -71,13 +72,17 @@ function App() {
 
                 {/* // route : 관리자 페이지 */}
                 <Route path={ADMIN_PATH}>
-
                     
+                    <Route path={NOTICE_PATH}>
+
                     {/* // route : 관리자 - 게시물 (공지사항) 관리 페이지 */}
-                    <Route path={ADMIN_NOTICE_REGIST_ABSOLUTE_PATH} element={<NoticeRegist />} />
+                    <Route path={ADMIN_NOTICE_REGIST_PATH} element={<NoticeRegist />} />
+
+                    <Route path={ADMIN_NOTICE_UPDATE_PATH} element={<NoticeUpdate />} />
+
+                    </Route>
 
                 </Route>
-
 
             </Route>
         </Routes>

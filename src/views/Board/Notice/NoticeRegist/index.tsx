@@ -104,16 +104,16 @@ export default function NoticeRegist () {
         <div id='notice-regist-wrapper'>
             <div className='page-big-title' onClick={onListClickHanler}>공지사항</div>
 
-            <div className='notice-regist-main'>
-                <div className='notice-regist-title'>
-                    <div className='notice-regist-top-name'>title</div>
-                    <input className='notice-regist-top-input' placeholder='제목을 입력해주세요.' value={noticeTitle} onChange={onTitleChangeHandler} />
+            <div className='notice-regist-update-main'>
+                <div className='notice-regist-update-title'>
+                    <div className='notice-regist-update-top-name'>title</div>
+                    <input className='notice-regist-top-update-input' placeholder='제목을 입력해주세요.' value={noticeTitle} onChange={onTitleChangeHandler} />
                 </div>
 
-                <div className='notice-regist-contents'>
+                <div className='notice-regist-update-contents'>
                     <textarea
                         ref={contentsRef}
-                        className='qna-write-contents-textarea'
+                        className='notice-regist-update-contents-textarea'
                         rows={10}
                         placeholder='내용을 입력해주세요 / 1000자'
                         maxLength={1000}
