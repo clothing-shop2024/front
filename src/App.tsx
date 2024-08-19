@@ -2,20 +2,20 @@ import { useEffect } from 'react';
 import { Route, Routes, useNavigate } from "react-router-dom";
 import './App.css';
 
-import { ADMIN_NOTICE_REGIST_ABSOLUTE_PATH, ADMIN_PATH, AUTH_PATH, FIND_ID_PATH, FIND_PASSWORD_PATH, FIND_PASSWORD_RESET_PATH, MAIN_ABSOLUTE_PATH, MAIN_PATH, MY_PAGE_INFO_PATH, MY_PAGE_INFO_UPDATE_PATH, MY_PAGE_PATH, NOTICE_DETAIL_PATH, NOTICE_LIST_PATH, NOTICE_PATH, QNA_LIST_PATH, QNA_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH } from './constant';
+import { ADMIN_NOTICE_REGIST_ABSOLUTE_PATH, ADMIN_PATH, AUTH_PATH, FIND_ID_PATH, FIND_PASSWORD_PATH, FIND_PASSWORD_RESET_PATH, MAIN_ABSOLUTE_PATH, MAIN_PATH, MY_PAGE_INFO_PATH, MY_PAGE_INFO_UPDATE_PATH, MY_PAGE_PATH, NOTICE_DETAIL_PATH, NOTICE_PATH, QNA_LIST_PATH, QNA_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH } from './constant';
 import ServiceContainer from './layouts/ServiceContainer';
 import FindId from './views/Authentication/FindId';
 import FindPassword from './views/Authentication/FindPassword';
 import FindPasswordReset from './views/Authentication/FindPasswordReset';
 import SignIn, { Sns } from './views/Authentication/SignIn';
 import SignUp from './views/Authentication/SignUp';
+import NoticeDetail from './views/Board/Notice/NoticeDetail';
 import NoticeList from './views/Board/Notice/NoticeList';
+import NoticeRegist from './views/Board/Notice/NoticeRegist';
 import QnaList from './views/Board/Qna/QnaList';
 import Main from './views/Main';
 import MyPageInfo from './views/MyPage/MyPageInfo';
 import MyPageInfoUpdate from './views/MyPage/MyPageInfoUpdate';
-import NoticeDetail from './views/Board/Notice/NoticeDetail';
-import NoticeRegist from './views/Board/Notice/NoticeRegist';
 
 // component: root 경로 컴포넌트
 function Index() {

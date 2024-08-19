@@ -18,11 +18,14 @@ export default function MyPageInfo() {
 
   const [userId, setUserId] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
+  const [grade, setGrade] = useState<'VVIP' | 'VIP' | 'Red' | 'Orange' | 'Yellow' | 'White'>('White'); // 등급 상태 추가
+  const [points, setPoints] = useState<number>(0); // 포인트 상태 추가
 
   // function //
   const navigator = useNavigate();
 
   const getMyInfoResponse = (result: GetMyInfoResponseDto | ResponseDto | null) => {
+    console.log('API Response:', result); 
     const message =
         !result ? '서버에 문제가 있습니다.' :
         result.code === 'AF' ? '인증에 실패했습니다.' :
@@ -39,9 +42,11 @@ export default function MyPageInfo() {
         return;
     };
 
-    const { userId, nickname } = result as GetMyInfoResponseDto;
+    const { userId, nickname, grade, points } = result as GetMyInfoResponseDto;
     setUserId(userId);
     setNickname(nickname);
+    setGrade(grade);
+    setPoints(points);
 };
 
   // event handler //
@@ -66,12 +71,14 @@ export default function MyPageInfo() {
 
         <div className="my-page-info-profile">
           <div className="photo">기본프로필</div>
-          <div className="nickname">{nickname}</div>
+          <div className="nickname">
+            {nickname} <span className="grade">({grade})</span>
+          </div>
         </div>
 
         <div className="my-page-info-user1">
-          <div className="member">회원등급</div>
-          <div className="member">포인트</div>
+          {/* <div className="member">회원등급</div> */}
+          <div className="member">포인트{points}</div>
           <div className="member">쿠폰</div>
         </div>
 

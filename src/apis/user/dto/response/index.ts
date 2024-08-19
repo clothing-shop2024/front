@@ -17,6 +17,8 @@ export interface GetMyInfoResponseDto extends ResponseDto{
   userRole: string;
   joinPath: String;
   joinDate : String;
+  grade: 'VVIP' | 'VIP' | 'Red' | 'Orange' | 'Yellow' | 'White';
+  points: number;
 }
 
 // description: 내 정보 수정하기 Response Body DTO
