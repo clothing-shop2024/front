@@ -90,8 +90,8 @@ export const ADMIN_ORDER_PATH = 'order';
 
 // description : 관리자 - 공지사항
 export const ADMIN_BOARD_NOTICE_PATH = 'notice';
-// export const ADMIN_NOTICE_REGIST_PATH = 'regist';
-export const ADMIN_NOTICE_UPDATE_PATH = 'update';
+export const ADMIN_NOTICE_REGIST_PATH = 'regist';
+export const ADMIN_NOTICE_UPDATE_PATH = 'update/:noticeNumber';
 export const ADMIN_NOTICE_DELETE_PATH = 'delete';
 
 // description : 관리자 - 문의사항 답변
@@ -134,7 +134,7 @@ export const FAQ_ABSOLUTE_PATH = `${MAIN_PATH}/${FAQ_PATH}`;
 
 // description : 관리자 - 공지사항 절대 URL PATH
 export const ADMIN_NOTICE_REGIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${NOTICE_PATH}/${REGIST_PATH}`;
-export const ADMIN_NOTICE_UPDATE_ABSOLUTE_PATH = (noticeNumber : string | number) => `${MAIN_PATH}/${ADMIN_PATH}/${NOTICE_PATH}/${ADMIN_NOTICE_UPDATE_PATH}/${noticeNumber}`;
+export const ADMIN_NOTICE_UPDATE_ABSOLUTE_PATH = (noticeNumber : string | number) => `${MAIN_PATH}/${ADMIN_PATH}/${NOTICE_PATH}/update/${noticeNumber}`;
 export const ADMIN_NOTICE_DELETE_ABSOLUTE_PATH = (noticeNumber : string | number) => `${MAIN_PATH}/${ADMIN_PATH}/${NOTICE_PATH}/${ADMIN_NOTICE_DELETE_PATH}/${noticeNumber}`;
 
 // description : 관리자 - 문의사항 절대 URL PATH

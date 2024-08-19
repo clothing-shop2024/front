@@ -14,3 +14,12 @@ export interface QnaListItem {
     qnaDate: string;
     status: boolean;
 }
+
+// description: 자주하는 질문 리스트
+export interface FaqListItem {
+    faqNumber: number;
+    faqQustion: string;
+    faqAnswer: string;
+    faqCategory: string;
+    faqDate: string;
+}
