@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import ResponseDto from "src/apis/response.dto";
 import { getMyInfoRequest } from "src/apis/user";
 import { GetMyInfoResponseDto } from "src/apis/user/dto/response";
-import { MAIN_ABSOLUTE_PATH, MY_PAGE_INFO_ABSOLUTE_PATH, MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH } from "src/constant";
+import { MAIN_ABSOLUTE_PATH, MY_PAGE_COUPON_ABSOLUTE_PATH, MY_PAGE_INFO_ABSOLUTE_PATH, MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH } from "src/constant";
 import useUserStore from "src/stores/user.store";
 import "./style.css";
 
@@ -52,6 +52,7 @@ export default function MyPageInfo() {
   // event handler //
   const onMyPageInfoClickHandler = () => navigator(MY_PAGE_INFO_ABSOLUTE_PATH);
   const onMyPageInfoUpdateClickHandler = (userId:string) => navigator(MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH(userId));
+  const onMyPageCouponClickHandler = () => navigator(MY_PAGE_COUPON_ABSOLUTE_PATH)
 
   //   effect   //
   useEffect (() => {
@@ -79,7 +80,7 @@ export default function MyPageInfo() {
         <div className="my-page-info-user1">
           {/* <div className="member">회원등급</div> */}
           <div className="member">포인트{points}</div>
-          <div className="member">쿠폰</div>
+          <div className="member" onClick={onMyPageCouponClickHandler}>쿠폰</div>
         </div>
 
         <div className="my-page-info-user2">
