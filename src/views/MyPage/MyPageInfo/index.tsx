@@ -25,7 +25,7 @@ export default function MyPageInfo() {
   const navigator = useNavigate();
 
   const getMyInfoResponse = (result: GetMyInfoResponseDto | ResponseDto | null) => {
-    console.log('API Response:', result); 
+    // console.log('API Response:', result); 
     const message =
         !result ? '서버에 문제가 있습니다.' :
         result.code === 'AF' ? '인증에 실패했습니다.' :
