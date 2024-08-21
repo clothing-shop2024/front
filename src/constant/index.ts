@@ -65,6 +65,7 @@ export const QNA_DELETE_PATH = 'delete/:qnaNumber'
 
 // description : 자주하는 질문 페이지 URL
 export const FAQ_PATH = 'faq';
+export const FAQ_LIST_PATH = 'list';
 
 // description : 마이 페이지 URL
 export const MY_PAGE_PATH = 'my-page';
@@ -121,7 +122,7 @@ export const MY_PAGE_COUPON_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${MY_P
 
 // description: 공지사항 절대 URL PATH 
 // ???? NOTICE_LIST 뺌
-export const NOTICE_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${NOTICE_PATH}`;
+export const NOTICE_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${NOTICE_PATH}/list`;
 export const NOTICE_DETAIL_ABSOLUTE_PATH = (noticeNumber : string | number) => `${MAIN_PATH}/${NOTICE_PATH}/${noticeNumber}` ;
 
 // description: 문의사항 절대 URL PATH 
@@ -132,7 +133,7 @@ export const QNA_UPDATE_ABSOLUTE_PATH = (qnaNumber : number) => `${MAIN_PATH}/${
 export const QNA_DELETE_ABSOLUTE_PATH = (qnaNumber : number) => `${MAIN_PATH}/${QNA_PATH}/${QNA_DELETE_PATH}/${qnaNumber}`;
 
 // description: 자주하는 질문 절대 URL PATH 
-export const FAQ_ABSOLUTE_PATH = `${MAIN_PATH}/${FAQ_PATH}`;
+export const FAQ_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${FAQ_PATH}/list`;
 
 // description : 관리자 - 공지사항 절대 URL PATH
 export const ADMIN_NOTICE_REGIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${NOTICE_PATH}/${REGIST_PATH}`;

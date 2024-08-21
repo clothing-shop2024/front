@@ -145,8 +145,8 @@ export default function NoticeUpdate() {
 
             <div className='notice-regist-update-main'>
                 <div className='notice-regist-update-title'>
-                    <div className='notice-regist-update-top-name'>title</div>
-                    <input className='notice-regist-top-update-input' placeholder='제목을 입력해주세요.' value={noticeTitle} onChange={onTitleChangeHandler} />
+                    <div className='notice-top-regist-update-name'>title</div>
+                    <input className='notice-top-regist-update-input' placeholder='제목을 입력해주세요.' value={noticeTitle} onChange={onTitleChangeHandler} />
                 </div>
 
                 <div className='notice-regist-update-contents'>

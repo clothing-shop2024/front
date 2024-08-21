@@ -1,0 +1,67 @@
+
+.faq-regist-update-main {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 200px;
+
+    gap: 20px;
+}
+
+.faq-regist-update-top {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.faq-regist-update-title {
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+    font-size: 20px;
+}
+
+.faq-top-regist-update-input {
+    width: 500px;
+
+    padding: 10px;
+
+    border: 2px solid rgba(194, 194, 194, 0.6);
+    border-radius: 4px;
+
+    font-size: 15px;
+}
+
+.faq-category-select {
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.faq-category-one-select {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.faq-regist-update-contents {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.faq-regist-update-contents-textarea {
+    border: none;
+    outline: none;
+    background: none;
+    resize: none;
+
+    padding: 20px;
+
+    font-size: 16px;
+    line-height: 1.5;
+    border: 2px solid rgba(194, 194, 194, 0.6);
+    border-radius: 4px;
+}

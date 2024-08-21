@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import { deleteFaqRequest, getFaqListRequest } from "src/apis/board/faq";
 import { GetFaqListResponseDto } from "src/apis/board/faq/dto/response";
 import ResponseDto from "src/apis/response.dto";
-import { ADMIN_FAQ_REGIST_ABSOLUTE_PATH, ADMIN_FAQ_UPDATE_ABSOLUTE_PATH, COUNT_PER_PAGE } from "src/constant";
+import { ADMIN_FAQ_REGIST_ABSOLUTE_PATH, ADMIN_FAQ_UPDATE_ABSOLUTE_PATH, COUNT_PER_PAGE,  FAQ_LIST_ABSOLUTE_PATH } from "src/constant";
 import { usePagination } from "src/hooks";
 import useUserStore from "src/stores/user.store";
 import { FaqListItem } from "src/types";
@@ -33,9 +33,11 @@ function ListItem({
 }) {
 
     //                    render                       //
+    const itemClass = `list-table-tr faq ${isChecked ? 'list-item-checked' : ''}`; // 선택된 리스트 글씨 진하게 바꿈
+
     return (
         <div>
-            <div className='list-table-tr faq' onClick={onClick}>
+            <div className={itemClass} onClick={onClick}>
                 {showCheckbox && (
                     <input 
                         type="checkbox" 
@@ -44,11 +46,14 @@ function ListItem({
                     />
                 )}
                 <div className='faq-list-table-number'>{index}</div> {/* index 직접 사용 */}
+                <div className='faq-list-table-question'>Q. {faqQuestion}</div>
                 <div className='faq-list-table-category'>{faqCategory}</div>
-                <div className='faq-list-table-question'>{faqQuestion}</div>
                 <div className='faq-list-table-date'>{faqDate}</div>
             </div>
-            {isOpen && <div className='faq-list-table-answer'>{faqAnswer}</div>}
+            {isOpen && <div className='faq-list-table-answer'>
+                <div>A.</div>
+                <div>{faqAnswer}</div>
+            </div>}
         </div>
     );
 }
@@ -118,10 +123,16 @@ export default function FaqList() {
     //                event handler                    //
     const onItemClickHandler = (faqNumber: number) => {
         setOpenFaqNumber(openFaqNumber === faqNumber ? null : faqNumber);
+        onCheckboxChangeHandler(faqNumber);  // 리스트 항목 클릭 시 체크박스도 변경되도록 수정
     };
 
     const onCheckboxChangeHandler = (faqNumber: number) => {
         setSelectedFaqNumber(faqNumber === selectedFaqNumber ? null : faqNumber);
+    };
+
+    const onListClickHandler = () => {
+        window.location.reload();
+        navigator(FAQ_LIST_ABSOLUTE_PATH);
     };
 
     const onWriteButtonClickHandler = () => {
@@ -129,12 +140,18 @@ export default function FaqList() {
     };
 
     const onUpdateClickHandler = () => {
-        if (!selectedFaqNumber || loginUserRole !== 'ROLE_ADMIN') return;
+        if (!selectedFaqNumber || loginUserRole !== 'ROLE_ADMIN') {
+            alert("수정할 리스트를 선택하세요.");
+            return;
+        }
         navigator(ADMIN_FAQ_UPDATE_ABSOLUTE_PATH(selectedFaqNumber));
     };
 
     const onDeleteClickHandler = () => {
-        if (!faqNumber || loginUserRole !== 'ROLE_ADMIN') return;
+        if (!faqNumber || loginUserRole !== 'ROLE_ADMIN') {
+            alert("삭제할 리스트를 선택하세요.");
+            return;
+        }
     
         const isConfirm = window.confirm('정말로 삭제하시겠습니까?');
         if (!isConfirm) return;
@@ -168,7 +185,7 @@ export default function FaqList() {
             </div>
 
             <div className='board-category'>
-                <div onClick={() => onCategoryClickHandler('전체')}>전체</div>
+                <div onClick={onListClickHandler}>전체</div>
                 <div onClick={() => onCategoryClickHandler('주문|배송')}>주문|배송</div>
                 <div onClick={() => onCategoryClickHandler('교환|반품')}>교환|반품</div>
                 <div onClick={() => onCategoryClickHandler('상품|기타')}>상품|기타</div>
@@ -193,8 +210,8 @@ export default function FaqList() {
                 <div className='list-table-th faq'>
                     {loginUserRole === 'ROLE_ADMIN' && <div></div>} {/* 체크박스 위치 */}
                     <div className='faq-list-table-number'>순번</div>
-                    <div className='faq-list-table-category'>카테고리</div>
                     <div className='faq-list-table-title'>제목</div>
+                    <div className='faq-list-table-category'>카테고리</div>
                     <div className='faq-list-table-date'>작성일</div>
                 </div>
                 {filteredFaqList.slice((currentPage - 1) * COUNT_PER_PAGE, currentPage * COUNT_PER_PAGE).map((item, index) => (

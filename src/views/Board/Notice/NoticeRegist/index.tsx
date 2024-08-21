@@ -1,7 +1,6 @@
 
 
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import './style.css';
 import useUserStore from 'src/stores/user.store';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router';
@@ -10,6 +9,8 @@ import { NOTICE_LIST_ABSOLUTE_PATH } from 'src/constant';
 import { uploadFile } from 'src/apis/imageUrl';
 import { PostNoticeRequestDto } from 'src/apis/board/notice/dto/request';
 import { postNoticeRequest } from 'src/apis/board/notice';
+
+import './style.css';
 
 //                    component                    //
 export default function NoticeRegist () {
@@ -40,7 +41,7 @@ export default function NoticeRegist () {
             return;
         };
         navigator(NOTICE_LIST_ABSOLUTE_PATH);
-    }
+    };
 
     //                event handler                    //
     const onTitleChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -92,13 +93,6 @@ export default function NoticeRegist () {
         }
     };
 
-    //                    effect                       //
-    // useEffect (() => {
-    //     if (loginUserRole === 'ROLE_USER') {
-    //         navigator(NOTICE_LIST_ABSOLUTE_PATH);
-    //     }
-    // }, [loginUserRole, navigator]);
-
     //                    Render                       //
     return (
         <div id='notice-regist-wrapper'>
@@ -106,8 +100,8 @@ export default function NoticeRegist () {
 
             <div className='notice-regist-update-main'>
                 <div className='notice-regist-update-title'>
-                    <div className='notice-regist-update-top-name'>title</div>
-                    <input className='notice-regist-top-update-input' placeholder='제목을 입력해주세요.' value={noticeTitle} onChange={onTitleChangeHandler} />
+                    <div className='notice-top-regist-update-name'>title</div>
+                    <input className='notice-top-regist-update-input' placeholder='제목을 입력해주세요.' value={noticeTitle} onChange={onTitleChangeHandler} />
                 </div>
 
                 <div className='notice-regist-update-contents'>
