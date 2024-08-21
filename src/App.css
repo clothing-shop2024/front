@@ -263,14 +263,11 @@
 
 .list-table-pagenation {
     display: flex;
-    align-items: center;
-    gap: 24px;
-}
-
-.list-table-pagenation {
-    display: flex;
     justify-content: center;
     align-items: center;
+
+    gap: 24px;
+    padding: 100px;
 }
 
 .list-table-page-left {

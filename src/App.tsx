@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Route, Routes, useNavigate } from "react-router-dom";
 import './App.css';
 
-import { ADMIN_FAQ_UPDATE_PATH, ADMIN_NOTICE_UPDATE_PATH, ADMIN_PATH, AUTH_PATH, FAQ_PATH, FIND_ID_PATH, FIND_PASSWORD_PATH, FIND_PASSWORD_RESET_PATH, MAIN_ABSOLUTE_PATH, MAIN_PATH, MY_PAGE_COUPON_PATH, MY_PAGE_INFO_PATH, MY_PAGE_INFO_UPDATE_PATH, MY_PAGE_PATH, NOTICE_DETAIL_PATH, NOTICE_PATH, QNA_LIST_PATH, QNA_PATH, REGIST_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH } from './constant';
+import { ADMIN_FAQ_UPDATE_PATH, ADMIN_NOTICE_UPDATE_PATH, ADMIN_PATH, AUTH_PATH, FAQ_LIST_PATH, FAQ_PATH, FIND_ID_PATH, FIND_PASSWORD_PATH, FIND_PASSWORD_RESET_PATH, MAIN_ABSOLUTE_PATH, MAIN_PATH, MY_PAGE_COUPON_PATH, MY_PAGE_INFO_PATH, MY_PAGE_INFO_UPDATE_PATH, MY_PAGE_PATH, NOTICE_DETAIL_PATH, NOTICE_LIST_PATH, NOTICE_PATH, QNA_LIST_PATH, QNA_PATH, REGIST_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH } from './constant';
 import ServiceContainer from './layouts/ServiceContainer';
 import FindId from './views/Authentication/FindId';
 import FindPassword from './views/Authentication/FindPassword';
@@ -66,7 +66,7 @@ function App() {
 
                 {/* 공지사항 페이지 */}
                 <Route path={NOTICE_PATH}>
-                    <Route index element={<NoticeList />} />
+                    <Route path={NOTICE_LIST_PATH} element={<NoticeList />} />
                     <Route path={NOTICE_DETAIL_PATH} element={<NoticeDetail />} />
                 </Route>
 
@@ -76,7 +76,9 @@ function App() {
                 </Route>
 
                 {/* 자주하는 질문 페이지 FaqList */}
-                <Route path={FAQ_PATH} element={<FaqList />} />
+                <Route path={FAQ_PATH}>
+                    <Route path={FAQ_LIST_PATH} element={<FaqList />} />
+                </Route>
 
                 {/* // route : 관리자 페이지 */}
                 <Route path={ADMIN_PATH}>

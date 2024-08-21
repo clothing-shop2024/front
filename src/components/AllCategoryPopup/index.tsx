@@ -1,6 +1,6 @@
 import { useCookies } from "react-cookie";
 import { useLocation, useNavigate } from "react-router";
-import { FAQ_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH, NOTICE_LIST_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH, SIGN_UP_ABSOLUTE_PATH } from "src/constant";
+import { FAQ_LIST_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH, NOTICE_LIST_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH, SIGN_UP_ABSOLUTE_PATH } from "src/constant";
 import useUserStore from "src/stores/user.store";
 import './style.css';
 
@@ -30,7 +30,7 @@ export const AllCategoryPopup = ({ onClose }: { onClose: () => void }) => {
     }
     const onFaqClickHandler = () => {
         onClose();
-        navigator(FAQ_ABSOLUTE_PATH);
+        navigator(FAQ_LIST_ABSOLUTE_PATH);
     }
 
 

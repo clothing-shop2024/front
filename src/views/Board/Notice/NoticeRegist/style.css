@@ -11,17 +11,19 @@
     display: flex;
     align-items: center;
 
-    gap: 10px;
+    gap: 20px;
     font-size: 20px;
 }
 
-.notice-regist-update-top-input {
+.notice-top-regist-update-input {
     width: 500px;
 
     padding: 10px;
 
     border: 2px solid rgba(194, 194, 194, 0.6);
     border-radius: 4px;
+
+    font-size: 15px;
 }
 
 .notice-regist-update-contents {
@@ -48,6 +50,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+
+    padding-top: 100px;
 
     gap: 20px;
 }
