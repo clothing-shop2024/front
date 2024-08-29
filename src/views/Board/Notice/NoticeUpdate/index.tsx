@@ -46,7 +46,7 @@ export default function NoticeUpdate() {
         const { noticeTitle, noticeContents, noticeImageUrl } = result as GetNoticeDetailResponseDto;
 
         if (loginUserRole !== 'ROLE_ADMIN') {
-            alert('관리자만 수정가능합니다.');
+            alert('관리자만 수정할 수 있습니다.');
             navigator(NOTICE_LIST_ABSOLUTE_PATH);
             return;
         }
@@ -131,14 +131,14 @@ export default function NoticeUpdate() {
     //                    effect                       //
     useEffect(() => {
         if (!noticeNumber || !cookies.accessToken) return;
-        if(loginUserRole !== 'ROLE_ADMIN') {
+        if (loginUserRole !== 'ROLE_ADMIN') {
             navigator(NOTICE_LIST_ABSOLUTE_PATH);
             return;
         }
         getNoticeDetailRequest(noticeNumber).then(getNoticeResponse);
     }, [loginUserRole, noticeNumber, cookies.accessToken, navigator]);
 
-    //                    Render                       //
+    //                    render                       //
     return (
         <div id='notice-update-wrapper'>
             <div className='page-big-title' onClick={onListClickHanler}>공지사항</div>
