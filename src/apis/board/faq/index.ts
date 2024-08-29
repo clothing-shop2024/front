@@ -1,6 +1,6 @@
 import { bearerAuthorization, requestErrorHandler, requestHandler } from "src/apis"
-import { DELETE_FAQ_URL, GET_FAQ_LIST_URL, POST_FAQ_URL, PUT_FAQ_URL } from "src/constant"
-import { GetFaqListResponseDto } from "./dto/response"
+import { DELETE_FAQ_URL, GET_FAQ_DETAIL_URL, GET_FAQ_LIST_URL, POST_FAQ_URL, PUT_FAQ_URL } from "src/constant"
+import { GetFaqDetailResponseDto, GetFaqListResponseDto } from "./dto/response"
 import axios from "axios";
 import { PostFaqRequestDto, PutFaqRequestDto } from "./dto/request";
 import ResponseDto from "src/apis/response.dto";
@@ -22,6 +22,15 @@ export const postFaqReuqest = async(requestBody: PostFaqRequestDto, accessToken:
         .catch(requestErrorHandler);
     return result;
 };
+
+// function : 자주하는 질문 불러오기 API 함수
+export const getFaqDetailRequest = async(faqNumber: number | string) => {
+    const result = await axios
+        .get(GET_FAQ_DETAIL_URL(faqNumber))
+        .then(requestHandler<GetFaqDetailResponseDto>)
+        .catch(requestErrorHandler);
+    return result;
+}
 
 // function : 자주하는 질문 수정 API 함수
 export const putFaqRequest = async(faqNumber: number | string, requestBody: PutFaqRequestDto, accessToken: string) => {

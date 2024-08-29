@@ -134,6 +134,7 @@ export const QNA_DELETE_ABSOLUTE_PATH = (qnaNumber : number) => `${MAIN_PATH}/${
 
 // description: 자주하는 질문 절대 URL PATH 
 export const FAQ_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${FAQ_PATH}/list`;
+export const FAQ_DETAIL_ABSOLUTE_PATH = (faqNumber : string | number) => `${MAIN_PATH}/${FAQ_PATH}/list/${faqNumber}` ;
 
 // description : 관리자 - 공지사항 절대 URL PATH
 export const ADMIN_NOTICE_REGIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${NOTICE_PATH}/${REGIST_PATH}`;
@@ -199,6 +200,7 @@ export const DELETE_QNA_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODU
 // description : 자주하는 질문 모듈 내의 기능 URL
 export const SERVER_FAQ_MODULE_URL = `${SERVER_API_URL}/faq`;
 export const GET_FAQ_LIST_URL = `${SERVER_FAQ_MODULE_URL}/list`;
+export const GET_FAQ_DETAIL_URL = (faqNumber: number | string) => `${GET_FAQ_LIST_URL}/${faqNumber}`;
 export const POST_FAQ_URL = `${SERVER_FAQ_MODULE_URL}/regist`;
 export const PUT_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODULE_URL}/${faqNumber}/modify`;
 export const DELETE_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODULE_URL}/${faqNumber}/delete`;
