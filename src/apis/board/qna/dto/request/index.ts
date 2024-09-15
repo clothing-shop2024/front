@@ -2,7 +2,7 @@
 export interface PostQnaRequestDto {
     qnaContents: string;
     qnaCategory: string;
-    imageUrl: string | null;
+    qnaImageUrl: string | null;
 };
 
 // description: 문의사항 답글 작성하기 Request Body DTO //
@@ -14,5 +14,5 @@ export interface PostQnaCommentRequestDto {
 export interface PutQnaRequestDto {
     qnaContents: string;
     qnaCategory: string;
-    imageUrl: string | null;
+    qnaImageUrl: string | null;
 };
