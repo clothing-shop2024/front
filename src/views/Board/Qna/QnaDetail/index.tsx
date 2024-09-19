@@ -1,12 +1,13 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useLocation, useNavigate, useParams } from "react-router";
-import { deleteQnaRequest, getQnaDetailRequest } from "src/apis/board/qna";
+import { deleteQnaRequest, getQnaDetailRequest, postQnaCommentRequest } from "src/apis/board/qna";
 import { GetQnaDetailResponseDto, GetQnaListResponseDto } from "src/apis/board/qna/dto/response";
 import ResponseDto from "src/apis/response.dto";
 import { MAIN_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH } from "src/constant";
 import useUserStore from "src/stores/user.store"
 import './style.css';
+import { PostQnaCommentRequestDto } from "src/apis/board/qna/dto/request";
 
 //                    component                    //
 export default function QnaDetail() {
@@ -17,6 +18,7 @@ export default function QnaDetail() {
 
     const [cookies] = useCookies();
 
+    const [status, setStatus] = useState<boolean>(false);
     const [qnaContents, setQnaContents] = useState<string>('');
     const [qnaDate, setQnaDate] = useState<string>('');
     const [qnaCategory, setQnaCategory] = useState<string>('');
@@ -48,6 +50,7 @@ export default function QnaDetail() {
         }
 
         const { qnaContents, qnaCategory, qnaDate, qnaWriterId, qnaImageUrl, qnaComment } = result as GetQnaDetailResponseDto;
+        setStatus(status);
         setQnaContents(qnaContents);
         setQnaCategory(qnaCategory);
         setQnaDate(qnaDate);
@@ -57,7 +60,7 @@ export default function QnaDetail() {
 
     };
 
-    const postCommentResponse = (result: ResponseDto | null) => {
+    const postQnaCommentResponse = (result: ResponseDto | null) => {
         
         const message =
             !result ? '서버에 문제가 있습니다.' :
@@ -96,28 +99,22 @@ export default function QnaDetail() {
     };
 
     //                  event handler                   //
-    const onComentChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        if (loginUserRole !== 'ROLE_ADMIN') return;
+    const onCommentChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        if (status || loginUserRole !== 'ROLE_ADMIN') return;
         const qnaComment = event.target.value;
         setQnaComment(qnaComment);
     };
 
-    const onCommentSubmitClickHandler = () => {
+    const onCommentClickHandler = () => {
         if (!qnaComment || !qnaComment.trim()) return;
         if (!qnaNumber || loginUserRole !== 'ROLE_ADMIN' || !cookies.accessToken) return;
-    };
 
-    const onListClickHandler = () => {
-        const previousPage = location.state?.previousPage;
-        if (previousPage === 'MY_QNA_LIST') {
-            // navigator()
-        } else {
-            navigator(QNA_LIST_ABSOLUTE_PATH);
-        }
+        const requestBody: PostQnaCommentRequestDto = { qnaComment };
+        postQnaCommentRequest(qnaNumber, requestBody, cookies.accessToken).then(postQnaCommentResponse);
     };
 
     const onUpdateClickHandler = () => {
-        if (!qnaNumber || loginUserId !== qnaWriterId) return;
+        if (!qnaNumber || loginUserId !== qnaWriterId || status) return;
 
         const previousPage = location.state?.previousPage;
         navigator(`/shop/qna/update/${qnaNumber}`, { state: { previousPage }});
@@ -129,7 +126,9 @@ export default function QnaDetail() {
         if (!isConfirm) return;
 
         deleteQnaRequest(qnaNumber, cookies.accessToken).then(deleteQnaDetailRequest);
-    }
+    };
+
+    const onListClickHandler = () => navigator(QNA_LIST_ABSOLUTE_PATH);
 
     //                    effect                       //
     useEffect(() => {
@@ -138,20 +137,59 @@ export default function QnaDetail() {
     }, []);
 
     //                      render                      //
-    const coverdWriterId = qnaWriterId !== '' && (qnaWriterId[0] + '*'.repeat(qnaWriterId.length - 1));
+    // const coverdWriterId = qnaWriterId !== '' && (qnaWriterId[0] + '*'.repeat(qnaWriterId.length - 1));
 
     return (
         <div id='qna-detail-wrapper'>
-            <div className='page-big-title'>문의사항</div>
+            <div className='page-big-title' onClick={onListClickHandler}>문의사항</div>
             <div className='qna-detail-top'>
-                <div className='qna-detail-title'>제목</div>
-                <div className='qna-detail-category'>유형</div>
-                <div className='qna-detail-public'>공개여부</div>
-                <div className='qna-detail-public'>아이디</div>
-                <div className='qna-detail-date'>날짜</div>
+                {/* {loginUserId === 'ROLE_ADMIN' &&
+                    <div className='board-button' onClick={onCommentClickHandler}>댓글 달기</div>
+                } */}
+                <div className='qna-detail-title'>
+                    <div>Title</div>
+                    <div>{qnaCategory} 문의합니다.</div>
+                </div>
+                <div className='qna-detail-public'>
+                    <div>WriterId</div>
+                    <div>{qnaWriterId}</div>
+                </div>
+                <div className='qna-detail-category'>
+                    <div>Category</div>
+                    <div>{qnaCategory}</div>
+                </div>
+                <div className='qna-detail-date'>
+                    <div>Date</div>
+                    <div>{qnaDate}</div>
+                </div>
             </div>
-            <div className='qna-detail-contents'>본문</div>
-            <div className='qna-detail-image-url'></div>
+            <div className='qna-detail-main'>
+                <div className='qna-detail-contents' dangerouslySetInnerHTML={{ __html: qnaContents }}></div>
+                <div className='qna-detail-image-url'>
+                    {qnaImageUrl && <img src={qnaImageUrl} alt="Database Image" className="file-image" />}
+                </div>
+                { loginUserRole === 'ROLE_ADMIN' && !status &&
+                    <div className='qna-comment-write-box'>
+                        <div className='qna-comment-textarea-box'>
+                            <textarea style={{ height: `100px` }} className='qna-detail-comment-textarea' placeholder='답글을 작성해주세요.' value={qnaComment === null ? '' : qnaComment} onChange={onCommentChangeHandler} />
+                        </div>
+                        <div className='board-button' onClick={onCommentClickHandler}>답글달기</div>
+                    </div>
+                }
+                {status &&
+                    <div className='qna-detail-comment-box'>
+                        <div>답변</div>
+                        <div className='qna-detail-comment'>{qnaComment}</div>
+                    </div>
+                }
+            </div>
+            <div className='qna-detail-bottom-button'>
+                <div className='board-button' onClick={onListClickHandler}>목록</div>
+                <div className='qna-detail-bottom-right-button'>
+                    <div className='board-button' onClick={onUpdateClickHandler}>수정</div>
+                    <div className='board-button' onClick={onDeleteClickHanler}>삭제</div>
+                </div>
+            </div>
         </div>
     )
 }

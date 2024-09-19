@@ -57,14 +57,6 @@
     padding: 20px 200px;
 }
 
-.board-detail-bottom-left, .update-button, .delete-button {
-    width: 30px;
-    height: 20px;
-    padding: 12px;
-    background-color: rgba(80, 190, 150, 0.5);
-    border-radius: 4px;
-}
-
 .board-detail-bottom-left:hover, .update-button:hover, .delete-button:hover {
     cursor: pointer;
     opacity: 0.85;

@@ -52,7 +52,7 @@ export const getQnaDetailRequest = async(qnaNumber: number | string) => {
 };
 
 // function : Q&A 게시물 수정 API 함수
-export const putQnaRequest = async(qnaNumber: number | string, requestBody: PutQnaRequestDto, accessToken: string) =>{
+export const putQnaRequest = async(qnaNumber: number | string, requestBody: PutQnaRequestDto, accessToken: string) => {
     const result = await axios
         .put(PUT_QNA_URL(qnaNumber), requestBody, bearerAuthorization(accessToken))
         .then(requestHandler<ResponseDto>)
@@ -61,7 +61,7 @@ export const putQnaRequest = async(qnaNumber: number | string, requestBody: PutQ
 };
 
 // function : Q&A 게시물 삭제 API 함수
-export const deleteQnaRequest = async(qnaNumber: number | string, accessToken: string)=>{
+export const deleteQnaRequest = async(qnaNumber: number | string, accessToken: string) => {
     const result = await axios
         .delete(DELETE_QNA_URL(qnaNumber), bearerAuthorization(accessToken))
         .then(requestHandler<ResponseDto>)  

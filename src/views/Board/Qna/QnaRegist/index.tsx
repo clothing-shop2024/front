@@ -8,10 +8,12 @@ import { QNA_LIST_ABSOLUTE_PATH } from 'src/constant';
 import { PostQnaRequestDto } from 'src/apis/board/qna/dto/request';
 import { postQnaRequest } from 'src/apis/board/qna';
 import { uploadFile } from 'src/apis/imageUrl';
-import QuillEditor from 'src/layouts/QuillEditor'; // QuillEditor 컴포넌트 임포트
+import QuillEditor, { QuillEditorRef } from 'src/layouts/QuillEditor'; // QuillEditor 컴포넌트 임포트
 
 export default function QnaRegist() {
+
     //                      state                      //
+    const contentsRef = useRef<QuillEditorRef | null>(null); // 변경된 부분
     const { loginUserRole } = useUserStore();
     const [cookies] = useCookies();
 
@@ -42,7 +44,23 @@ export default function QnaRegist() {
     //                  event handler                   //
     const onContentsChangeHandler = (value: string) => {
         if (value.length > 1000) return;
+    
+        // HTML 콘텐츠를 그대로 상태에 저장
         setQnaContents(value);
+    };
+
+    const onFileChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        const fileInput = event.target;
+        if (fileInput.files && fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            setSelectedFile(file);
+            const imageUrl = URL.createObjectURL(file);
+            setQnaImageUrl(imageUrl);
+        }
+    };
+
+    const onCategoryChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        setQnaCategory(event.target.value);
     };
 
     const onPostButtonClickHandler = async () => {
@@ -63,19 +81,7 @@ export default function QnaRegist() {
         postQnaRequest(requestBody, cookies.accessToken).then(postQnaResponse);
     };
 
-    const onFileChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        const fileInput = event.target;
-        if (fileInput.files && fileInput.files.length > 0) {
-            const file = fileInput.files[0];
-            setSelectedFile(file);
-            const imageUrl = URL.createObjectURL(file);
-            setQnaImageUrl(imageUrl);
-        }
-    };
-
-    const onCategoryChangeHandler = (event: ChangeEvent<HTMLSelectElement>) => {
-        setQnaCategory(event.target.value);
-    };
+    const onListClickHanler = () => navigator(QNA_LIST_ABSOLUTE_PATH);
 
     //                    effect                       //
     useEffect(() => {
@@ -87,21 +93,65 @@ export default function QnaRegist() {
 
     //                      render                      //
     return (
-        <div>
-            <h1>문의 작성하기</h1>
-            <select onChange={onCategoryChangeHandler} value={qnaCategory}>
-                <option value="">카테고리 선택</option>
-                <option value="general">일반</option>
-                <option value="technical">기술</option>
-                {/* 카테고리 옵션 추가 */}
-            </select>
+        <div id='qna-write-wrapper'>
+            <div className='page-big-title'>문의 작성</div>
+            <div className='qna-write-top'>
+                <div className='qna-write-title'>
+                    <div>Title</div>
+                    <div>{qnaCategory} 문의합니다.</div>
+                </div>
+                <div>
+                    <div className='faq-category-select'>
+                        <div className='faq-regist-update-title'>Category</div>    
+                        <div className='faq-category-one-select'>
+                            <input
+                                type='radio'
+                                name='category'
+                                className='category_1'
+                                value='주문|배송'
+                                onChange={onCategoryChangeHandler}
+                            />
+                            <div>주문|배송</div>
+                        </div>
+
+                        <div className='faq-category-one-select'>
+                            <input
+                                type='radio'
+                                name='category'
+                                className='category_2'
+                                value='교환|반품'
+                                onChange={onCategoryChangeHandler}
+                            />
+                            <div>교환|반품</div>
+                        </div>
+
+                        <div className='faq-category-one-select'>
+                            <input
+                                type='radio'
+                                name='category'
+                                className='category_3'
+                                value='상품|기타'
+                                onChange={onCategoryChangeHandler}
+                            />
+                            <div>상품|기타</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             {/* QuillEditor 컴포넌트 사용 */}
             <QuillEditor 
+                ref={contentsRef} // 변경된 부분
                 value={qnaContents} 
                 onChange={onContentsChangeHandler} 
             />
             <input type="file" onChange={onFileChangeHandler} />
-            <button onClick={onPostButtonClickHandler}>제출하기</button>
+            <div>
+            </div>
+            <div className='regist-bottom-button'>
+                <div className='regist-button' onClick={onPostButtonClickHandler}>OK</div>
+                <div className='cancel-button' onClick={onListClickHanler}>CANCEL</div>
+            </div>
         </div>
     );
 }

@@ -93,7 +93,7 @@ export default function NoticeRegist () {
         }
     };
 
-    //                    Render                       //
+    //                    render                       //
     return (
         <div id='notice-regist-wrapper'>
             <div className='page-big-title' onClick={onListClickHanler}>공지사항</div>
@@ -128,8 +128,8 @@ export default function NoticeRegist () {
             </div>
             
             <div className='regist-bottom-button'>
-                <div className='regist-button' onClick={onPostButtonClickHandler}>OK</div>
-                <div className='cancel-button' onClick={onListClickHanler}>CANCEL</div>
+                <div className='board-button' onClick={onPostButtonClickHandler}>OK</div>
+                <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
             </div>
         </div>
     )

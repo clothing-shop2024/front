@@ -14,6 +14,7 @@ export interface GetSearchQnaListResponseDto extends ResponseDto {
 
 export interface GetQnaDetailResponseDto extends ResponseDto {
     qnaNumber: number;
+    status: boolean;
     qnaContents: string;
     qnaImageUrl: string;
     qnaComment: string | null;

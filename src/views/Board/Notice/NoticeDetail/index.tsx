@@ -144,11 +144,11 @@ export default function NoticeDetail () {
                 </div>
             </div>
             <div className='board-detail-bottom'>
-                <div className='board-detail-bottom-left' onClick={ onListClickHandler }>목록</div>
+                <div className='board-button' onClick={ onListClickHandler }>목록</div>
                 { loginUserRole === 'ROLE_ADMIN' &&
                     <div className='board-detail-bottom-right'>
-                        <div className='update-button' onClick={ onUpdateClickHandler }>수정</div>
-                        <div className='delete-button' onClick={ onDeleteClickHandler }>삭제</div>
+                        <div className='board-button' onClick={ onUpdateClickHandler }>수정</div>
+                        <div className='board-button' onClick={ onDeleteClickHandler }>삭제</div>
                     </div>
                 }
             </div>
