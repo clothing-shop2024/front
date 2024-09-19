@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import ReactQuill from 'react-quill';
+import React, { useMemo, forwardRef, useImperativeHandle, useRef } from 'react';
+import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 const formats = [
@@ -26,7 +26,25 @@ interface QuillEditorProps {
   onChange: (value: string) => void;
 }
 
-const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange }) => {
+// Define the ref type to include ReactQuill and custom methods
+export interface QuillEditorRef {
+  focus: () => void;
+}
+
+const QuillEditor = forwardRef<QuillEditorRef, QuillEditorProps>(({ value, onChange }, ref) => {
+  const quillRef = useRef<ReactQuill>(null);
+
+  // Expose methods using useImperativeHandle
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      if (quillRef.current) {
+        // Use the Quill instance to focus
+        const editor = quillRef.current.getEditor();
+        editor.focus();
+      }
+    },
+  }));
+
   const modules = useMemo(() => {
     return {
       toolbar: {
@@ -35,10 +53,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange }) => {
           [{ align: [] }],
           ['bold', 'italic', 'underline', 'strike'],
           [{ list: 'ordered' }, { list: 'bullet' }],
-          [
-            { color: [] },
-            { background: [] },
-          ],
+          [{ color: [] }, { background: [] }],
         ],
       },
     };
@@ -46,13 +61,14 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ value, onChange }) => {
 
   return (
     <ReactQuill
+      ref={quillRef} // 연결된 ref
       theme="snow"
       modules={modules}
       formats={formats}
-      value={value} // Prop으로 전달받은 value 사용
-      onChange={onChange} // Prop으로 전달받은 onChange 사용
+      value={value}
+      onChange={onChange}
     />
   );
-};
+});
 
 export default QuillEditor;

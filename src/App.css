@@ -348,6 +348,19 @@
     color: rgba(64, 64, 64, 1);
 }
 
+/* board 버튼 */
+.board-button {
+    width: 30px;
+    height: 20px;
+    padding: 12px;
+    background-color: rgba(80, 190, 150, 0.5);
+    border-radius: 4px;
+}
+.board-button:hover {
+    cursor: pointer;
+    opacity: 0.85;
+}
+
 /* 파일 CSS */
 .file-select {
     display: flex;

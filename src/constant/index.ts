@@ -142,7 +142,7 @@ export const ADMIN_NOTICE_UPDATE_ABSOLUTE_PATH = (noticeNumber : string | number
 export const ADMIN_NOTICE_DELETE_ABSOLUTE_PATH = (noticeNumber : string | number) => `${MAIN_PATH}/${ADMIN_PATH}/${NOTICE_PATH}/delete/${noticeNumber}`;
 
 // description : 관리자 - 문의사항 절대 URL PATH
-export const QNA_COMMENT_ABSOLUTE_PATH = (qnaNumber : number) => `${MAIN_PATH}/${QNA_PATH}/${QNA_DETAIL_PATH}/${qnaNumber}/${ADMIN_QNA_COMMENT_PATH}`;
+export const QNA_COMMENT_ABSOLUTE_PATH = (qnaNumber : number) => `${MAIN_PATH}/${QNA_PATH}/${qnaNumber}/${ADMIN_QNA_COMMENT_PATH}`;
 
 // description : 관리자 - 자주하는 질문 절대 URL PATH
 export const ADMIN_FAQ_REGIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${FAQ_PATH}/${REGIST_PATH}`;
