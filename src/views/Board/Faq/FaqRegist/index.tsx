@@ -88,12 +88,12 @@ export default function FaqRegist() {
             <div className='faq-regist-update-main'>
                 <div className='faq-regist-update-top'>
                     <div className='faq-regist-update-title'>
-                        <div className='faq-top-regist-update-name'>Question</div>
+                        <div className='faq-top-regist-update-name'>QUESTION</div>
                         <input className='faq-top-regist-update-input' placeholder='제목을 입력해주세요.' value={faqQuestion} onChange={onQuestionChangeHandler} />
                     </div>
 
                     <div className='faq-category-select'>
-                        <div className='faq-regist-update-title'>Category</div>    
+                        <div className='faq-regist-update-title'>CATEGORY</div>    
                         <div className='faq-category-one-select'>
                             <input
                                 type='radio'
@@ -144,8 +144,8 @@ export default function FaqRegist() {
             </div>
             
             <div className='regist-bottom-button'>
-                <div className='regist-button' onClick={onPostButtonClickHandler}>OK</div>
-                <div className='cancel-button' onClick={onListClickHanler}>CANCEL</div>
+                <div className='board-button' onClick={onPostButtonClickHandler}>OK</div>
+                <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
             </div>
         </div>
     )

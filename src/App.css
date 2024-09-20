@@ -163,11 +163,13 @@
     justify-content: center;
     align-items: center;
     gap: 24px;
-    padding: 50px;
+    padding: 100px 0px;
 
     font-size: 30px;
+    font-weight: bold;
     font-weight: 400px;
     line-height: 25px;
+
 }
 
 .page-big-title:hover {
@@ -348,17 +350,81 @@
     color: rgba(64, 64, 64, 1);
 }
 
+/* notice, qna detail top */
+.board-detail-top {
+    display: table;
+    border-collapse: collapse;
+    margin: 0px 400px;
+    
+    border: 1px solid black;
+
+    font-size: 18px;
+}
+
+.board-detail-top-name {
+    width: 200px;
+    height: 40px;
+
+    display: table-cell;
+    text-align: center; /* 셀의 수평 중앙정렬 */
+    vertical-align: middle; /* 셀의 수직 중앙정렬 */
+
+    border: 1px solid black;
+    font-weight: bold;
+    background-color: rgb(238, 232, 232);
+}
+
+.board-detail-top-contents {
+    width: 1200px;
+    height: 40px;
+
+    display: table-cell;
+    vertical-align: middle; /* 셀의 수직 중앙정렬 */
+    padding: 0px 20px;
+    border: 1px solid black;
+}
+
+.board-detail-title, .board-detail-writer-id, .board-detail-date, .notice-detail-view-count, .qna-detail-category {
+    display: table-row;
+}
+
+.board-detail-main {
+    margin: 100px 400px;
+    padding: 20px;
+    width: calc(100% - 800px);
+    border: 1px solid black;
+
+    box-sizing: border-box;
+}
+
 /* board 버튼 */
 .board-button {
-    width: 30px;
-    height: 20px;
-    padding: 12px;
-    background-color: rgba(80, 190, 150, 0.5);
+    padding: 10px 10px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
     border-radius: 4px;
+    border: none;
 }
+
 .board-button:hover {
     cursor: pointer;
     opacity: 0.85;
+}
+
+.board-detail-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 0px 400px;
+}
+
+.board-detail-bottom-right {
+    display: flex;
+
+    gap: 10px;
 }
 
 /* 파일 CSS */

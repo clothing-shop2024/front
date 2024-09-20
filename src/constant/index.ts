@@ -193,7 +193,7 @@ export const GET_SEARCH_QNA_LIST_URL = `${GET_QNA_LIST_URL}/search`;
 export const GET_QNA_DETAIL_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/list/${qnaNumber}`;
 export const GET_MY_QNA_DETAIL_URL = `${SERVER_QNA_MODULE_URL}/mylist`;
 export const POST_QNA_URL = `${SERVER_QNA_MODULE_URL}/regist`;
-export const POST_QNA_COMMENT_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/comment`;
+export const PUT_QNA_COMMENT_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/comment`;
 export const PUT_QNA_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/modify`;
 export const DELETE_QNA_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/delete`;
 
@@ -205,7 +205,7 @@ export const POST_FAQ_URL = `${SERVER_FAQ_MODULE_URL}/regist`;
 export const PUT_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODULE_URL}/${faqNumber}/modify`;
 export const DELETE_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODULE_URL}/${faqNumber}/delete`;
 
-//description: PAGE
+// description: PAGE
 export const COUNT_PER_PAGE = 10;
 export const COUNT_PER_SECTION = 10;
 export const COUNT_RESERVATION_PAGE = 6;

@@ -1,4 +1,4 @@
-import React, { useMemo, forwardRef, useImperativeHandle, useRef } from 'react';
+import { useMemo, forwardRef, useImperativeHandle, useRef } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -22,13 +22,14 @@ const formats = [
 ];
 
 interface QuillEditorProps {
-  value: string;
-  onChange: (value: string) => void;
+    value: string;
+    onChange: (value: string) => void;
+    className?: string;
 }
 
 // Define the ref type to include ReactQuill and custom methods
 export interface QuillEditorRef {
-  focus: () => void;
+    focus: () => void;
 }
 
 const QuillEditor = forwardRef<QuillEditorRef, QuillEditorProps>(({ value, onChange }, ref) => {

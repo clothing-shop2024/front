@@ -198,9 +198,9 @@ export default function FaqList() {
                 <div className='list-table-top-right'>
                 { loginUserRole === 'ROLE_ADMIN' &&
                     <div className='board-detail-bottom-right'>
-                        <div className='update-button' onClick={ onUpdateClickHandler }>수정</div>
-                        <div className='delete-button' onClick={ onDeleteClickHandler }>삭제</div>
-                        <div className='delete-button' onClick={ onWriteButtonClickHandler }>글쓰기</div>
+                        <div className='board-button' onClick={ onUpdateClickHandler }>MODIFY</div>
+                        <div className='board-button' onClick={ onDeleteClickHandler }>DELETE</div>
+                        <div className='board-button' onClick={ onWriteButtonClickHandler }>WRITE</div>
                     </div>
                 }
                 </div>
@@ -209,10 +209,10 @@ export default function FaqList() {
             <div className='list-table'>
                 <div className='list-table-th faq'>
                     {loginUserRole === 'ROLE_ADMIN' && <div></div>} {/* 체크박스 위치 */}
-                    <div className='faq-list-table-number'>순번</div>
-                    <div className='faq-list-table-title'>제목</div>
-                    <div className='faq-list-table-category'>카테고리</div>
-                    <div className='faq-list-table-date'>작성일</div>
+                    <div className='faq-list-table-number'>NO</div>
+                    <div className='faq-list-table-title'>TITLE</div>
+                    <div className='faq-list-table-category'>CATEGORY</div>
+                    <div className='faq-list-table-date'>DATE</div>
                 </div>
                 {filteredFaqList.slice((currentPage - 1) * COUNT_PER_PAGE, currentPage * COUNT_PER_PAGE).map((item, index) => (
                     <ListItem 

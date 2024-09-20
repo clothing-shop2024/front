@@ -94,7 +94,7 @@ export default function NoticeList() {
     //                    render                       //
      return (
         <>
-            <div className='page-big-title'>공지사항</div>
+            <div className='page-big-title'>NOTICE</div>
 
             <div className='list-table-top'>
                 <div className='list-table-total-board'>전체<span className='emphasis'> {totalLength}건</span> | 페이지<span className='emphasis'> {currentPage} / {totalPage}</span>
@@ -103,16 +103,16 @@ export default function NoticeList() {
 
                 <div className='list-table-top-right'>
                 {loginUserRole === 'ROLE_ADMIN' ? 
-                    <div className='primary-button' onClick={onWriteButtonClickHandler}>글쓰기</div> : ''
+                    <div className='board-button' onClick={onWriteButtonClickHandler}>WRITE</div> : ''
                 }
                 </div>
             </div>
             
             <div className='list-table'>
                 <div className='list-table-th notice'>
-                    <div className='notice-list-table-number'>순번</div>
-                    <div className='notice-list-table-title'>제목</div>
-                    <div className='notice-list-table-view-count'>조회수</div>
+                    <div className='notice-list-table-number'>NO</div>
+                    <div className='notice-list-table-title'>TITLE</div>
+                    <div className='notice-list-table-view-count'>VIEWCOUNT</div>
                     <div className='notice-list-table-date'>등록일</div>
                 </div>
                 {viewList.map((item, index) => <ListItem {...item} index={totalLength - (currentPage - 1) * COUNT_PER_PAGE - (index + 1)} key={item.noticeNumber} />)}
