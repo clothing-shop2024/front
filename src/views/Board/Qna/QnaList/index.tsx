@@ -144,7 +144,7 @@ export default function QnaList() {
 
     return (
         <>
-            <div className='page-big-title'>문의사항</div>
+            <div className='page-big-title'>Q&A</div>
             <div className='category-button'>
                 <div>전체</div>
                 <div>주문/배송</div>
@@ -163,17 +163,17 @@ export default function QnaList() {
                             <div className='qna-list-top-admin-text'>미완료 보기</div>
                             <div className={toggleClass} onClick={onToggleClickHandler}></div>
                         </div> : 
-                        <div className='primary-button' onClick={onWriteButtonClickHandler}>글쓰기</div>
+                        <div className='board-button' onClick={onWriteButtonClickHandler}>WRITE</div>
                     }
                 </div>
             </div>
 
             <div className='list-table'>
                 <div className='list-table-th qna'>
-                    <div className='qna-list-table-number'>순번</div>
-                    <div className='qna-list-table-category'>제목</div>
-                    <div className='qna-list-table-writer-id'>작성자</div>
-                    <div className='qna-list-table-date'>작성일</div>
+                    <div className='qna-list-table-number'>NO</div>
+                    <div className='qna-list-table-category'>TITLE</div>
+                    <div className='qna-list-table-writer-id'>WRITER</div>
+                    <div className='qna-list-table-date'>DATE</div>
                 </div>
                 {viewList.map((item, index) => <ListItem {...item} index={totalLength - (currentPage - 1) * COUNT_PER_PAGE - (index + 1)} key={item.qnaNumber} />)}
             </div>

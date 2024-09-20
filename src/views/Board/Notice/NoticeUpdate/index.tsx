@@ -141,11 +141,11 @@ export default function NoticeUpdate() {
     //                    render                       //
     return (
         <div id='notice-update-wrapper'>
-            <div className='page-big-title' onClick={onListClickHanler}>공지사항</div>
+            <div className='page-big-title' onClick={onListClickHanler}>NOTICE</div>
 
             <div className='notice-regist-update-main'>
                 <div className='notice-regist-update-title'>
-                    <div className='notice-top-regist-update-name'>title</div>
+                    <div className='notice-top-regist-update-name'>TITLE</div>
                     <input className='notice-top-regist-update-input' placeholder='제목을 입력해주세요.' value={noticeTitle} onChange={onTitleChangeHandler} />
                 </div>
 
@@ -173,8 +173,8 @@ export default function NoticeUpdate() {
             </div>
             
             <div className='regist-bottom-button'>
-                <div className='regist-button' onClick={onUpdateButtonClickHandler}>OK</div>
-                <div className='cancel-button' onClick={onListClickHanler}>CANCEL</div>
+                <div className='board-button' onClick={onUpdateButtonClickHandler}>OK</div>
+                <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
             </div>
         </div>
     )

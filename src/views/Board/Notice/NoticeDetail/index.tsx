@@ -112,43 +112,44 @@ export default function NoticeDetail () {
     useEffect(() => {
         if (!noticeNumber) return;
         getNoticeDetailRequest(noticeNumber).then(getNoticeDetailResponse);
-    }, []);
 
-    useEffect(() => {
-        if (!noticeNumber) return;
         increaseViewCountRequest(noticeNumber).then(increaseViewCountResponse);
-    }, []);
+    }, [noticeNumber]);
 
     //                  render                  //
     return (
         <div>
-            <div className='page-big-title' onClick={onListClickHandler}>공지사항</div>
-            <div className='notice-detail-main'>
-                <div className='notice-detail-title'>
-                    <div>제목</div>
-                    <div>{noticeTitle}</div>
+            <div className='page-big-title' onClick={onListClickHandler}>NOTICE</div>
+            <div className='board-detail-top'>
+                <div className='board-detail-title'>
+                    <div className='board-detail-top-name'>TITLE</div>
+                    <div className='board-detail-top-contents'>{noticeTitle}</div>
                 </div>
-                <div className='notice-detail-date-view-count'>
-                    <div className='notice-detail-date'>
-                        <div>작성일</div>
-                        <div>{noticeDate} </div>
-                    </div>
-                    <div className='notice-detail-view-count'>
-                        <div>조회수</div>
-                        <div>{viewCount}</div>
-                    </div>
+                <div className='board-detail-writer-id'>
+                    <div className='board-detail-top-name'>WRITER</div>
+                    <div className='board-detail-top-contents'>관리자</div>
                 </div>
-                <div className='notice-detail-contents'>{noticeContents}</div>
-                <div className='notice-detail-image'>
+                <div className='board-detail-date'>
+                    <div className='board-detail-top-name'>DATE</div>
+                    <div className='board-detail-top-contents'>{noticeDate} </div>
+                </div>
+                <div className='notice-detail-view-count'>
+                    <div className='board-detail-top-name'>VIEWCOUNT</div>
+                    <div className='board-detail-top-contents'>{viewCount}</div>
+                </div>
+            </div>
+            <div className='board-detail-main'>
+                <div className='board-detail-contents'>{noticeContents}</div>
+                <div className='board-detail-image'>
                     {noticeImageUrl && <img src={noticeImageUrl} alt="Database Image" className="file-image" />}
                 </div>
             </div>
             <div className='board-detail-bottom'>
-                <div className='board-button' onClick={ onListClickHandler }>목록</div>
+                <div className='board-button' onClick={ onListClickHandler }>LIST</div>
                 { loginUserRole === 'ROLE_ADMIN' &&
                     <div className='board-detail-bottom-right'>
-                        <div className='board-button' onClick={ onUpdateClickHandler }>수정</div>
-                        <div className='board-button' onClick={ onDeleteClickHandler }>삭제</div>
+                        <div className='board-button' onClick={ onUpdateClickHandler }>MODIFY</div>
+                        <div className='board-button' onClick={ onDeleteClickHandler }>DELETE</div>
                     </div>
                 }
             </div>

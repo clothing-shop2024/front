@@ -41,9 +41,16 @@ export default function QnaRegist() {
         navigator(QNA_LIST_ABSOLUTE_PATH);
     };
 
+    useEffect(() => {
+        const firstText = `
+            * CS 업무 시간은 1:00 PM ~ 6:00 PM 입니다.</br></br>문의해주실 상품명 : </br>성함 : </br>연락처 : </br>주문번호 : </br></br>문의 내용 : </br></br>
+        `;
+        setQnaContents(firstText);
+    }, []);
+
     //                  event handler                   //
     const onContentsChangeHandler = (value: string) => {
-        if (value.length > 1000) return;
+        // if (value.length > 1000) return;
     
         // HTML 콘텐츠를 그대로 상태에 저장
         setQnaContents(value);
@@ -94,10 +101,10 @@ export default function QnaRegist() {
     //                      render                      //
     return (
         <div id='qna-write-wrapper'>
-            <div className='page-big-title'>문의 작성</div>
+            <div className='page-big-title'  onClick={onListClickHanler}>Q&A</div>
             <div className='qna-write-top'>
                 <div className='qna-write-title'>
-                    <div>Title</div>
+                    <div>TITLE</div>
                     <div>{qnaCategory} 문의합니다.</div>
                 </div>
                 <div>
@@ -144,13 +151,14 @@ export default function QnaRegist() {
                 ref={contentsRef} // 변경된 부분
                 value={qnaContents} 
                 onChange={onContentsChangeHandler} 
+                className='quill-editor'
             />
-            <input type="file" onChange={onFileChangeHandler} />
+            <input type="file" onChange={onFileChangeHandler} className='file-select' />
             <div>
             </div>
             <div className='regist-bottom-button'>
-                <div className='regist-button' onClick={onPostButtonClickHandler}>OK</div>
-                <div className='cancel-button' onClick={onListClickHanler}>CANCEL</div>
+                <div className='board-button' onClick={onPostButtonClickHandler}>OK</div>
+                <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
             </div>
         </div>
     );

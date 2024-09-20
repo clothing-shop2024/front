@@ -1,8 +1,8 @@
 import axios from "axios";
-import { PostQnaCommentRequestDto, PostQnaRequestDto, PutQnaRequestDto } from "./dto/request";
+import { PutQnaCommentRequestDto, PostQnaRequestDto, PutQnaRequestDto } from "./dto/request";
 import ResponseDto from "../../response.dto";
 import { GetQnaDetailResponseDto, GetQnaListResponseDto, GetSearchQnaListResponseDto } from "./dto/response";
-import { DELETE_QNA_URL, GET_QNA_DETAIL_URL, GET_QNA_LIST_URL, GET_SEARCH_QNA_LIST_URL, POST_QNA_COMMENT_URL, POST_QNA_URL, PUT_QNA_URL } from "../../../constant";
+import { DELETE_QNA_URL, GET_QNA_DETAIL_URL, GET_QNA_LIST_URL, GET_SEARCH_QNA_LIST_URL, PUT_QNA_COMMENT_URL, POST_QNA_URL, PUT_QNA_URL } from "../../../constant";
 import { bearerAuthorization, requestErrorHandler, requestHandler } from "../..";
 
 // function : 문의사항 작성 API 함수 
@@ -15,9 +15,9 @@ export const postQnaRequest = async(requestBody: PostQnaRequestDto, accessToken:
 };
 
 // function : 문의사항 답글 작성 API 함수
-export const postQnaCommentRequest = async(qnaNumber: number | string, requestBody: PostQnaCommentRequestDto, accessToken: string) => {
+export const putQnaCommentRequest = async(qnaNumber: number | string, requestBody: PutQnaCommentRequestDto, accessToken: string) => {
     const result = await axios
-        .post(POST_QNA_COMMENT_URL(qnaNumber), requestBody, bearerAuthorization(accessToken))
+        .put(PUT_QNA_COMMENT_URL(qnaNumber), requestBody, bearerAuthorization(accessToken))
         .then(requestHandler<ResponseDto>)
         .catch(requestErrorHandler);
     return result;
@@ -34,9 +34,9 @@ export const getQnaListRequest = async(accessToken: string) => {
 
 // function : 문의사항 검색 리스트 불러오기 API 함수
 export const getSearchQnaListRequest = async(word: string) => {
-    const config = { params: {word}}
+    const config = { params: {word} }
     const result = await axios
-        .get(GET_SEARCH_QNA_LIST_URL,config)
+        .get(GET_SEARCH_QNA_LIST_URL, config)
         .then(requestHandler<GetSearchQnaListResponseDto>) 
         .catch(requestErrorHandler); 
     return result;

@@ -6,8 +6,8 @@ export interface PostQnaRequestDto {
 };
 
 // description: 문의사항 답글 작성하기 Request Body DTO //
-export interface PostQnaCommentRequestDto {
-    qnaComment: string;
+export interface PutQnaCommentRequestDto {
+    qnaComment: string | null;
 };
 
 // description: 문의사항 게시물 수정하기 Request Body DTO //

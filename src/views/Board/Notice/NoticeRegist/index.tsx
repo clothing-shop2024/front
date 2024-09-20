@@ -1,6 +1,4 @@
-
-
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import useUserStore from 'src/stores/user.store';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router';
@@ -18,9 +16,7 @@ export default function NoticeRegist () {
     //                      state                      //
     const contentsRef = useRef<HTMLTextAreaElement | null>(null);
     const { loginUserRole } = useUserStore();
-
     const [cookies] = useCookies();
-
     const [noticeTitle, setNoticeTitle] = useState<string>('');
     const [noticeContents, setNoticeContents] = useState<string>('');
     const [noticeImageUrl, setNoticeImageUrl] = useState<string | null>(null);
@@ -96,11 +92,11 @@ export default function NoticeRegist () {
     //                    render                       //
     return (
         <div id='notice-regist-wrapper'>
-            <div className='page-big-title' onClick={onListClickHanler}>공지사항</div>
+            <div className='page-big-title' onClick={onListClickHanler}>NOTICE</div>
 
             <div className='notice-regist-update-main'>
                 <div className='notice-regist-update-title'>
-                    <div className='notice-top-regist-update-name'>title</div>
+                    <div className='notice-top-regist-update-name'>TITLE</div>
                     <input className='notice-top-regist-update-input' placeholder='제목을 입력해주세요.' value={noticeTitle} onChange={onTitleChangeHandler} />
                 </div>
 
@@ -134,7 +130,3 @@ export default function NoticeRegist () {
         </div>
     )
 }
-
-
-
-
