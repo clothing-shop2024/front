@@ -1,8 +1,8 @@
 import axios from "axios";
 import { PutQnaCommentRequestDto, PostQnaRequestDto, PutQnaRequestDto } from "./dto/request";
 import ResponseDto from "../../response.dto";
-import { GetQnaDetailResponseDto, GetQnaListResponseDto, GetSearchQnaListResponseDto } from "./dto/response";
-import { DELETE_QNA_URL, GET_QNA_DETAIL_URL, GET_QNA_LIST_URL, GET_SEARCH_QNA_LIST_URL, PUT_QNA_COMMENT_URL, POST_QNA_URL, PUT_QNA_URL } from "../../../constant";
+import { GetQnaCategoryListResponseDto, GetQnaDetailResponseDto, GetQnaListResponseDto, GetSearchQnaListResponseDto } from "./dto/response";
+import { DELETE_QNA_URL, GET_QNA_DETAIL_URL, GET_QNA_LIST_URL, GET_SEARCH_QNA_LIST_URL, PUT_QNA_COMMENT_URL, POST_QNA_URL, PUT_QNA_URL, GET_QNA_CATEGORY_LIST_URL } from "../../../constant";
 import { bearerAuthorization, requestErrorHandler, requestHandler } from "../..";
 
 // function : 문의사항 작성 API 함수 
@@ -24,21 +24,33 @@ export const putQnaCommentRequest = async(qnaNumber: number | string, requestBod
 };
 
 // function : 문의사항 전체 리스트 불러오기 API 함수
-export const getQnaListRequest = async(accessToken: string) => {
+export const getQnaListRequest = async() => {
     const result = await axios
-        .get(GET_QNA_LIST_URL, bearerAuthorization(accessToken))
+        .get(GET_QNA_LIST_URL)
         .then(requestHandler<GetQnaListResponseDto>)
         .catch(requestErrorHandler)
     return result;
 };
 
 // function : 문의사항 검색 리스트 불러오기 API 함수
-export const getSearchQnaListRequest = async(word: string) => {
-    const config = { params: {word} }
+export const getSearchQnaListRequest = async (word: string) => {
+    const config = { params: { word } }
+
     const result = await axios
         .get(GET_SEARCH_QNA_LIST_URL, config)
         .then(requestHandler<GetSearchQnaListResponseDto>) 
-        .catch(requestErrorHandler); 
+        .catch(requestErrorHandler);
+    return result;
+};
+
+// function : 문의사항 카테고리 필터 리스트 불러오기 API 함수
+export const getQnaCategoryListRequest = async(category: string) => {
+    const config = { params: { category } }
+
+    const result = await axios
+        .get(GET_QNA_CATEGORY_LIST_URL, config)
+        .then(requestHandler<GetQnaCategoryListResponseDto>) 
+        .catch(requestErrorHandler);
     return result;
 };
 

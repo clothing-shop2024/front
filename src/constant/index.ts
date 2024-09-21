@@ -190,6 +190,7 @@ export const DELETE_NOTICE_URL = (noticeNumber: number | string) => `${SERVER_NO
 export const SERVER_QNA_MODULE_URL = `${SERVER_API_URL}/qna`;
 export const GET_QNA_LIST_URL = `${SERVER_QNA_MODULE_URL}/list`;
 export const GET_SEARCH_QNA_LIST_URL = `${GET_QNA_LIST_URL}/search`;
+export const GET_QNA_CATEGORY_LIST_URL = `${GET_QNA_LIST_URL}/category`
 export const GET_QNA_DETAIL_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/list/${qnaNumber}`;
 export const GET_MY_QNA_DETAIL_URL = `${SERVER_QNA_MODULE_URL}/mylist`;
 export const POST_QNA_URL = `${SERVER_QNA_MODULE_URL}/regist`;

@@ -1,13 +1,13 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { QnaListItem } from 'src/types';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import useUserStore from 'src/stores/user.store';
-import { COUNT_PER_PAGE, COUNT_PER_SECTION, MAIN_PATH, QNA_DETAIL_ABSOLUTE_PATH, QNA_REGIST_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from 'src/constant';
+import { COUNT_PER_PAGE, COUNT_PER_SECTION, MAIN_PATH, QNA_DETAIL_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH, QNA_REGIST_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from 'src/constant';
 import { useCookies } from 'react-cookie';
 import { usePagination } from 'src/hooks';
-import { GetSearchQnaListResponseDto } from 'src/apis/board/qna/dto/response';
+import { GetQnaCategoryListResponseDto, GetQnaListResponseDto, GetSearchQnaListResponseDto } from 'src/apis/board/qna/dto/response';
 import ResponseDto from 'src/apis/response.dto';
-import { getSearchQnaListRequest } from 'src/apis/board/qna';
+import { getQnaCategoryListRequest, getQnaListRequest, getSearchQnaListRequest } from 'src/apis/board/qna';
 import './style.css';
 
 //                    component                    //
@@ -30,7 +30,8 @@ function ListItem ({
     const onClickHandler = () => {
 
         if ((loginUserRole !== 'ROLE_ADMIN' && loginUserId !== qnaWriterId )) {
-            alert("비공개글은 작성자 혹은 관리자만 볼 수 있습니다.");
+
+            alert("이 글은 비공개글입니다.");
             return;
         }
         navigator(QNA_DETAIL_ABSOLUTE_PATH(qnaNumber), { state: {previousPage: 'ALL_QNA_LIST'} });
@@ -76,11 +77,38 @@ export default function QnaList() {
         onNextSectionClickHandler
     } = usePagination<QnaListItem>(COUNT_PER_PAGE, COUNT_PER_SECTION);
 
-    const [searchWord, setSearchWord] = useState<string>('');
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const initialSearchWord = queryParams.get('search') || '';
+    const [searchWord, setSearchWord] = useState<string>(initialSearchWord);
+    const qnaCategory1 = '주문|배송';
+    const qnaCategory2 = '교환|반품';
+    const qnaCategory3 = '상품|기타';
     const [isToggleOn, setToggleOn] = useState<boolean>(false);
 
     //                    function                     //
     const navigator = useNavigate();
+
+    const getQnaListResponse = (result: GetQnaListResponseDto | ResponseDto | null) => {
+        const message =
+            !result ? '서버에 문제가 있습니다.' :
+            result.code === 'VF' ? '검색어를 입력하세요.' :
+            result.code === 'AF' ? '인증에 실패했습니다.' :
+            result.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
+
+        if (!result || result.code !== 'SU') {
+            alert(message);
+            if (result?.code === 'AF') navigator(MAIN_PATH);
+            return;
+        }
+
+        const { qnaList } = result as GetQnaListResponseDto;
+        changeBoardList(qnaList, isToggleOn);
+
+        setCurrentPage(!qnaList.length ? 0 : 1);
+        setCurrentSection(!qnaList.length ? 0 : 1);
+    };
+
 
     const getSearchQnaListResponse = (result: GetSearchQnaListResponseDto | ResponseDto | null) => {
 
@@ -104,15 +132,44 @@ export default function QnaList() {
 
     };
 
+    const getQnaCategoryListResponse = (result: GetQnaCategoryListResponseDto | ResponseDto | null) => {
+
+        const message =
+            !result ? '서버에 문제가 있습니다.' :
+            result.code === 'VF' ? '검색어를 입력하세요.' :
+            result.code === 'AF' ? '인증에 실패했습니다.' :
+            result.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
+
+        if (!result || result.code !== 'SU') {
+            alert(message);
+            if (result?.code === 'AF') navigator (MAIN_PATH);
+            return;
+        }
+
+        const { qnaList } = result as GetQnaCategoryListResponseDto;
+        changeBoardList(qnaList, isToggleOn);
+
+        setCurrentPage(!qnaList.length ? 0 : 1);
+        setCurrentSection(!qnaList.length ? 0 : 1);
+
+    };
+
     //                event handler                    //
+    const onListClickHandler = () => {
+        setSearchWord('');
+        navigator(QNA_LIST_ABSOLUTE_PATH);
+        getQnaListRequest().then(getQnaListResponse);
+    }
+
     const onWriteButtonClickHandler = () => {
+
         if (loginUserRole !== 'ROLE_USER' && loginUserRole !== 'ROLE_ADMIN'){
-            alert('Q&A 등록은 로그인 후 가능 합니다.');
+            alert('로그인 후 Q&A 작성 할 수 있습니다.');
             return navigator(SIGN_IN_ABSOLUTE_PATH);
         }
         
         if (loginUserRole === 'ROLE_ADMIN') {
-            alert('관리자는 QNA를 작성할수 없습니다.');
+            alert('관리자는 QNA를 작성할 수 없습니다.');
             return;
         }
         
@@ -125,18 +182,47 @@ export default function QnaList() {
     };
 
     const onSearchWordChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        
         const searchWord = event.target.value;
         setSearchWord(searchWord);
     };
     
     const onSearchButtonClickHandler = () => {
-        getSearchQnaListRequest(searchWord).then(getSearchQnaListResponse);
+        if (searchWord) {
+            navigator(QNA_LIST_ABSOLUTE_PATH + `?search=${searchWord}`);
+            getSearchQnaListRequest(searchWord).then(getSearchQnaListResponse);
+        }
+    };
+
+    // qnaCategory 필터
+    const onCategory1ClickHandler = () => {
+        getQnaCategoryListRequest(qnaCategory1).then(getQnaCategoryListResponse);
+        navigator(QNA_LIST_ABSOLUTE_PATH + `?category=${qnaCategory1}`);
+    };
+    const onCategory2ClickHandler = () => {
+        getQnaCategoryListRequest(qnaCategory2).then(getQnaCategoryListResponse);
+        navigator(QNA_LIST_ABSOLUTE_PATH + `?category=${qnaCategory2}`);
+    };
+    const onCategory3ClickHandler = () => {
+        if (qnaCategory3) {
+            navigator(QNA_LIST_ABSOLUTE_PATH + `?category=${qnaCategory3}`);
+            getQnaCategoryListRequest(qnaCategory3).then(getQnaCategoryListResponse);
+        }
     };
 
     //                    effect                       //
     useEffect(() => {
-        getSearchQnaListRequest(searchWord).then(getSearchQnaListResponse);
-    }, [isToggleOn]);
+        const category = queryParams.get('category');
+        if (category === '주문|배송') {
+            getQnaCategoryListRequest('주문|배송').then(getQnaCategoryListResponse);
+        } else if (category === '교환|반품') {
+            getQnaCategoryListRequest('교환|반품').then(getQnaCategoryListResponse);
+        } else if (category === '상품|기타') {
+            getQnaCategoryListRequest('상품|기타').then(getQnaCategoryListResponse);
+        } else if (!searchWord) {
+            getQnaListRequest().then(getQnaListResponse);
+        }
+    }, [searchWord, queryParams]);
 
     //                  render                  //
     const toggleClass = isToggleOn ? 'toggle-active' : 'toggle';
@@ -144,13 +230,12 @@ export default function QnaList() {
 
     return (
         <>
-            <div className='page-big-title'>Q&A</div>
+            <div className='page-big-title' onClick={onListClickHandler}>Q&A</div>
             <div className='category-button'>
-                <div>전체</div>
-                <div>주문/배송</div>
-                <div>교환/반품</div>
-                <div>상품/기타</div>
-                <div>검색</div>
+                <div onClick={onListClickHandler}>전체</div>
+                <div onClick={onCategory1ClickHandler}>주문|배송</div>
+                <div onClick={onCategory2ClickHandler}>교환|반품</div>
+                <div onClick={onCategory3ClickHandler}>상품|기타</div>
             </div>
 
             <div className='list-table-top'>
