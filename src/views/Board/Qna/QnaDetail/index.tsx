@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useParams } from "react-router";
 import { deleteQnaRequest, getQnaDetailRequest, putQnaCommentRequest } from "src/apis/board/qna";
 import { GetQnaDetailResponseDto, GetQnaListResponseDto } from "src/apis/board/qna/dto/response";
 import ResponseDto from "src/apis/response.dto";
-import { MAIN_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH } from "src/constant";
+import { MAIN_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH, QNA_UPDATE_ABSOLUTE_PATH } from "src/constant";
 import useUserStore from "src/stores/user.store"
 import './style.css';
 import { PutQnaCommentRequestDto } from "src/apis/board/qna/dto/request";
@@ -116,8 +116,10 @@ export default function QnaDetail() {
     const onUpdateClickHandler = () => {
         if (!qnaNumber || loginUserId !== qnaWriterId || status) return;
 
-        const previousPage = location.state?.previousPage;
-        navigator(`/shop/qna/update/${qnaNumber}`, { state: { previousPage }});
+        navigator(QNA_UPDATE_ABSOLUTE_PATH(qnaNumber));
+
+        // const previousPage = location.state?.previousPage;
+        // navigator(`/shop/qna/update/${qnaNumber}`, { state: { previousPage }});
     };
 
     const onDeleteClickHanler = () => {
@@ -173,7 +175,7 @@ export default function QnaDetail() {
                     <div className='qna-comment-textarea-box'>
                         <textarea className='qna-detail-comment-textarea' placeholder='답글을 작성해주세요.' value={qnaComment === null ? '' : qnaComment} onChange={onCommentChangeHandler} />
                     </div>
-                    <div className='board-button' onClick={onCommentClickHandler}>ANSWER WRITE</div>
+                    <div className='qna-answer-button' onClick={onCommentClickHandler}>ANSWER WRITE</div>
                 </div>
             }
             { qnaComment !== null && loginUserRole === 'ROLE_USER' &&

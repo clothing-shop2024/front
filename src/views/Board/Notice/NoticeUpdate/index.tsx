@@ -8,6 +8,7 @@ import { uploadFile } from "src/apis/imageUrl";
 import ResponseDto from "src/apis/response.dto";
 import { NOTICE_DETAIL_ABSOLUTE_PATH, NOTICE_LIST_ABSOLUTE_PATH } from "src/constant";
 import useUserStore from "src/stores/user.store";
+import './style.css';
 
 //                    component                    //
 export default function NoticeUpdate() {

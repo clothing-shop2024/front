@@ -50,7 +50,6 @@ export default function QnaRegist() {
 
     //                  event handler                   //
     const onContentsChangeHandler = (value: string) => {
-        // if (value.length > 1000) return;
     
         // HTML 콘텐츠를 그대로 상태에 저장
         setQnaContents(value);
