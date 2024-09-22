@@ -2,7 +2,7 @@ import axios from "axios";
 import { PutQnaCommentRequestDto, PostQnaRequestDto, PutQnaRequestDto } from "./dto/request";
 import ResponseDto from "../../response.dto";
 import { GetQnaCategoryListResponseDto, GetQnaDetailResponseDto, GetQnaListResponseDto, GetSearchQnaListResponseDto } from "./dto/response";
-import { DELETE_QNA_URL, GET_QNA_DETAIL_URL, GET_QNA_LIST_URL, GET_SEARCH_QNA_LIST_URL, PUT_QNA_COMMENT_URL, POST_QNA_URL, PUT_QNA_URL, GET_QNA_CATEGORY_LIST_URL } from "../../../constant";
+import { DELETE_QNA_URL, GET_QNA_DETAIL_URL, GET_QNA_LIST_URL, GET_SEARCH_QNA_LIST_URL, PUT_QNA_COMMENT_URL, POST_QNA_URL, PUT_QNA_URL, GET_QNA_CATEGORY_LIST_URL, GET_QNA_CATEGORY_SEARCH_LIST_URL } from "../../../constant";
 import { bearerAuthorization, requestErrorHandler, requestHandler } from "../..";
 
 // function : 문의사항 작성 API 함수 
@@ -44,15 +44,24 @@ export const getSearchQnaListRequest = async (word: string) => {
 };
 
 // function : 문의사항 카테고리 필터 리스트 불러오기 API 함수
-export const getQnaCategoryListRequest = async(category: string) => {
-    const config = { params: { category } }
-
+export const getQnaCategoryListRequest = async(qnaCategory: string) => {
     const result = await axios
-        .get(GET_QNA_CATEGORY_LIST_URL, config)
+        .get(GET_QNA_CATEGORY_LIST_URL(qnaCategory))
         .then(requestHandler<GetQnaCategoryListResponseDto>) 
         .catch(requestErrorHandler);
     return result;
 };
+
+// function : 문의사항 카테고리 필터 리스트 불러오기 API 함수
+export const getQnaCategorySearchListRequest = async(qnaCategory: string, word: string) => {
+    const config = { params: { word } }
+
+    const result = await axios
+        .get(GET_QNA_CATEGORY_SEARCH_LIST_URL(qnaCategory), config)
+        .then(requestHandler<GetSearchQnaListResponseDto>) 
+        .catch(requestErrorHandler);
+    return result;
+}
 
 // function : 문의사항 게시물 불러오기 API 함수
 export const getQnaDetailRequest = async(qnaNumber: number | string) => {
