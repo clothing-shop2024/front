@@ -17,6 +17,7 @@ export interface GetQnaCategoryListResponseDto extends ResponseDto {
     qnaList: QnaListItem[];
 };
 
+// description: 문의사항 상세 게시글 불러오기 Response Body DTO
 export interface GetQnaDetailResponseDto extends ResponseDto {
     qnaNumber: number;
     status: boolean;

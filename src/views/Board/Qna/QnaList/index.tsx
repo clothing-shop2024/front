@@ -3,11 +3,10 @@ import { QnaListItem } from 'src/types';
 import { useLocation, useNavigate } from 'react-router';
 import useUserStore from 'src/stores/user.store';
 import { COUNT_PER_PAGE, COUNT_PER_SECTION, MAIN_PATH, QNA_DETAIL_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH, QNA_REGIST_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from 'src/constant';
-import { useCookies } from 'react-cookie';
 import { usePagination } from 'src/hooks';
 import { GetQnaCategoryListResponseDto, GetQnaListResponseDto, GetSearchQnaListResponseDto } from 'src/apis/board/qna/dto/response';
 import ResponseDto from 'src/apis/response.dto';
-import { getQnaCategoryListRequest, getQnaListRequest, getSearchQnaListRequest } from 'src/apis/board/qna';
+import { getQnaCategoryListRequest, getQnaCategorySearchListRequest, getQnaListRequest, getSearchQnaListRequest } from 'src/apis/board/qna';
 import './style.css';
 
 //                    component                    //
@@ -61,7 +60,6 @@ export default function QnaList() {
 
     //                      state                      //
     const {loginUserRole} = useUserStore();
-    // const [cookies] = useCookies();
 
     const {
         viewList,
@@ -81,6 +79,7 @@ export default function QnaList() {
     const queryParams = new URLSearchParams(location.search);
     const initialSearchWord = queryParams.get('search') || '';
     const [searchWord, setSearchWord] = useState<string>(initialSearchWord);
+    const [qnaCategory, setQnaCategory] = useState<string>('');
     const qnaCategory1 = '주문|배송';
     const qnaCategory2 = '교환|반품';
     const qnaCategory3 = '상품|기타';
@@ -157,9 +156,27 @@ export default function QnaList() {
     //                event handler                    //
     const onListClickHandler = () => {
         setSearchWord('');
+        setQnaCategory('');
         navigator(QNA_LIST_ABSOLUTE_PATH);
         getQnaListRequest().then(getQnaListResponse);
     }
+
+    // qnaCategory 필터
+    const onCategory1ClickHandler = () => {
+        setQnaCategory(qnaCategory1);
+        getQnaCategoryListRequest(qnaCategory1).then(getQnaCategoryListResponse);
+        navigator(QNA_LIST_ABSOLUTE_PATH + `?category=${qnaCategory1}`);
+    };
+    const onCategory2ClickHandler = () => {
+        setQnaCategory(qnaCategory2);
+        getQnaCategoryListRequest(qnaCategory2).then(getQnaCategoryListResponse);
+        navigator(QNA_LIST_ABSOLUTE_PATH + `?category=${qnaCategory2}`);
+    };
+    const onCategory3ClickHandler = () => {
+        setQnaCategory(qnaCategory3);
+        getQnaCategoryListRequest(qnaCategory3).then(getQnaCategoryListResponse);
+        navigator(QNA_LIST_ABSOLUTE_PATH + `?category=${qnaCategory3}`);
+    };
 
     const onWriteButtonClickHandler = () => {
 
@@ -182,47 +199,26 @@ export default function QnaList() {
     };
 
     const onSearchWordChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        
         const searchWord = event.target.value;
         setSearchWord(searchWord);
     };
     
     const onSearchButtonClickHandler = () => {
-        if (searchWord) {
+        
+        if (qnaCategory !== '') {
+            navigator(QNA_LIST_ABSOLUTE_PATH + `?category=${qnaCategory}` + `&search=${searchWord}`);
+            getQnaCategorySearchListRequest(qnaCategory, searchWord).then(getSearchQnaListResponse);
+        } else {
             navigator(QNA_LIST_ABSOLUTE_PATH + `?search=${searchWord}`);
             getSearchQnaListRequest(searchWord).then(getSearchQnaListResponse);
         }
     };
 
-    // qnaCategory 필터
-    const onCategory1ClickHandler = () => {
-        getQnaCategoryListRequest(qnaCategory1).then(getQnaCategoryListResponse);
-        navigator(QNA_LIST_ABSOLUTE_PATH + `?category=${qnaCategory1}`);
-    };
-    const onCategory2ClickHandler = () => {
-        getQnaCategoryListRequest(qnaCategory2).then(getQnaCategoryListResponse);
-        navigator(QNA_LIST_ABSOLUTE_PATH + `?category=${qnaCategory2}`);
-    };
-    const onCategory3ClickHandler = () => {
-        if (qnaCategory3) {
-            navigator(QNA_LIST_ABSOLUTE_PATH + `?category=${qnaCategory3}`);
-            getQnaCategoryListRequest(qnaCategory3).then(getQnaCategoryListResponse);
-        }
-    };
-
     //                    effect                       //
     useEffect(() => {
-        const category = queryParams.get('category');
-        if (category === '주문|배송') {
-            getQnaCategoryListRequest('주문|배송').then(getQnaCategoryListResponse);
-        } else if (category === '교환|반품') {
-            getQnaCategoryListRequest('교환|반품').then(getQnaCategoryListResponse);
-        } else if (category === '상품|기타') {
-            getQnaCategoryListRequest('상품|기타').then(getQnaCategoryListResponse);
-        } else if (!searchWord) {
-            getQnaListRequest().then(getQnaListResponse);
-        }
-    }, [searchWord, queryParams]);
+        getQnaListRequest().then(getQnaListResponse);
+    }, []);
+
 
     //                  render                  //
     const toggleClass = isToggleOn ? 'toggle-active' : 'toggle';
