@@ -127,10 +127,10 @@ export const NOTICE_DETAIL_ABSOLUTE_PATH = (noticeNumber : string | number) => `
 
 // description: 문의사항 절대 URL PATH 
 export const QNA_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${QNA_PATH}/${QNA_LIST_PATH}`;
-export const QNA_DETAIL_ABSOLUTE_PATH = (qnaNumber : number) => `${MAIN_PATH}/${QNA_PATH}/${qnaNumber}`;
+export const QNA_DETAIL_ABSOLUTE_PATH = (qnaNumber : number | string) => `${MAIN_PATH}/${QNA_PATH}/${qnaNumber}`;
 export const QNA_REGIST_ABSOLUTE_PATH = `${MAIN_PATH}/${QNA_PATH}/${REGIST_PATH}`;
-export const QNA_UPDATE_ABSOLUTE_PATH = (qnaNumber : number) => `${MAIN_PATH}/${QNA_PATH}/${QNA_UPDATE_PATH}/${qnaNumber}`;
-export const QNA_DELETE_ABSOLUTE_PATH = (qnaNumber : number) => `${MAIN_PATH}/${QNA_PATH}/${QNA_DELETE_PATH}/${qnaNumber}`;
+export const QNA_UPDATE_ABSOLUTE_PATH = (qnaNumber : number | string) => `${MAIN_PATH}/${QNA_PATH}/update/${qnaNumber}`;
+export const QNA_DELETE_ABSOLUTE_PATH = (qnaNumber : number | string) => `${MAIN_PATH}/${QNA_PATH}/${QNA_DELETE_PATH}/${qnaNumber}`;
 
 // description: 자주하는 질문 절대 URL PATH 
 export const FAQ_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${FAQ_PATH}/list`;
