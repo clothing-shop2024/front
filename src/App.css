@@ -361,6 +361,13 @@
     font-size: 18px;
 }
 
+.board-detail-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+}
+
 .board-detail-top-name {
     width: 200px;
     height: 40px;
@@ -389,9 +396,11 @@
 }
 
 .board-detail-main {
-    margin: 100px 400px;
+    margin-top: 20px;
+    margin-bottom: 100px;
     padding: 20px;
     width: calc(100% - 800px);
+    min-height: 500px;
     border: 1px solid black;
 
     box-sizing: border-box;
@@ -408,7 +417,7 @@
     border: none;
 }
 
-.board-button:hover {
+.board-button:hover, .board-primary-button:hover, .board-disable-button:hover {
     cursor: pointer;
     opacity: 0.85;
 }
@@ -416,9 +425,8 @@
 .board-detail-bottom {
     display: flex;
     justify-content: space-between;
+    width: calc(100% - 800px);
     align-items: center;
-
-    margin: 0px 400px;
 }
 
 .board-detail-bottom-right {
@@ -440,4 +448,25 @@
 .file-image {
     width: 400px;
     height: 400px;
+}
+
+/* primary, disable button */
+.board-primary-button {
+    padding: 10px 10px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 4px;
+    border: none;
+}
+
+.board-disable-button {
+    padding: 10px 10px;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 4px;
+    border: none;
 }

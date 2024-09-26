@@ -100,65 +100,70 @@ export default function QnaRegist() {
     //                      render                      //
     return (
         <div id='qna-write-wrapper'>
-            <div className='page-big-title'  onClick={onListClickHanler}>Q&A</div>
-            <div className='qna-write-top'>
-                <div className='qna-write-title'>
-                    <div>TITLE</div>
-                    <div>{qnaCategory} 문의합니다.</div>
-                </div>
-                <div>
-                    <div className='faq-category-select'>
-                        <div className='faq-regist-update-title'>Category</div>    
-                        <div className='faq-category-one-select'>
-                            <input
-                                type='radio'
-                                name='category'
-                                className='category_1'
-                                value='주문|배송'
-                                onChange={onCategoryChangeHandler}
-                            />
-                            <div>주문|배송</div>
+            <div className='page-big-title' onClick={onListClickHanler}>Q&A</div>
+            <div>
+                <div className='board-detail-page'>
+                    <div className='board-detail-top'>
+                        <div className='qna-write-title'>
+                            <div>TITLE</div>
+                            <div>{qnaCategory} 문의합니다.</div>
                         </div>
+                        <div>
+                            <div className='faq-category-select'>
+                                <div className='faq-regist-update-title'>CATEGORY</div>    
+                                <div className='faq-category-one-select'>
+                                    <input
+                                        type='radio'
+                                        name='category'
+                                        className='category_1'
+                                        value='주문|배송'
+                                        onChange={onCategoryChangeHandler}
+                                    />
+                                    <div>주문|배송</div>
+                                </div>
 
-                        <div className='faq-category-one-select'>
-                            <input
-                                type='radio'
-                                name='category'
-                                className='category_2'
-                                value='교환|반품'
-                                onChange={onCategoryChangeHandler}
-                            />
-                            <div>교환|반품</div>
-                        </div>
+                                <div className='faq-category-one-select'>
+                                    <input
+                                        type='radio'
+                                        name='category'
+                                        className='category_2'
+                                        value='교환|반품'
+                                        onChange={onCategoryChangeHandler}
+                                    />
+                                    <div>교환|반품</div>
+                                </div>
 
-                        <div className='faq-category-one-select'>
-                            <input
-                                type='radio'
-                                name='category'
-                                className='category_3'
-                                value='상품|기타'
-                                onChange={onCategoryChangeHandler}
-                            />
-                            <div>상품|기타</div>
+                                <div className='faq-category-one-select'>
+                                    <input
+                                        type='radio'
+                                        name='category'
+                                        className='category_3'
+                                        value='상품|기타'
+                                        onChange={onCategoryChangeHandler}
+                                    />
+                                    <div>상품|기타</div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    
+                    {/* QuillEditor 컴포넌트 사용 */}
+                    <QuillEditor 
+                        ref={contentsRef} // 변경된 부분
+                        value={qnaContents} 
+                        onChange={onContentsChangeHandler} 
+                        className='quill-editor'
+                    />
+                    <input type="file" onChange={onFileChangeHandler} className='file-select' />
+                    <div>
+                    </div>
+                    <div className='regist-bottom-button'>
+                        <div className='board-button' onClick={onPostButtonClickHandler}>OK</div>
+                        <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
                     </div>
                 </div>
             </div>
             
-            {/* QuillEditor 컴포넌트 사용 */}
-            <QuillEditor 
-                ref={contentsRef} // 변경된 부분
-                value={qnaContents} 
-                onChange={onContentsChangeHandler} 
-                className='quill-editor'
-            />
-            <input type="file" onChange={onFileChangeHandler} className='file-select' />
-            <div>
-            </div>
-            <div className='regist-bottom-button'>
-                <div className='board-button' onClick={onPostButtonClickHandler}>OK</div>
-                <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
-            </div>
         </div>
     );
 }
