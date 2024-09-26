@@ -7,7 +7,7 @@
 }
 
 .qna-comment-textarea-box {
-    flex: 1;
+    /* flex: 1; */
     margin-right: 10px;
 }
 
@@ -44,6 +44,19 @@
     opacity: 0.85;
 }
 
-.board-button {
+.board-button, .board-primary-button, .board-disable-button {
     margin: 50px 0px;
+}
+
+.qna-detail-comment-box {
+    width: calc(100% - 800px);
+}
+
+.qna-detail-comment {
+    min-height: 300px;
+    margin-top: 10px;
+    padding: 20px;
+    border: 1px solid black;
+    box-sizing: border-box;
+    white-space: pre-line;
 }

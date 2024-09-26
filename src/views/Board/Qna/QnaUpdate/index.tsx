@@ -135,6 +135,7 @@ export default function QnaUpdate() {
                             name='category'
                             className='category_1'
                             value='주문|배송'
+                            checked={qnaCategory === '주문|배송'}
                             onChange={onCategoryChangeHandler}
                         />
                         <div>주문|배송</div>
@@ -146,6 +147,7 @@ export default function QnaUpdate() {
                             name='category'
                             className='category_2'
                             value='교환|반품'
+                            checked={qnaCategory === '교환|반품'}
                             onChange={onCategoryChangeHandler}
                         />
                         <div>교환|반품</div>
@@ -157,6 +159,7 @@ export default function QnaUpdate() {
                             name='category'
                             className='category_3'
                             value='상품|기타'
+                            checked={qnaCategory === '상품|기타'}
                             onChange={onCategoryChangeHandler}
                         />
                         <div>상품|기타</div>
