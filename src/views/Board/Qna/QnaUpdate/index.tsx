@@ -120,7 +120,7 @@ export default function QnaUpdate() {
 
     //                      render                      //
     return (
-        <div>
+        <div className='board-detail-page'>
             <div className='page-big-title' onClick={onListClickHanler}>Q&A</div>
             <div className='qna-write-top'>
                 <div className='qna-write-title'>
@@ -128,7 +128,7 @@ export default function QnaUpdate() {
                     <div>{qnaCategory} 문의합니다.</div>
                 </div>
                 <div className='faq-category-select'>
-                    <div className='faq-regist-update-title'>Category</div>    
+                    <div className='faq-regist-update-title'>CATEGORY</div>    
                     <div className='faq-category-one-select'>
                         <input
                             type='radio'
