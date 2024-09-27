@@ -104,13 +104,13 @@ export default function QnaRegist() {
             <div>
                 <div className='board-detail-page'>
                     <div className='board-detail-top'>
-                        <div className='qna-write-title'>
-                            <div>TITLE</div>
+                        <div className='board-detail-title'>
+                            <div className='board-detail-top-name'>TITLE</div>
                             <div>{qnaCategory} 문의합니다.</div>
                         </div>
                         <div>
                             <div className='faq-category-select'>
-                                <div className='faq-regist-update-title'>CATEGORY</div>    
+                                <div className='board-detail-top-name'>CATEGORY</div>    
                                 <div className='faq-category-one-select'>
                                     <input
                                         type='radio'
