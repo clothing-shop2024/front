@@ -106,44 +106,49 @@ export default function QnaRegist() {
                     <div className='board-detail-top'>
                         <div className='board-detail-title'>
                             <div className='board-detail-top-name'>TITLE</div>
-                            <div>{qnaCategory} 문의합니다.</div>
+                            <div className='board-detail-top-contents'>{qnaCategory} 문의합니다.</div>
                         </div>
-                        <div>
-                            <div className='faq-category-select'>
-                                <div className='board-detail-top-name'>CATEGORY</div>    
+                        <div className='board-detail-title'>
+                            <div className='board-detail-top-name'>CATEGORY</div>
+                            <div className='board-detail-top-contents regist'>
                                 <div className='faq-category-one-select'>
-                                    <input
-                                        type='radio'
-                                        name='category'
-                                        className='category_1'
-                                        value='주문|배송'
-                                        onChange={onCategoryChangeHandler}
-                                    />
-                                    <div>주문|배송</div>
+                                    <label>
+                                        <input
+                                            type='radio'
+                                            name='category'
+                                            className='category_1'
+                                            value='주문|배송'
+                                            onChange={onCategoryChangeHandler}
+                                        />
+                                        <div>주문|배송</div>
+                                    </label>
                                 </div>
 
                                 <div className='faq-category-one-select'>
-                                    <input
-                                        type='radio'
-                                        name='category'
-                                        className='category_2'
-                                        value='교환|반품'
-                                        onChange={onCategoryChangeHandler}
-                                    />
-                                    <div>교환|반품</div>
+                                    <label>
+                                        <input
+                                            type='radio'
+                                            name='category'
+                                            className='category_2'
+                                            value='교환|반품'
+                                            onChange={onCategoryChangeHandler}
+                                        />
+                                        <div>교환|반품</div>
+                                    </label>
                                 </div>
 
                                 <div className='faq-category-one-select'>
-                                    <input
-                                        type='radio'
-                                        name='category'
-                                        className='category_3'
-                                        value='상품|기타'
-                                        onChange={onCategoryChangeHandler}
-                                    />
-                                    <div>상품|기타</div>
+                                    <label>
+                                        <input
+                                            type='radio'
+                                            name='category'
+                                            className='category_3'
+                                            value='상품|기타'
+                                            onChange={onCategoryChangeHandler}
+                                        />상품|기타
+                                    </label>
                                 </div>
-                            </div>
+                            </div>    
                         </div>
                     </div>
                     
