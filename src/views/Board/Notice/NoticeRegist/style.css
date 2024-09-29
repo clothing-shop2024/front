@@ -1,12 +1,3 @@
-
-.notice-regist-update-main {
-    display: flex;
-    flex-direction: column;
-    padding: 0px 200px;
-
-    gap: 20px;
-}
-
 .notice-regist-update-title {
     display: flex;
     align-items: center;
@@ -44,4 +35,8 @@
     line-height: 1.5;
     border: 2px solid rgba(194, 194, 194, 0.6);
     border-radius: 4px;
+}
+
+.board-detail-top-contents.notice {
+    border: none;
 }

@@ -9,12 +9,13 @@ import { PostNoticeRequestDto } from 'src/apis/board/notice/dto/request';
 import { postNoticeRequest } from 'src/apis/board/notice';
 
 import './style.css';
+import QuillEditor, { QuillEditorRef } from 'src/layouts/QuillEditor';
 
 //                    component                    //
 export default function NoticeRegist () {
 
     //                      state                      //
-    const contentsRef = useRef<HTMLTextAreaElement | null>(null);
+    const contentsRef = useRef<QuillEditorRef | null>(null);
     const { loginUserRole } = useUserStore();
     const [cookies] = useCookies();
     const [noticeTitle, setNoticeTitle] = useState<string>('');
@@ -44,14 +45,8 @@ export default function NoticeRegist () {
         setNoticeTitle(event.target.value);
     };
 
-    const onContentsChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        const noticeContents = event.target.value;
-        if (noticeContents.length > 1000) return;
-        setNoticeContents(noticeContents);
-        
-        if (!contentsRef.current) return;
-        contentsRef.current.style.height = 'auto';
-        contentsRef.current.style.height = `${contentsRef.current.scrollHeight}px`;
+    const onContentsChangeHandler = (value: string) => {
+        setNoticeContents(value);
     };
 
     const onListClickHanler = () => navigator(NOTICE_LIST_ABSOLUTE_PATH);
@@ -93,39 +88,37 @@ export default function NoticeRegist () {
     return (
         <div id='notice-regist-wrapper'>
             <div className='page-big-title' onClick={onListClickHanler}>NOTICE</div>
+            <div>
+                <div className='board-detail-page'>
+                    <div className='board-detail-top'>
+                        <div className='board-detail-title'>
+                            <div className='board-detail-top-name'>TITLE</div>
+                            <input className='board-detail-top-contents notice' placeholder='제목을 입력해주세요.' value={noticeTitle} onChange={onTitleChangeHandler} />
+                        </div>
+                    </div>
 
-            <div className='notice-regist-update-main'>
-                <div className='notice-regist-update-title'>
-                    <div className='notice-top-regist-update-name'>TITLE</div>
-                    <input className='notice-top-regist-update-input' placeholder='제목을 입력해주세요.' value={noticeTitle} onChange={onTitleChangeHandler} />
-                </div>
-
-                <div className='notice-regist-update-contents'>
-                    <textarea
+                    <QuillEditor
+                        className='quill-editor'
                         ref={contentsRef}
-                        className='notice-regist-update-contents-textarea'
-                        rows={10}
-                        placeholder='내용을 입력해주세요 / 1000자'
-                        maxLength={1000}
                         value={noticeContents}
                         onChange={onContentsChangeHandler}
                     />
+                    <div className='file-select'>
+                    파일첨부&nbsp;&nbsp;
+                        <input type='file' onChange={onFileChangeHandler} />
+                        { noticeImageUrl && (
+                            <div className='file-upload'>
+                                <img src={noticeImageUrl} alt='Preview' className='file-image' />
+                            </div>
+                        )}
+                    </div>
+                
+                    <div className='regist-update-bottom-button'>
+                        <div className='board-button' onClick={onPostButtonClickHandler}>OK</div>
+                        <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
+                    </div>
+                
                 </div>
-
-                <div className='file-select'>
-                    파일첨부
-                    <input type='file' onChange={onFileChangeHandler} />
-                    { noticeImageUrl && (
-                        <div className='file-upload'>
-                            <img src={noticeImageUrl} alt='Preview' className='file-image' />
-                        </div>
-                    )}
-                </div>
-            </div>
-            
-            <div className='regist-bottom-button'>
-                <div className='board-button' onClick={onPostButtonClickHandler}>OK</div>
-                <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
             </div>
         </div>
     )

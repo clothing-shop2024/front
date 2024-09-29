@@ -89,11 +89,6 @@ export default function QnaDetail() {
             alert(message);
             return;
         }
-
-        const previousPage = location.state?.previousPage;
-        // if (previousPage === 'MY_QNA_LIST') {
-        //     navigator()
-        // }
     };
 
     //                  event handler                   //
@@ -165,7 +160,7 @@ export default function QnaDetail() {
                             <div className='board-detail-top-contents'>{qnaDate}</div>
                         </div>
                     </div>
-                    <div className='board-detail-main'>
+                    <div className='board-detail-main qna'>
                         <div className='board-detail-contents' dangerouslySetInnerHTML={{ __html: qnaContents }}></div>
                         <div className='board-detail-image-url'>
                             {qnaImageUrl && <img src={qnaImageUrl} alt="Database Image" className="file-image" />}

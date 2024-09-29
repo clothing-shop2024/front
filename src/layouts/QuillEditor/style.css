@@ -1,0 +1,10 @@
+.quill-editor {
+    width: 840px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.ql-container {
+    min-height: 300px;
+}

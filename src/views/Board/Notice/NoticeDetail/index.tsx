@@ -120,38 +120,42 @@ export default function NoticeDetail () {
     return (
         <div>
             <div className='page-big-title' onClick={onListClickHandler}>NOTICE</div>
-            <div className='board-detail-top'>
-                <div className='board-detail-title'>
-                    <div className='board-detail-top-name'>TITLE</div>
-                    <div className='board-detail-top-contents'>{noticeTitle}</div>
-                </div>
-                <div className='board-detail-writer-id'>
-                    <div className='board-detail-top-name'>WRITER</div>
-                    <div className='board-detail-top-contents'>관리자</div>
-                </div>
-                <div className='board-detail-date'>
-                    <div className='board-detail-top-name'>DATE</div>
-                    <div className='board-detail-top-contents'>{noticeDate} </div>
-                </div>
-                <div className='notice-detail-view-count'>
-                    <div className='board-detail-top-name'>VIEWCOUNT</div>
-                    <div className='board-detail-top-contents'>{viewCount}</div>
-                </div>
-            </div>
-            <div className='board-detail-main'>
-                <div className='board-detail-contents'>{noticeContents}</div>
-                <div className='board-detail-image'>
-                    {noticeImageUrl && <img src={noticeImageUrl} alt="Database Image" className="file-image" />}
-                </div>
-            </div>
-            <div className='board-detail-bottom'>
-                <div className='board-button' onClick={ onListClickHandler }>LIST</div>
-                { loginUserRole === 'ROLE_ADMIN' &&
-                    <div className='board-detail-bottom-right'>
-                        <div className='board-button' onClick={ onUpdateClickHandler }>MODIFY</div>
-                        <div className='board-button' onClick={ onDeleteClickHandler }>DELETE</div>
+            <div>
+                <div className='board-detail-page'>
+                    <div className='board-detail-top'>
+                        <div className='board-detail-title'>
+                            <div className='board-detail-top-name'>TITLE</div>
+                            <div className='board-detail-top-contents'>{noticeTitle}</div>
+                        </div>
+                        <div className='board-detail-writer-id'>
+                            <div className='board-detail-top-name'>WRITER</div>
+                            <div className='board-detail-top-contents'>관리자</div>
+                        </div>
+                        <div className='board-detail-date'>
+                            <div className='board-detail-top-name'>DATE</div>
+                            <div className='board-detail-top-contents'>{noticeDate} </div>
+                        </div>
+                        <div className='notice-detail-view-count'>
+                            <div className='board-detail-top-name'>VIEWCOUNT</div>
+                            <div className='board-detail-top-contents'>{viewCount}</div>
+                        </div>
                     </div>
-                }
+                    <div className='board-detail-main'>
+                        <div className='board-detail-contents'>{noticeContents}</div>
+                        <div className='board-detail-image'>
+                            {noticeImageUrl && <img src={noticeImageUrl} alt="Database Image" className="file-image" />}
+                        </div>
+                    </div>
+                    <div className='board-detail-bottom'>
+                        <div className='board-button' onClick={ onListClickHandler }>LIST</div>
+                        { loginUserRole === 'ROLE_ADMIN' &&
+                            <div className='board-detail-bottom-right'>
+                                <div className='board-button' onClick={ onUpdateClickHandler }>MODIFY</div>
+                                <div className='board-button' onClick={ onDeleteClickHandler }>DELETE</div>
+                            </div>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     )

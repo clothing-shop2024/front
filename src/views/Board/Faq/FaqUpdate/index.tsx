@@ -21,6 +21,7 @@ export default function FaqUpdate() {
     const [faqQuestion, setFaqQuestion] = useState<string>('');
     const [faqAnswer, setFaqAnswer] = useState<string>('');
     const [faqCategory, setFaqCategory] = useState<string>('');
+    const [selectedCategory, setSelectedCategory] = useState<string>("");
 
     //                    function                    //
     const navigator = useNavigate();
@@ -36,7 +37,7 @@ export default function FaqUpdate() {
 
         if (!result || result.code !== 'SU') {
             alert(message);
-            // navigator(FAQ_LIST_ABSOLUTE_PATH);
+            navigator(FAQ_LIST_ABSOLUTE_PATH);
             return;
         }
 
@@ -74,7 +75,8 @@ export default function FaqUpdate() {
 
     //                event handler                    //
     const onQuestionChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setFaqQuestion(event.target.value);
+        const question = event.target.value;
+        setFaqQuestion(question);
     };
 
     const onAnswerChangeHandler = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -111,80 +113,81 @@ export default function FaqUpdate() {
 
     //                    effect                       //
     useEffect(() => {
-        if (!faqNumber || !cookies.accessToken) return;
-        if (loginUserRole !== 'ROLE_ADMIN') {
-            navigator(FAQ_LIST_ABSOLUTE_PATH);
-            return;
-        }
+        if (!faqNumber) return;
         getFaqDetailRequest(faqNumber).then(getFaqResponse);
-    }, [loginUserRole, faqNumber, cookies.accessToken, navigator]);
+    }, [faqNumber]);
 
     //                    render                       //
     return (
         <div id='faq-update-wrapper'>
             <div className='page-big-title' onClick={onListClickHanler}>FAQ</div>
+            <div>
+                <div className='board-detail-page'>
+                    <div className='board-detail-top'>
+                        <div className='board-detail-title'>
+                            <div className='board-detail-top-name'>QUESTION</div>
+                            <input className='board-detail-top-contents' value={faqQuestion} onChange={onQuestionChangeHandler} />
+                        </div>
 
-            <div className='faq-regist-update-main'>
-                <div className='faq-regist-update-top'>
-                    <div className='faq-regist-update-title'>
-                        <div className='faq-top-regist-update-name'>QUESTION</div>
-                        <input className='faq-top-regist-update-input' placeholder='제목을 입력해주세요.' value={faqQuestion} onChange={onQuestionChangeHandler} />
+                        <div className='board-detail-title'>
+                            <div className='board-detail-top-name'>CATEGORY</div>
+                            <div className='board-detail-top-contents regist'>
+                                <div className='faq-category-one-select'>
+                                    <label className={selectedCategory === "주문|배송" ? "selected" : ""}>
+                                        <input
+                                            type='radio'
+                                            name='category'
+                                            className='category_1'
+                                            value='주문|배송'
+                                            checked={faqCategory === '주문|배송'}
+                                            onChange={onCategoryChangeHandler} // 여기에서 핸들러 적용
+                                        /> 주문|배송
+                                    </label>
+                                </div>
+
+                                <div className='faq-category-one-select'>
+                                    <label className={selectedCategory === "교환|반품" ? "selected" : ""}>
+                                        <input
+                                            type='radio'
+                                            name='category'
+                                            className='category_2'
+                                            value='교환|반품'
+                                            checked={faqCategory === '교환|반품'}
+                                            onChange={onCategoryChangeHandler} // 여기에서 핸들러 적용
+                                        /> 교환|반품
+                                    </label>
+                                </div>
+
+                                <div className='faq-category-one-select'>
+                                    <label className={selectedCategory === "상품|기타" ? "selected" : ""}>
+                                        <input
+                                            type='radio'
+                                            name='category'
+                                            className='category_3'
+                                            value='상품|기타'
+                                            checked={faqCategory === '상품|기타'}
+                                            onChange={onCategoryChangeHandler} // 여기에서 핸들러 적용
+                                        /> 상품|기타
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div className='faq-category-select'>
-                        <div className='faq-regist-update-title'>CATEGORY</div>    
-                        <div className='faq-category-one-select'>
-                            <input
-                                type='radio'
-                                name='category'
-                                className='category_1'
-                                value='주문|배송'
-                                onChange={onCategoryChangeHandler} // 여기에서 핸들러 적용
-                            />
-                            <div>주문|배송</div>
-                        </div>
-
-                        <div className='faq-category-one-select'>
-                            <input
-                                type='radio'
-                                name='category'
-                                className='category_2'
-                                value='교환|반품'
-                                onChange={onCategoryChangeHandler} // 여기에서 핸들러 적용
-                            />
-                            <div>교환|반품</div>
-                        </div>
-
-                        <div className='faq-category-one-select'>
-                            <input
-                                type='radio'
-                                name='category'
-                                className='category_3'
-                                value='상품|기타'
-                                onChange={onCategoryChangeHandler} // 여기에서 핸들러 적용
-                            />
-                            <div>상품|기타</div>
-                        </div>
-                    </div>
-                    
-                </div>
-
-                <div className='faq-regist-update-contents'>
                     <textarea
                         ref={contentsRef}
                         className='faq-regist-update-contents-textarea'
                         rows={10}
-                        placeholder='내용을 입력해주세요 / 1000자'
                         maxLength={1000}
                         value={faqAnswer}
                         onChange={onAnswerChangeHandler}
                     />
                 </div>
-            </div>
-            
-            <div className='regist-bottom-button'>
-                <div className='board-button' onClick={onUpdateButtonClickHandler}>OK</div>
-                <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
+                
+                <div className='regist-update-bottom-button'>
+                    <div className='board-button' onClick={onUpdateButtonClickHandler}>OK</div>
+                    <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
+                </div>
             </div>
         </div>
     )

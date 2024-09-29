@@ -53,7 +53,8 @@
 }
 
 .faq-regist-update-contents-textarea {
-    border: none;
+    width: 800px;
+    min-height: 200px;
     outline: none;
     background: none;
     resize: none;
@@ -62,6 +63,6 @@
 
     font-size: 16px;
     line-height: 1.5;
-    border: 2px solid rgba(194, 194, 194, 0.6);
+    border: 1px solid rgba(194, 194, 194, 0.6);
     border-radius: 4px;
 }
