@@ -1,4 +1,14 @@
+.board-detail-top-contents.regist {
+    display: flex;
+    gap: 20px;
+    border: none;
+}
+
 .faq-category-select {
     margin-top: 10px;
     margin-bottom: 20px;
+}
+
+.selected {
+    font-weight: bold;
 }

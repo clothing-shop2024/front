@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { Cookies, useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router";
 import { getQnaDetailRequest, putQnaRequest } from "src/apis/board/qna";
 import { PutQnaRequestDto } from "src/apis/board/qna/dto/request";
@@ -7,7 +7,7 @@ import { GetQnaDetailResponseDto, GetQnaListResponseDto } from "src/apis/board/q
 import ResponseDto from "src/apis/response.dto";
 import { QNA_LIST_ABSOLUTE_PATH } from "src/constant";
 import QuillEditor, { QuillEditorRef } from "src/layouts/QuillEditor";
-import useUserStore from "src/stores/user.store";
+// import useUserStore from "src/stores/user.store";
 import './style.css';
 
 export default function QnaUpdate() {
@@ -15,13 +15,14 @@ export default function QnaUpdate() {
     //                      state                      //
     const [cookies] = useCookies();
     const contentsRef = useRef<QuillEditorRef | null>(null);
-    const { loginUserId, loginUserRole } = useUserStore();
+    // const { loginUserId, loginUserRole } = useUserStore();
     const { qnaNumber } = useParams();
     const [qnaWriterId, setQnaWriterId] = useState<string>('');
     const [qnaContents, setQnaContents] = useState<string>('');
     const [qnaCategory, setQnaCategory] = useState<string>('');
     const [qnaImageUrl, setQnaImageUrl] = useState<string>('');
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<string>("");
 
     //                    function                     //
     const navigator = useNavigate();
@@ -122,62 +123,75 @@ export default function QnaUpdate() {
     return (
         <div className='board-detail-page'>
             <div className='page-big-title' onClick={onListClickHanler}>Q&A</div>
-            <div className='qna-write-top'>
-                <div className='qna-write-title'>
-                    <div>TITLE</div>
-                    <div>{qnaCategory} 문의합니다.</div>
-                </div>
-                <div className='faq-category-select'>
-                    <div className='faq-regist-update-title'>CATEGORY</div>    
-                    <div className='faq-category-one-select'>
-                        <input
-                            type='radio'
-                            name='category'
-                            className='category_1'
-                            value='주문|배송'
-                            checked={qnaCategory === '주문|배송'}
-                            onChange={onCategoryChangeHandler}
-                        />
-                        <div>주문|배송</div>
-                    </div>
-
-                    <div className='faq-category-one-select'>
-                        <input
-                            type='radio'
-                            name='category'
-                            className='category_2'
-                            value='교환|반품'
-                            checked={qnaCategory === '교환|반품'}
-                            onChange={onCategoryChangeHandler}
-                        />
-                        <div>교환|반품</div>
-                    </div>
-
-                    <div className='faq-category-one-select'>
-                        <input
-                            type='radio'
-                            name='category'
-                            className='category_3'
-                            value='상품|기타'
-                            checked={qnaCategory === '상품|기타'}
-                            onChange={onCategoryChangeHandler}
-                        />
-                        <div>상품|기타</div>
-                    </div>
-                </div>
-            </div>
-            <QuillEditor 
-                ref={contentsRef} // 변경된 부분
-                value={qnaContents} 
-                onChange={onContentsChangeHandler} 
-                className='quill-editor'
-            />
-            <input type="file" onChange={onFileChangeHandler} className='file-select' />
             <div>
-            </div>
-            <div className='regist-bottom-button'>
-                <div className='board-button' onClick={onUpdateButtonClickHandler}>OK</div>
-                <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
+                <div className='board-detail-page'>
+                    <div className='board-detail-top'>
+                        <div className='board-detail-title'>
+                            <div className='board-detail-top-name'>TITLE</div>
+                            <div className='board-detail-top-contents' >{qnaCategory} 문의합니다.</div>
+                        </div>
+                        <div className='board-detail-title'>
+                            <div className='board-detail-top-name'>CATEGORY</div>    
+                            <div className='board-detail-top-contents regist'>
+                                <div className='faq-category-one-select'>
+                                    <label className={selectedCategory === "주문|배송" ? "selected" : ""}>
+                                        <input
+                                            type='radio'
+                                            name='category'
+                                            className='category_1'
+                                            value='주문|배송'
+                                            checked={qnaCategory === '주문|배송'}
+                                            onChange={onCategoryChangeHandler}
+                                        /> 주문|배송
+                                    </label>
+                                </div>
+                                <div className='faq-category-one-select'>
+                                    <label className={selectedCategory === "교환|반품" ? "selected" : ""}>
+                                        <input
+                                            type='radio'
+                                            name='category'
+                                            className='category_2'
+                                            value='교환|반품'
+                                            checked={qnaCategory === '교환|반품'}
+                                            onChange={onCategoryChangeHandler}
+                                        /> 교환|반품
+                                    </label>
+                                </div>
+                                <div className='faq-category-one-select'>
+                                    <label className={selectedCategory === "상품|기타" ? "selected" : ""}>
+                                        <input
+                                            type='radio'
+                                            name='category'
+                                            className='category_3'
+                                            value='상품|기타'
+                                            checked={qnaCategory === '상품|기타'}
+                                            onChange={onCategoryChangeHandler}
+                                        /> 상품|기타
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <QuillEditor 
+                        className='quill-editor'
+                        ref={contentsRef} // 변경된 부분
+                        value={qnaContents} 
+                        onChange={onContentsChangeHandler} 
+                    />
+                    <div className='file-select'>
+                        파일첨부&nbsp;&nbsp;
+                        <input type='file' onChange={onFileChangeHandler} />
+                        { qnaImageUrl && (
+                            <div className='file-upload'>
+                                <img src={qnaImageUrl} alt='Preview' className='file-image' />
+                            </div>
+                        )}
+                    </div>
+                    <div className='regist-update-bottom-button'>
+                        <div className='board-button' onClick={onUpdateButtonClickHandler}>OK</div>
+                        <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
+                    </div>
+                </div>
             </div>
         </div>
     )

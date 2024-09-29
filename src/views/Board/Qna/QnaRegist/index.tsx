@@ -23,6 +23,7 @@ export default function QnaRegist() {
     const [qnaWriterId, setQnaWriterId] = useState<string>('');
     const [qnaImageUrl, setQnaImageUrl] = useState<string>('');
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<string>("");
 
     //                    function                     //
     const navigator = useNavigate();
@@ -67,6 +68,7 @@ export default function QnaRegist() {
 
     const onCategoryChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setQnaCategory(event.target.value);
+        setSelectedCategory(event.target.value);
     };
 
     const onPostButtonClickHandler = async () => {
@@ -112,40 +114,38 @@ export default function QnaRegist() {
                             <div className='board-detail-top-name'>CATEGORY</div>
                             <div className='board-detail-top-contents regist'>
                                 <div className='faq-category-one-select'>
-                                    <label>
+                                    <label className={selectedCategory === "주문|배송" ? "selected" : ""}>
                                         <input
                                             type='radio'
                                             name='category'
                                             className='category_1'
                                             value='주문|배송'
                                             onChange={onCategoryChangeHandler}
-                                        />
-                                        <div>주문|배송</div>
+                                        /> 주문|배송
                                     </label>
                                 </div>
 
                                 <div className='faq-category-one-select'>
-                                    <label>
+                                    <label className={selectedCategory === "교환|반품" ? "selected" : ""}>
                                         <input
                                             type='radio'
                                             name='category'
                                             className='category_2'
                                             value='교환|반품'
                                             onChange={onCategoryChangeHandler}
-                                        />
-                                        <div>교환|반품</div>
+                                        /> 교환|반품
                                     </label>
                                 </div>
 
                                 <div className='faq-category-one-select'>
-                                    <label>
+                                    <label className={selectedCategory === "상품|기타" ? "selected" : ""}>
                                         <input
                                             type='radio'
                                             name='category'
                                             className='category_3'
                                             value='상품|기타'
                                             onChange={onCategoryChangeHandler}
-                                        />상품|기타
+                                        /> 상품|기타
                                     </label>
                                 </div>
                             </div>    
@@ -154,15 +154,22 @@ export default function QnaRegist() {
                     
                     {/* QuillEditor 컴포넌트 사용 */}
                     <QuillEditor 
-                        ref={contentsRef} // 변경된 부분
+                        className='quill-editor'
+                        ref={contentsRef}
                         value={qnaContents} 
                         onChange={onContentsChangeHandler} 
-                        className='quill-editor'
                     />
-                    <input type="file" onChange={onFileChangeHandler} className='file-select' />
-                    <div>
+                    <div className='file-select'>
+                    파일첨부&nbsp;&nbsp;
+                        <input type="file" onChange={onFileChangeHandler} className='file-select' />
+                        { qnaImageUrl && (
+                            <div className='file-upload'>
+                            <img src={qnaImageUrl} alt='Preview' className='file-image' />
+                            </div>
+                        )}
                     </div>
-                    <div className='regist-bottom-button'>
+
+                    <div className='regist-update-bottom-button'>
                         <div className='board-button' onClick={onPostButtonClickHandler}>OK</div>
                         <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
                     </div>

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate, useParams } from "react-router";
-import { deleteFaqRequest, getFaqListRequest } from "src/apis/board/faq";
+import { deleteFaqRequest, getFaqCategoryListRequest, getFaqListRequest } from "src/apis/board/faq";
 import { GetFaqListResponseDto } from "src/apis/board/faq/dto/response";
 import ResponseDto from "src/apis/response.dto";
-import { ADMIN_FAQ_REGIST_ABSOLUTE_PATH, ADMIN_FAQ_UPDATE_ABSOLUTE_PATH, COUNT_PER_PAGE,  FAQ_LIST_ABSOLUTE_PATH } from "src/constant";
+import { ADMIN_FAQ_REGIST_ABSOLUTE_PATH, ADMIN_FAQ_UPDATE_ABSOLUTE_PATH, COUNT_PER_PAGE,  FAQ_LIST_ABSOLUTE_PATH, MAIN_PATH } from "src/constant";
 import { usePagination } from "src/hooks";
 import useUserStore from "src/stores/user.store";
 import { FaqListItem } from "src/types";
@@ -64,11 +64,13 @@ export default function FaqList() {
     //                      state                      //
     const { loginUserRole } = useUserStore();
     const [cookies] = useCookies();
-    const { faqNumber } = useParams();
+    // const { faqNumber } = useParams();
     const [openFaqNumber, setOpenFaqNumber] = useState<number | null>(null);  // 현재 열려있는 FAQ 항목 번호
     const [selectedFaqNumber, setSelectedFaqNumber] = useState<number | null>(null); // 선택된 FAQ 항목 번호
-    const [filteredFaqList, setFilteredFaqList] = useState<FaqListItem[]>([]); // 필터링된 FAQ 리스트
-    const [category, setCategory] = useState<string>('전체'); // 선택된 카테고리
+    const [faqCategory, setFaqCategory] = useState<string>('');
+    const faqCategory1 = '주문|배송';
+    const faqCategory2 = '교환|반품';
+    const faqCategory3 = '상품|기타';
 
     const {
         viewList,
@@ -103,7 +105,28 @@ export default function FaqList() {
 
         setCurrentPage(!faqList.length ? 0 : 1);
         setCurrentSection(!faqList.length ? 0 : 1);
-        setFilteredFaqList(faqList); // 전체 목록으로 초기화
+    };
+
+    const getFaqCategoryListResponse = (result: GetFaqListResponseDto | ResponseDto | null) => {
+
+        const message =
+            !result ? '서버에 문제가 있습니다.' :
+            result.code === 'VF' ? '검색어를 입력하세요.' :
+            result.code === 'AF' ? '인증에 실패했습니다.' :
+            result.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
+
+        if (!result || result.code !== 'SU') {
+            alert(message);
+            if (result?.code === 'AF') navigator(MAIN_PATH);
+            return;
+        }
+
+        const { faqList } = result as GetFaqListResponseDto;
+        changeBoardList(faqList);
+
+        setCurrentPage(!faqList.length ? 0 : 1);
+        setCurrentSection(!faqList.length ? 0 : 1);
+
     };
 
     const deleteFaqDetailRequest = (result: ResponseDto | null) => {
@@ -118,6 +141,8 @@ export default function FaqList() {
             alert(message);
             return;
         }
+
+        // navigator(FAQ_LIST_ABSOLUTE_PATH);
     };
 
     //                event handler                    //
@@ -131,8 +156,25 @@ export default function FaqList() {
     };
 
     const onListClickHandler = () => {
-        window.location.reload();
+        setFaqCategory('');
         navigator(FAQ_LIST_ABSOLUTE_PATH);
+        getFaqListRequest().then(getFaqListResponse);
+    };
+
+    const onCategory1ClickHandler = () => {
+        setFaqCategory(faqCategory1);
+        getFaqCategoryListRequest(faqCategory1).then(getFaqCategoryListResponse);
+        navigator(FAQ_LIST_ABSOLUTE_PATH + `?category=${faqCategory1}`);
+    };
+    const onCategory2ClickHandler = () => {
+        setFaqCategory(faqCategory2);
+        getFaqCategoryListRequest(faqCategory2).then(getFaqCategoryListResponse);
+        navigator(FAQ_LIST_ABSOLUTE_PATH + `?category=${faqCategory2}`);
+    };
+    const onCategory3ClickHandler = () => {
+        setFaqCategory(faqCategory3);
+        getFaqCategoryListRequest(faqCategory3).then(getFaqCategoryListResponse);
+        navigator(FAQ_LIST_ABSOLUTE_PATH + `?category=${faqCategory3}`);
     };
 
     const onWriteButtonClickHandler = () => {
@@ -148,51 +190,39 @@ export default function FaqList() {
     };
 
     const onDeleteClickHandler = () => {
-        if (!faqNumber || loginUserRole !== 'ROLE_ADMIN') {
+        if (!selectedFaqNumber || loginUserRole !== 'ROLE_ADMIN') {
             alert("삭제할 리스트를 선택하세요.");
             return;
         }
     
-        const isConfirm = window.confirm('정말로 삭제하시겠습니까?');
+        const isConfirm = window.confirm('삭제하시겠습니까?');
         if (!isConfirm) return;
         
-        deleteFaqRequest(faqNumber, cookies.accessToken).then(deleteFaqDetailRequest);
-    };
-
-    const onCategoryClickHandler = (selectedCategory: string) => {
-        setCategory(selectedCategory);
-        if (selectedCategory === '전체') {
-            setFilteredFaqList(viewList);  // 전체 목록으로 필터링 해제
-        } else {
-            const filteredList = viewList.filter(item => item.faqCategory === selectedCategory);
-            setFilteredFaqList(filteredList);
-        }
-        setCurrentPage(1); // 페이지를 첫 페이지로 초기화
-        setCurrentSection(1); // 섹션을 첫 섹션으로 초기화
+        deleteFaqRequest(selectedFaqNumber, cookies.accessToken).then(deleteFaqDetailRequest);
     };
 
     //                    effect                       //
     useEffect(() => {
-        getFaqListRequest(cookies.accessToken).then(getFaqListResponse);
+        getFaqListRequest().then(getFaqListResponse);
     }, []);
 
     //                    render                       //
     return (
         <div>
             <div>
-                <div className='faq-title'>FAQ</div>
+                <div className='faq-title' onClick={onListClickHandler}>FAQ</div>
                 <div className='faq-page-big-title-explanation'>자주하는 질문 안내드립니다.</div>
             </div>
 
-            <div className='board-category'>
+            <div className='category-button'>
                 <div onClick={onListClickHandler}>전체</div>
-                <div onClick={() => onCategoryClickHandler('주문|배송')}>주문|배송</div>
-                <div onClick={() => onCategoryClickHandler('교환|반품')}>교환|반품</div>
-                <div onClick={() => onCategoryClickHandler('상품|기타')}>상품|기타</div>
+                <div onClick={onCategory1ClickHandler}>주문|배송</div>
+                <div onClick={onCategory2ClickHandler}>교환|반품</div>
+                <div onClick={onCategory3ClickHandler}>상품|기타</div>
             </div>
 
             <div className='list-table-top'>
-                <div className='list-table-total-board'>전체<span className='emphasis'> {filteredFaqList.length}건</span> | 페이지<span className='emphasis'> {currentPage} / {totalPage}</span>
+                <div className='list-table-total-board'>전체<span className='emphasis'> {totalLength}건</span> | 페이지<span className='emphasis'> {currentPage} / {totalPage}</span>
                 </div>
 
                 <div className='list-table-top-right'>
@@ -214,18 +244,16 @@ export default function FaqList() {
                     <div className='faq-list-table-category'>CATEGORY</div>
                     <div className='faq-list-table-date'>DATE</div>
                 </div>
-                {filteredFaqList.slice((currentPage - 1) * COUNT_PER_PAGE, currentPage * COUNT_PER_PAGE).map((item, index) => (
-                    <ListItem 
-                        {...item} 
-                        index={(currentPage - 1) * COUNT_PER_PAGE + index + 1} 
-                        key={item.faqNumber} 
-                        isOpen={openFaqNumber === item.faqNumber}
-                        isChecked={selectedFaqNumber === item.faqNumber}
-                        onClick={() => onItemClickHandler(item.faqNumber)}
-                        onCheckboxChange={onCheckboxChangeHandler}
-                        showCheckbox={loginUserRole === 'ROLE_ADMIN'}
-                    />
-                ))}
+                {viewList.map((item, index) => <ListItem 
+                    {...item} 
+                    index={totalLength - (currentPage - 1) * COUNT_PER_PAGE - (index)} 
+                    key={item.faqNumber} 
+                    isOpen={openFaqNumber === item.faqNumber}
+                    isChecked={selectedFaqNumber === item.faqNumber}
+                    onClick={() => onItemClickHandler(item.faqNumber)}
+                    onCheckboxChange={onCheckboxChangeHandler}
+                    showCheckbox={loginUserRole === 'ROLE_ADMIN'}
+                />)}
             </div>
 
             <div className='list-table-pagenation'>

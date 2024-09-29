@@ -61,7 +61,6 @@ export const QNA_LIST_PATH = 'list';
 export const QNA_DETAIL_PATH = ':qnaNumber';
 // export const QNA_REGIST_PATH = 'regist';
 export const QNA_UPDATE_PATH = 'update/:qnaNumber';
-export const QNA_DELETE_PATH = 'delete/:qnaNumber'
 
 // description : 자주하는 질문 페이지 URL
 export const FAQ_PATH = 'faq';
@@ -93,7 +92,6 @@ export const ADMIN_ORDER_PATH = 'order';
 export const ADMIN_BOARD_NOTICE_PATH = 'notice';
 // export const ADMIN_NOTICE_REGIST_PATH = 'regist';
 export const ADMIN_NOTICE_UPDATE_PATH = 'update/:noticeNumber';
-// export const ADMIN_NOTICE_DELETE_PATH = 'delete';
 
 // description : 관리자 - 문의사항 답변
 export const ADMIN_QNA_COMMENT_PATH = 'comment';
@@ -102,7 +100,6 @@ export const ADMIN_QNA_COMMENT_PATH = 'comment';
 export const ADMIN_FAQ_PATH = 'faq';
 // export const ADMIN_FAQ_REGIST_PATH = 'regist';
 export const ADMIN_FAQ_UPDATE_PATH = 'update/:faqNumber';
-// export const ADMIN_FAQ_DELETE_PATH = 'delete/:faqNumber';
 
 // description: Navigation 절대 URL PATH 
 export const MAIN_ABSOLUTE_PATH = MAIN_PATH;
@@ -130,7 +127,6 @@ export const QNA_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${QNA_PATH}/${QNA_LIST_PATH}
 export const QNA_DETAIL_ABSOLUTE_PATH = (qnaNumber : number | string) => `${MAIN_PATH}/${QNA_PATH}/${qnaNumber}`;
 export const QNA_REGIST_ABSOLUTE_PATH = `${MAIN_PATH}/${QNA_PATH}/${REGIST_PATH}`;
 export const QNA_UPDATE_ABSOLUTE_PATH = (qnaNumber : number | string) => `${MAIN_PATH}/${QNA_PATH}/update/${qnaNumber}`;
-export const QNA_DELETE_ABSOLUTE_PATH = (qnaNumber : number | string) => `${MAIN_PATH}/${QNA_PATH}/${QNA_DELETE_PATH}/${qnaNumber}`;
 
 // description: 자주하는 질문 절대 URL PATH 
 export const FAQ_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${FAQ_PATH}/list`;
@@ -202,6 +198,7 @@ export const DELETE_QNA_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODU
 // description : 자주하는 질문 모듈 내의 기능 URL
 export const SERVER_FAQ_MODULE_URL = `${SERVER_API_URL}/faq`;
 export const GET_FAQ_LIST_URL = `${SERVER_FAQ_MODULE_URL}/list`;
+export const GET_FAQ_CATEGORY_LIST_URL = (faqCategory: string) => `${GET_FAQ_LIST_URL}/category/${faqCategory}`;
 export const GET_FAQ_DETAIL_URL = (faqNumber: number | string) => `${GET_FAQ_LIST_URL}/${faqNumber}`;
 export const POST_FAQ_URL = `${SERVER_FAQ_MODULE_URL}/regist`;
 export const PUT_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODULE_URL}/${faqNumber}/modify`;
