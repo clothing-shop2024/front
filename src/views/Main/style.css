@@ -34,7 +34,7 @@ h {
     background-size: cover;
 
     position: relative;
-    z-index: 1; 
+
 }
 
 @media (max-width: 1500px) {
