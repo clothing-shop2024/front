@@ -209,5 +209,8 @@ export const COUNT_PER_PAGE = 10;
 export const COUNT_PER_SECTION = 10;
 export const COUNT_RESERVATION_PAGE = 6;
 
+export const ITEM_PER_PAGE1 = 8;
+export const ITEM_PER_PAGE2 = 5;
+
 // description : IMAGE
 export const IMAGE_URL = `${SERVER_DOMAIN_URL}/upload`;
