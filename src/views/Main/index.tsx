@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { Outlet, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import ResponseDto from "src/apis/response.dto";
 import { getSignInUserRequest } from "src/apis/user";
 import { GetMyInfoResponseDto, GetSignInUserResponseDto } from "src/apis/user/dto/response";
@@ -81,28 +81,21 @@ export default function Main() {
 
   // render //
   return (
-    <div id="main-wrapper">
-      <div className="main-container">
-        <Outlet />
-      </div>
-      <div className='main-container'>
-        <div className='main-banner' >
-          <div className='main-show'>
-            {
-              trainCompartment.map((index) => (
-                <div
-                  className='compartment'
-                  key={index}
-                  style={{
-                    transform: `translateX(${-100 * curSlide}%)`,
-                    transition: 'all 0.4s ease-in-out', 
-            }}
-                >
-                </div>
-              ))
-            }
-          </div>
-        </div>
+    <div className='main-banner' >
+      <div className='main-show'>
+        {
+          trainCompartment.map((index) => (
+            <div
+              className='compartment'
+              key={index}
+              style={{
+                transform: `translateX(${-100 * curSlide}%)`,
+                transition: 'all 0.4s ease-in-out',
+        }}
+            >
+            </div>
+          ))
+        }
       </div>
     </div>
   );
