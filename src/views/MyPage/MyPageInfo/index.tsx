@@ -20,6 +20,7 @@ export default function MyPageInfo() {
   const [nickname, setNickname] = useState<string>('');
   const [grade, setGrade] = useState<'VVIP' | 'VIP' | 'Red' | 'Orange' | 'Yellow' | 'White'>('White'); // 등급 상태 추가
   const [points, setPoints] = useState<number>(0); // 포인트 상태 추가
+  const [profileImage, setProfileImage] = useState<string>('');
 
   // function //
   const navigator = useNavigate();
