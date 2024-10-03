@@ -157,8 +157,9 @@ export default function QnaList() {
     const onListClickHandler = () => {
         setSearchWord('');
         setQnaCategory('');
-        navigator(QNA_LIST_ABSOLUTE_PATH);
         getQnaListRequest().then(getQnaListResponse);
+        navigator(QNA_LIST_ABSOLUTE_PATH);
+        setToggleOn(false);
     }
 
     // qnaCategory 필터
@@ -217,7 +218,7 @@ export default function QnaList() {
     //                    effect                       //
     useEffect(() => {
         getQnaListRequest().then(getQnaListResponse);
-    }, []);
+    }, [isToggleOn]);
 
 
     //                  render                  //
@@ -225,8 +226,11 @@ export default function QnaList() {
     const searchButtonClass = searchWord ? 'primary-button' : 'disable-button';
 
     return (
-        <>
-            <div className='page-big-title' onClick={onListClickHandler}>Q&A</div>
+        <div>
+            <div className='page-title-outside'>
+                <div className='page-big-title' onClick={onListClickHandler}>Q&A</div>
+            </div>
+            
             <div className='category-button'>
                 <div onClick={onListClickHandler}>전체</div>
                 <div onClick={onCategory1ClickHandler}>주문|배송</div>
@@ -277,6 +281,6 @@ export default function QnaList() {
                 </div>
                 <div className='list-table-page-right' onClick={onNextSectionClickHandler}></div>
             </div>
-        </>
+        </div>
     )
 }

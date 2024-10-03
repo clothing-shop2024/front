@@ -59,7 +59,7 @@ export default function FaqRegist() {
         setFaqCategory(event.target.value);
     };
 
-    const onListClickHanler = () => navigator(FAQ_LIST_ABSOLUTE_PATH);
+    const onListClickHandler = () => navigator(FAQ_LIST_ABSOLUTE_PATH);
 
     const onPostButtonClickHandler = async () => {
         if (!faqQuestion.trim() || !faqAnswer.trim()) {
@@ -82,21 +82,23 @@ export default function FaqRegist() {
 
     //                    Render                       //
     return (
-        <div id='faq-regist-wrapper'>
-            <div className='page-big-title' onClick={onListClickHanler}>FAQ</div>
+        <div>
+            <div className='page-title-outside'>
+                <div className='page-big-title' onClick={onListClickHandler}>FAQ</div>
+            </div>
 
             <div>
-                <div className='board-detail-page'>
-                    <div className='board-detail-top'>
-                        <div className='board-detail-title'>
-                            <div className='board-detail-top-name'>QUESTION</div>
-                            <input className='board-detail-top-contents' placeholder='제목을 입력해주세요.' value={faqQuestion} onChange={onQuestionChangeHandler} />
+                <div className='board-page-detail'>
+                    <div className='board-top'>
+                        <div className='board-top-title'>
+                            <div className='board-top-name'>QUESTION</div>
+                            <input className='board-top-contents' placeholder='제목을 입력해주세요.' value={faqQuestion} onChange={onQuestionChangeHandler} />
                         </div>
 
-                        <div className='qna-detail-category'>
-                            <div className='board-detail-top-name'>CATEGORY</div>
-                            <div className='board-detail-top-contents regist'>
-                                <div className='faq-category-one-select'>
+                        <div className='board-top-category'>
+                            <div className='board-top-name'>CATEGORY</div>
+                            <div className='board-top-contents regist'>
+                                <div className='board-category-one-select'>
                                     <input
                                         type='radio'
                                         name='category'
@@ -107,7 +109,7 @@ export default function FaqRegist() {
                                     <div>주문|배송</div>
                                 </div>
 
-                                <div className='faq-category-one-select'>
+                                <div className='board-category-one-select'>
                                     <input
                                         type='radio'
                                         name='category'
@@ -118,7 +120,7 @@ export default function FaqRegist() {
                                     <div>교환|반품</div>
                                 </div>
 
-                                <div className='faq-category-one-select'>
+                                <div className='board-category-one-select'>
                                     <input
                                         type='radio'
                                         name='category'
@@ -134,7 +136,7 @@ export default function FaqRegist() {
                     </div>
                     <textarea
                         ref={contentsRef}
-                        className='faq-regist-update-contents-textarea'
+                        className='faq-contents-textarea'
                         rows={10}
                         placeholder='내용을 입력해주세요 / 1000자'
                         maxLength={1000}
@@ -143,9 +145,9 @@ export default function FaqRegist() {
                     />
                 </div>
             
-                <div className='regist-update-bottom-button'>
+                <div className='board-regist-update-button'>
                     <div className='board-button' onClick={onPostButtonClickHandler}>OK</div>
-                    <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
+                    <div className='board-button' onClick={onListClickHandler}>CANCEL</div>
                 </div>
             </div>
         </div>

@@ -10,7 +10,12 @@
     line-height: 25px;
 }
 
-.faq-page-big-title-explanation {
+.faq-title:hover {
+    cursor: pointer;
+    opacity: 0.85;
+}
+
+.faq-title-explanation {
     display: flex;
     justify-content: center;
     align-items: center;

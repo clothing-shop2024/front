@@ -123,6 +123,13 @@ export default function NoticeUpdate() {
     };
 
     const onListClickHanler = () => navigator(NOTICE_LIST_ABSOLUTE_PATH);
+    const onDetailClickHandler = () => {
+        if (!noticeNumber) {
+            console.error('noticeNumber is undefined');
+            return;
+        }
+        navigator(NOTICE_DETAIL_ABSOLUTE_PATH(noticeNumber));
+    }
 
     //                    effect                       //
     useEffect(() => {
@@ -136,15 +143,17 @@ export default function NoticeUpdate() {
 
     //                    render                       //
     return (
-        <div id='notice-update-wrapper'>
-            <div className='page-big-title' onClick={onListClickHanler}>NOTICE</div>
+        <div>
+            <div className='page-title-outside'>
+                <div className='page-big-title' onClick={onListClickHanler}>NOTICE</div>
+            </div>
 
             <div>
-                <div className='board-detail-page'>
-                    <div className='board-detail-top'>
-                        <div className='board-detail-title'>
-                            <div className='board-detail-top-name'>TITLE</div>
-                            <input className='board-detail-top-contents notice' value={noticeTitle} onChange={onTitleChangeHandler} />
+                <div className='board-page-detail'>
+                    <div className='board-top'>
+                        <div className='board-top-title'>
+                            <div className='board-top-name'>TITLE</div>
+                            <input className='board-top-contents notice' value={noticeTitle} onChange={onTitleChangeHandler} />
                         </div>
                     </div>
 
@@ -165,9 +174,9 @@ export default function NoticeUpdate() {
                     </div>
                 </div>
                 
-                <div className='regist-update-bottom-button'>
+                <div className='board-regist-update-button'>
                     <div className='board-button' onClick={onUpdateButtonClickHandler}>OK</div>
-                    <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
+                    <div className='board-button' onClick={onDetailClickHandler}>CANCEL</div>
                 </div>
             </div>
         </div>

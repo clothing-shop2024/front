@@ -101,19 +101,22 @@ export default function QnaRegist() {
 
     //                      render                      //
     return (
-        <div id='qna-write-wrapper'>
-            <div className='page-big-title' onClick={onListClickHanler}>Q&A</div>
+        <div>
+            <div className='page-title-outside'>
+                <div className='page-big-title' onClick={onListClickHanler}>Q&A</div>
+            </div>
+            
             <div>
-                <div className='board-detail-page'>
-                    <div className='board-detail-top'>
-                        <div className='board-detail-title'>
-                            <div className='board-detail-top-name'>TITLE</div>
-                            <div className='board-detail-top-contents'>{qnaCategory} 문의합니다.</div>
+                <div className='board-page-detail'>
+                    <div className='board-top'>
+                        <div className='board-top-title'>
+                            <div className='board-top-name'>TITLE</div>
+                            <div className='board-top-contents'>{qnaCategory} 문의합니다.</div>
                         </div>
-                        <div className='board-detail-title'>
-                            <div className='board-detail-top-name'>CATEGORY</div>
-                            <div className='board-detail-top-contents regist'>
-                                <div className='faq-category-one-select'>
+                        <div className='board-top-title'>
+                            <div className='board-top-name'>CATEGORY</div>
+                            <div className='board-top-contents regist'>
+                                <div className='board-category-one-select'>
                                     <label className={selectedCategory === "주문|배송" ? "selected" : ""}>
                                         <input
                                             type='radio'
@@ -125,7 +128,7 @@ export default function QnaRegist() {
                                     </label>
                                 </div>
 
-                                <div className='faq-category-one-select'>
+                                <div className='board-category-one-select'>
                                     <label className={selectedCategory === "교환|반품" ? "selected" : ""}>
                                         <input
                                             type='radio'
@@ -137,7 +140,7 @@ export default function QnaRegist() {
                                     </label>
                                 </div>
 
-                                <div className='faq-category-one-select'>
+                                <div className='board-category-one-select'>
                                     <label className={selectedCategory === "상품|기타" ? "selected" : ""}>
                                         <input
                                             type='radio'
@@ -169,7 +172,7 @@ export default function QnaRegist() {
                         )}
                     </div>
 
-                    <div className='regist-update-bottom-button'>
+                    <div className='board-regist-update-button'>
                         <div className='board-button' onClick={onPostButtonClickHandler}>OK</div>
                         <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
                     </div>
