@@ -119,20 +119,23 @@ export default function FaqUpdate() {
 
     //                    render                       //
     return (
-        <div id='faq-update-wrapper'>
-            <div className='page-big-title' onClick={onListClickHanler}>FAQ</div>
+        <div>
+            <div className='page-title-outside'>
+                <div className='page-big-title' onClick={onListClickHanler}>FAQ</div>
+            </div>
+            
             <div>
-                <div className='board-detail-page'>
-                    <div className='board-detail-top'>
-                        <div className='board-detail-title'>
-                            <div className='board-detail-top-name'>QUESTION</div>
-                            <input className='board-detail-top-contents' value={faqQuestion} onChange={onQuestionChangeHandler} />
+                <div className='board-page-detail'>
+                    <div className='board-top'>
+                        <div className='board-top-title'>
+                            <div className='board-top-name'>QUESTION</div>
+                            <input className='board-top-contents' value={faqQuestion} onChange={onQuestionChangeHandler} />
                         </div>
 
-                        <div className='board-detail-title'>
-                            <div className='board-detail-top-name'>CATEGORY</div>
-                            <div className='board-detail-top-contents regist'>
-                                <div className='faq-category-one-select'>
+                        <div className='board-top-title'>
+                            <div className='board-top-name'>CATEGORY</div>
+                            <div className='board-top-contents regist'>
+                                <div className='board-category-one-select'>
                                     <label className={selectedCategory === "주문|배송" ? "selected" : ""}>
                                         <input
                                             type='radio'
@@ -145,7 +148,7 @@ export default function FaqUpdate() {
                                     </label>
                                 </div>
 
-                                <div className='faq-category-one-select'>
+                                <div className='board-category-one-select'>
                                     <label className={selectedCategory === "교환|반품" ? "selected" : ""}>
                                         <input
                                             type='radio'
@@ -158,7 +161,7 @@ export default function FaqUpdate() {
                                     </label>
                                 </div>
 
-                                <div className='faq-category-one-select'>
+                                <div className='board-category-one-select'>
                                     <label className={selectedCategory === "상품|기타" ? "selected" : ""}>
                                         <input
                                             type='radio'
@@ -176,7 +179,7 @@ export default function FaqUpdate() {
 
                     <textarea
                         ref={contentsRef}
-                        className='faq-regist-update-contents-textarea'
+                        className='faq-contents-textarea'
                         rows={10}
                         maxLength={1000}
                         value={faqAnswer}
@@ -184,7 +187,7 @@ export default function FaqUpdate() {
                     />
                 </div>
                 
-                <div className='regist-update-bottom-button'>
+                <div className='board-regist-update-button'>
                     <div className='board-button' onClick={onUpdateButtonClickHandler}>OK</div>
                     <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
                 </div>

@@ -86,14 +86,17 @@ export default function NoticeRegist () {
 
     //                    render                       //
     return (
-        <div id='notice-regist-wrapper'>
-            <div className='page-big-title' onClick={onListClickHanler}>NOTICE</div>
+        <div>
+            <div className='page-title-outside'>
+                <div className='page-big-title' onClick={onListClickHanler}>NOTICE</div>
+            </div>
+            
             <div>
-                <div className='board-detail-page'>
-                    <div className='board-detail-top'>
-                        <div className='board-detail-title'>
-                            <div className='board-detail-top-name'>TITLE</div>
-                            <input className='board-detail-top-contents notice' placeholder='제목을 입력해주세요.' value={noticeTitle} onChange={onTitleChangeHandler} />
+                <div className='board-page-detail'>
+                    <div className='board-top'>
+                        <div className='board-top-title'>
+                            <div className='board-top-name'>TITLE</div>
+                            <input className='board-top-contents notice' placeholder='제목을 입력해주세요.' value={noticeTitle} onChange={onTitleChangeHandler} />
                         </div>
                     </div>
 
@@ -113,7 +116,7 @@ export default function NoticeRegist () {
                         )}
                     </div>
                 
-                    <div className='regist-update-bottom-button'>
+                    <div className='board-regist-update-button'>
                         <div className='board-button' onClick={onPostButtonClickHandler}>OK</div>
                         <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
                     </div>

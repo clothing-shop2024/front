@@ -93,8 +93,10 @@ export default function NoticeList() {
 
     //                    render                       //
      return (
-        <>
-            <div className='page-big-title'>NOTICE</div>
+        <div>
+            <div className='page-title-outside'>
+                <div className='page-big-title'>NOTICE</div>
+            </div>
 
             <div className='list-table-top'>
                 <div className='list-table-total-board'>전체<span className='emphasis'> {totalLength}건</span> | 페이지<span className='emphasis'> {currentPage} / {totalPage}</span>
@@ -129,6 +131,6 @@ export default function NoticeList() {
                 </div>
                 <div className='list-table-page-right' onClick={onNextSectionClickHandler}></div>
             </div>
-        </>
+        </div>
     )
 }

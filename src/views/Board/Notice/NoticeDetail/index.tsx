@@ -119,25 +119,27 @@ export default function NoticeDetail () {
     //                  render                  //
     return (
         <div>
-            <div className='page-big-title' onClick={onListClickHandler}>NOTICE</div>
+            <div className='page-title-outside'>
+                <div className='page-big-title' onClick={onListClickHandler}>Notice</div>
+            </div>
             <div>
-                <div className='board-detail-page'>
-                    <div className='board-detail-top'>
-                        <div className='board-detail-title'>
-                            <div className='board-detail-top-name'>TITLE</div>
-                            <div className='board-detail-top-contents'>{noticeTitle}</div>
+                <div className='board-page-detail'>
+                    <div className='board-top'>
+                        <div className='board-top-title'>
+                            <div className='board-top-name'>TITLE</div>
+                            <div className='board-top-contents'>{noticeTitle}</div>
                         </div>
                         <div className='board-detail-writer-id'>
-                            <div className='board-detail-top-name'>WRITER</div>
-                            <div className='board-detail-top-contents'>관리자</div>
+                            <div className='board-top-name'>WRITER</div>
+                            <div className='board-top-contents'>관리자</div>
                         </div>
                         <div className='board-detail-date'>
-                            <div className='board-detail-top-name'>DATE</div>
-                            <div className='board-detail-top-contents'>{noticeDate} </div>
+                            <div className='board-top-name'>DATE</div>
+                            <div className='board-top-contents'>{noticeDate} </div>
                         </div>
                         <div className='notice-detail-view-count'>
-                            <div className='board-detail-top-name'>VIEWCOUNT</div>
-                            <div className='board-detail-top-contents'>{viewCount}</div>
+                            <div className='board-top-name'>VIEWCOUNT</div>
+                            <div className='board-top-contents'>{viewCount}</div>
                         </div>
                     </div>
                     <div className='board-detail-main'>

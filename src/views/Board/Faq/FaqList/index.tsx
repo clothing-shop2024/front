@@ -211,7 +211,7 @@ export default function FaqList() {
         <div>
             <div>
                 <div className='faq-title' onClick={onListClickHandler}>FAQ</div>
-                <div className='faq-page-big-title-explanation'>자주하는 질문 안내드립니다.</div>
+                <div className='faq-title-explanation'>자주하는 질문 안내드립니다.</div>
             </div>
 
             <div className='category-button'>

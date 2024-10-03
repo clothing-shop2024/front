@@ -5,7 +5,7 @@ import { getQnaDetailRequest, putQnaRequest } from "src/apis/board/qna";
 import { PutQnaRequestDto } from "src/apis/board/qna/dto/request";
 import { GetQnaDetailResponseDto, GetQnaListResponseDto } from "src/apis/board/qna/dto/response";
 import ResponseDto from "src/apis/response.dto";
-import { QNA_LIST_ABSOLUTE_PATH } from "src/constant";
+import { QNA_DETAIL_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH } from "src/constant";
 import QuillEditor, { QuillEditorRef } from "src/layouts/QuillEditor";
 // import useUserStore from "src/stores/user.store";
 import './style.css';
@@ -112,6 +112,13 @@ export default function QnaUpdate() {
     };
 
     const onListClickHanler = () => navigator(QNA_LIST_ABSOLUTE_PATH);
+    const onDetailClickHandler = () => {
+        if (!qnaNumber) {
+            console.error('noticeNumber is undefined');
+            return;
+        }
+        navigator(QNA_DETAIL_ABSOLUTE_PATH(qnaNumber));
+    }
 
     //                    effect                       //
     useEffect(() => {
@@ -121,19 +128,22 @@ export default function QnaUpdate() {
 
     //                      render                      //
     return (
-        <div className='board-detail-page'>
-            <div className='page-big-title' onClick={onListClickHanler}>Q&A</div>
+        <div>
+            <div className='page-title-outside'>
+                <div className='page-big-title' onClick={onListClickHanler}>Q&A</div>
+            </div>
+            
             <div>
-                <div className='board-detail-page'>
-                    <div className='board-detail-top'>
-                        <div className='board-detail-title'>
-                            <div className='board-detail-top-name'>TITLE</div>
-                            <div className='board-detail-top-contents' >{qnaCategory} 문의합니다.</div>
+                <div className='board-page-detail'>
+                    <div className='board-top'>
+                        <div className='board-top-title'>
+                            <div className='board-top-name'>TITLE</div>
+                            <div className='board-top-contents' >{qnaCategory} 문의합니다.</div>
                         </div>
-                        <div className='board-detail-title'>
-                            <div className='board-detail-top-name'>CATEGORY</div>    
-                            <div className='board-detail-top-contents regist'>
-                                <div className='faq-category-one-select'>
+                        <div className='board-top-title'>
+                            <div className='board-top-name'>CATEGORY</div>    
+                            <div className='board-top-contents regist'>
+                                <div className='board-category-one-select'>
                                     <label className={selectedCategory === "주문|배송" ? "selected" : ""}>
                                         <input
                                             type='radio'
@@ -145,7 +155,7 @@ export default function QnaUpdate() {
                                         /> 주문|배송
                                     </label>
                                 </div>
-                                <div className='faq-category-one-select'>
+                                <div className='board-category-one-select'>
                                     <label className={selectedCategory === "교환|반품" ? "selected" : ""}>
                                         <input
                                             type='radio'
@@ -157,7 +167,7 @@ export default function QnaUpdate() {
                                         /> 교환|반품
                                     </label>
                                 </div>
-                                <div className='faq-category-one-select'>
+                                <div className='board-category-one-select'>
                                     <label className={selectedCategory === "상품|기타" ? "selected" : ""}>
                                         <input
                                             type='radio'
@@ -187,9 +197,9 @@ export default function QnaUpdate() {
                             </div>
                         )}
                     </div>
-                    <div className='regist-update-bottom-button'>
+                    <div className='board-regist-update-button'>
                         <div className='board-button' onClick={onUpdateButtonClickHandler}>OK</div>
-                        <div className='board-button' onClick={onListClickHanler}>CANCEL</div>
+                        <div className='board-button' onClick={onDetailClickHandler}>CANCEL</div>
                     </div>
                 </div>
             </div>

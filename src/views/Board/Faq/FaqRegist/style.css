@@ -39,7 +39,7 @@
     gap: 20px;
 }
 
-.faq-category-one-select {
+.board-category-one-select {
     display: flex;
     align-items: center;
 
@@ -52,7 +52,7 @@
     flex-direction: column;
 }
 
-.faq-regist-update-contents-textarea {
+.faq-contents-textarea {
     width: 800px;
     min-height: 200px;
     outline: none;

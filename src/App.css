@@ -158,7 +158,7 @@
 }
 
 /* 각 페이지 큰 title CSS */
-.page-big-title {
+.page-title-outside {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -167,9 +167,6 @@
 
     font-size: 30px;
     font-weight: bold;
-    font-weight: 400px;
-    line-height: 25px;
-
 }
 
 .page-big-title:hover {
@@ -351,7 +348,7 @@
     color: rgba(64, 64, 64, 1);
 }
 
-.board-detail-page {
+.board-page-detail {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -359,7 +356,7 @@
 }
 
 /* notice, qna detail top */
-.board-detail-top {
+.board-top {
     display: table;
     border-collapse: collapse;
     margin: 0px 400px;
@@ -369,7 +366,7 @@
     font-size: 18px;
 }
 
-.board-detail-top-name {
+.board-top-name {
     width: 200px;
     height: 40px;
 
@@ -382,7 +379,7 @@
     background-color: rgb(238, 232, 232);
 }
 
-.board-detail-top-contents {
+.board-top-contents {
     width: 600px;
     height: 40px;
 
@@ -392,7 +389,7 @@
     border: 1px solid #ccc;
 }
 
-.board-detail-title, .board-detail-writer-id, .board-detail-date, .notice-detail-view-count, .qna-detail-category {
+.board-top-title, .board-detail-writer-id, .board-detail-date, .notice-detail-view-count, .board-top-category {
     display: table-row;
     border: 1px solid #ccc;
 }
@@ -471,7 +468,7 @@
     border: none;
 }
 
-.regist-update-bottom-button {
+.board-regist-update-button {
     display: flex;
     justify-content: center;
     gap: 20px;

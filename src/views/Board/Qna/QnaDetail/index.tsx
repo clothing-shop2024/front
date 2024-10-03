@@ -120,11 +120,13 @@ export default function QnaDetail() {
     };
 
     const onDeleteClickHanler = () => {
-        if (!qnaNumber || loginUserId !== qnaWriterId || !cookies.accessToken) return;
+        if (!qnaNumber || (loginUserId !== qnaWriterId && loginUserRole !== 'ROLE_ADMIN') || !cookies.accessToken) return;
         const isConfirm = window.confirm('삭제하시겠습니다?');
         if (!isConfirm) return;
 
         deleteQnaRequest(qnaNumber, cookies.accessToken).then(deleteQnaDetailRequest);
+        
+        navigator(QNA_LIST_ABSOLUTE_PATH);
     };
 
     const onListClickHandler = () => navigator(QNA_LIST_ABSOLUTE_PATH);
@@ -138,26 +140,29 @@ export default function QnaDetail() {
     //                      render                      //
     const modifyButtonClass = qnaComment ? 'board-primary-button' : 'board-disable-button';
     return (
-        <div id='qna-detail-wrapper'>
-            <div className='page-big-title' onClick={onListClickHandler}>Q&A</div>
+        <div>
+            <div className='page-title-outside'>
+                <div className='page-big-title' onClick={onListClickHandler}>Q&A</div>
+            </div>
+            
             <div>
-                <div className='board-detail-page'>
-                    <div className='board-detail-top'>
-                        <div className='board-detail-title'>
-                            <div className='board-detail-top-name'>TITLE</div>
-                            <div className='board-detail-top-contents'>{qnaCategory} 문의합니다.</div>
+                <div className='board-page-detail'>
+                    <div className='board-top'>
+                        <div className='board-top-title'>
+                            <div className='board-top-name'>TITLE</div>
+                            <div className='board-top-contents'>{qnaCategory} 문의합니다.</div>
                         </div>
                         <div className='board-detail-writer-id'>
-                            <div className='board-detail-top-name'>WRITER</div>
-                            <div className='board-detail-top-contents'>{qnaWriterId}</div>
+                            <div className='board-top-name'>WRITER</div>
+                            <div className='board-top-contents'>{qnaWriterId}</div>
                         </div>
-                        <div className='qna-detail-category'>
-                            <div className='board-detail-top-name'>CATEGORY</div>
-                            <div className='board-detail-top-contents'>{qnaCategory}</div>
+                        <div className='board-top-category'>
+                            <div className='board-top-name'>CATEGORY</div>
+                            <div className='board-top-contents'>{qnaCategory}</div>
                         </div>
                         <div className='board-detail-date'>
-                            <div className='board-detail-top-name'>DATE</div>
-                            <div className='board-detail-top-contents'>{qnaDate}</div>
+                            <div className='board-top-name'>DATE</div>
+                            <div className='board-top-contents'>{qnaDate}</div>
                         </div>
                     </div>
                     <div className='board-detail-main qna'>
@@ -182,12 +187,13 @@ export default function QnaDetail() {
                     }
                     <div className='board-detail-bottom'>
                         <div className='board-button' onClick={onListClickHandler}>LIST</div>
-                        { loginUserRole === 'ROLE_USER' &&
-                            <div className='board-detail-bottom-right'>
+                        <div className='board-detail-bottom-right'>
+                                
+                            { loginUserRole === 'ROLE_USER' &&
                                 <div className={modifyButtonClass} onClick={onUpdateClickHandler}>MODIFY</div>
-                                <div className='board-button' onClick={onDeleteClickHanler}>DELETE</div>
-                            </div>
-                        }
+                            }
+                            <div className='board-button' onClick={onDeleteClickHanler}>DELETE</div>
+                        </div>
                     </div>
                 </div>
             </div>
