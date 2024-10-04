@@ -65,34 +65,34 @@ export const AllCategoryPopup = ({ onClose }: { onClose: () => void }) => {
                 <div className='close-all-category' onClick={onClose}>x</div>
 
                 <div className='all-cloth-category-detail'>
-                    <div>BEST</div>
-                    <div>OUTER</div>
-                    <div>TOP</div>
-                    <div>BOTTOM</div>
-                    <div>DRESS & SKIRT</div>
-                    <div>BAG & SHOES</div>
-                    <div>ACC</div>
+                    <div className='side-bar-button'>BEST</div>
+                    <div className='side-bar-button'>OUTER</div>
+                    <div className='side-bar-button'>TOP</div>
+                    <div className='side-bar-button'>BOTTOM</div>
+                    <div className='side-bar-button'>DRESS & SKIRT</div>
+                    <div className='side-bar-button'>BAG & SHOES</div>
+                    <div className='side-bar-button'>ACC</div>
                 </div>
 
                 <div className='all-board-category'>
-                    <div className='notice-button' onClick={onNoticeClickHandler}>공지사항</div>
-                    <div className='qna-button' onClick={onQnaClickHandler}>문의사항</div>
-                    <div className='faq-button' onClick={onFaqClickHandler}>자주하는질문(FAQ)</div>
+                    <div className='side-bar-button' onClick={onNoticeClickHandler}>공지사항</div>
+                    <div className='side-bar-button' onClick={onQnaClickHandler}>문의사항</div>
+                    <div className='side-bar-button' onClick={onFaqClickHandler}>자주하는질문(FAQ)</div>
                 </div>
 
-                <div className='all-auth-category'>
+                <div className='side-bar-button'>
                     {notLoginInState &&
                         <div className='sign-in-button' onClick={onSignInClickHandler}>로그인</div>
                     }
                     {notLoginInState &&
-                        <div className='sign-up-button' onClick={onSignUpClickHandler}>회원가입</div>
+                        <div className='side-bar-button' onClick={onSignUpClickHandler}>회원가입</div>
                     }
 
                     {loginInState &&
-                        <div className='order-list-button' >주문조회</div>
+                        <div className='side-bar-button' >주문조회</div>
                     }
                     {loginInState &&
-                        <div className='log-out-button' onClick={onLogOutClickHandler}>로그아웃</div>
+                        <div className='side-bar-button' onClick={onLogOutClickHandler}>로그아웃</div>
                     }
                 </div>
             </div>

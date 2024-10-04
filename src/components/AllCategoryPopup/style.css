@@ -31,3 +31,8 @@
 .all-auth-category {
     margin-bottom: 30px;
 }
+
+.side-bar-button:hover {
+    cursor: pointer;
+    opacity: 0.85;
+}
