@@ -7,7 +7,7 @@ import ResponseDto from "src/apis/response.dto";
 import { emailAuthRequest } from "src/apis/user";
 import { EmailAuthRequestDto } from "src/apis/user/dto/request";
 import InputBox from "src/components/InputBox";
-import { FIND_PASSWORD_ABSOLUTE_PATH, FIND_PASSWORD_RESET_ABSOLUTE_PATH } from "src/constant";
+import { FIND_ID_ABSOLUTE_PATH, FIND_PASSWORD_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from "src/constant";
 import "./style.css";
 
 // component: 비밀번호 찾기 //
@@ -43,10 +43,9 @@ export default function FindPassword() {
       !result ? '서버에 문제가 있습니다.' :
       result.code === 'VF' ? '이메일 형식이 아닙니다.' :
       result.code === 'MF' ? '인증번호 전송에 실패했습니다.' :
-      result.code === 'DBE' ? '서버에 문제가 있습니다.' :
-      result.code === 'SU' ? '인증번호가 전송되었습니다.' : '';
+      result.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
 
-    const emailCheck = result !== null && result.code === 'SU';
+    const emailCheck = result !== null && result.code === 'DE';
     const emailError = !emailCheck;
 
     setEmailMessage(emailMessage);
@@ -56,7 +55,7 @@ export default function FindPassword() {
     if (emailCheck) {
       setAuthNumber(''); 
       setAuthNumberButtonStatus(false); 
-      setAuthNumberMessage('새로운 인증번호가 발송되었습니다. 인증번호를 확인하세요.');
+      setAuthNumberMessage('');
     }
   };
 
@@ -83,15 +82,14 @@ export default function FindPassword() {
       result.code === 'VF' ? '입력 형식이 맞지 않습니다.' :
       result.code === 'NE' ? '존재하지 않는 이메일입니다.' :
       result.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
-
-    if (!result || result.code !== 'SU') {
-      alert(message);
-      return navigator(FIND_PASSWORD_ABSOLUTE_PATH);
-    }
-
-    const { userId } = result as FindIdResponseDto;
-    setUserId(userId);
-    navigator(FIND_PASSWORD_RESET_ABSOLUTE_PATH(userId));
+  
+      if (!result || result.code !== "SU") {
+        alert(message);
+        return navigator(FIND_PASSWORD_ABSOLUTE_PATH);
+      }
+  
+      const { userId } = result as FindIdResponseDto;
+      setUserId(userId);
   };
 
   // event handler //
@@ -119,11 +117,6 @@ export default function FindPassword() {
     setAuthNumberButtonStatus(value !== '');
     setAuthNumberCheck(false);
     setAuthNumberMessage('');
-  };
-
-  const onPasswordKeydownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-    if (event.key !== 'Enter') return;
-    onFindPasswordButtonClickHandler();
   };
 
   const onEmailButtonClickHandler = () => {
@@ -155,7 +148,7 @@ export default function FindPassword() {
   };
 
   const onFindPasswordButtonClickHandler = () => {
-    if (!userId || !userName || !userEmail || !authNumber) return;
+    if (!emailButtonStatus) return;
 
     const requestBody: FindPasswordRequestDto = {
       userId,
@@ -167,11 +160,18 @@ export default function FindPassword() {
     findPasswordRequest(requestBody).then(findPasswordResponse);
   };
 
+  const onSignInClickHandler = () => navigator(SIGN_IN_ABSOLUTE_PATH);
+  const onfindIdInputClickHandler = () => navigator(FIND_ID_ABSOLUTE_PATH);
+  const onPasswordKeydownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key !== 'Enter') return;
+    onFindPasswordButtonClickHandler();
+  };
+
   // render //
   return (
     <div id="authentication-wrapper">
       <div className="title-text">비밀번호 찾기</div>
-      <div className='authentication-sign-up'>
+      <div className='authentication-find-password'>
         <div className='authentication-contents'>
           <InputBox
             label="아이디"
@@ -219,6 +219,11 @@ export default function FindPassword() {
         </div>
         <div className='moving-find-password'>
           <div className={findPasswordButtonClass} onClick={onFindPasswordButtonClickHandler}>비밀번호 찾기</div>
+        </div>
+        <div className='moving-find-id-password'>
+          <div className='moving-find' onClick={onfindIdInputClickHandler}>아이디 찾기</div>
+          <div>{'/'}</div>
+          <div className='moving-find' onClick={onSignInClickHandler}>로그인</div>
         </div>
       </div>
     </div>
