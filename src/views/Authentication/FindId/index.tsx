@@ -54,7 +54,7 @@ export default function FindId() {
     if (emailCheck) {
       setAuthNumber(''); 
       setAuthNumberButtonStatus(false); 
-      setAuthNumberMessage('새로운 인증번호가 발송되었습니다. 인증번호를 확인하세요.');
+      setAuthNumberMessage('');
     }
   };
 
@@ -79,7 +79,7 @@ export default function FindId() {
       !result ? '서버에 문제가 있습니다.' : 
       result.code === 'NF' ? '사용자 정보가 불일치합니다.' :
       result.code === 'NU' ? '사용자 정보가 없습니다.' : 
-      result.code === 'AF' ? '존재하지 않는 이메일 입니다.' :
+      result.code === 'AF' ? '이름 또는 이메일이 존재하지 않습니다.' :
       result.code === 'AF' ? '인증번호가 일치하지 않습니다.' :
       result.code === 'VF' ? '입력 형식이 맞지 않습니다.' :
       result.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
@@ -170,7 +170,7 @@ export default function FindId() {
   return (
     <div id="authentication-wrapper">
       <div className="title-text">아이디 찾기</div>
-      <div className='authentication-sign-up'>
+      <div className='authentication-find-id'>
         <div className='authentication-contents'>
           <InputBox
             label="이름" 
