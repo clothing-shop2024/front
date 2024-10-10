@@ -8,7 +8,7 @@ export const SIGN_IN_PATH = 'sign-in';
 export const SIGN_UP_PATH = 'sign-up';
 export const FIND_ID_PATH = 'find-id';
 export const FIND_PASSWORD_PATH = 'find-password';
-export const FIND_PASSWORD_RESET_PATH = 'find-password-reset/:userId';
+export const FIND_PASSWORD_RESET_PATH = 'find-password/:userId';
 export const SNS_PATH = 'sns/:accessToken/:expires';
 
 // description : 옷 페이지 URL 
@@ -109,7 +109,7 @@ export const SIGN_IN_ABSOLUTE_PATH = `${MAIN_PATH}/${AUTH_PATH}/${SIGN_IN_PATH}`
 export const SIGN_UP_ABSOLUTE_PATH = `${MAIN_PATH}/${AUTH_PATH}/${SIGN_UP_PATH}`;
 export const FIND_ID_ABSOLUTE_PATH = `${MAIN_PATH}/${AUTH_PATH}/${FIND_ID_PATH}`;
 export const FIND_PASSWORD_ABSOLUTE_PATH = `${MAIN_PATH}/${AUTH_PATH}/${FIND_PASSWORD_PATH}`;
-export const FIND_PASSWORD_RESET_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/${AUTH_PATH}/find-password-reset/${userId}`;
+export const FIND_PASSWORD_RESET_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/${AUTH_PATH}/${FIND_PASSWORD_PATH}/${userId}`;
 
 // description: 마이페이지 URL PATH 
 export const MY_PAGE_INFO_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${MY_PAGE_INFO_PATH}`;
@@ -161,14 +161,14 @@ export const POST_EMAIL_AUTH_CHECK_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/emai
 export const POST_SIGN_UP_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/sign-up`;
 export const POST_FIND_ID_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/find-id`;
 export const POST_FIND_PASSWORD_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/find-password`;
-export const PATCH_FIND_PASSWORD_RESET_REQUEST_URL = (userId: string) => `${POST_FIND_PASSWORD_REQUEST_URL}/${userId}`;
+export const PUT_FIND_PASSWORD_RESET_REQUEST_URL = (userId: string) => `${POST_FIND_PASSWORD_REQUEST_URL}/${userId}`;
 
 // description: USER 모듈 내의 기능 URL
 export const SERVER_USER_MODULE_URL = `${SERVER_API_URL}/user`;
 
 export const GET_USER_INFO_REQUEST_URL = `${SERVER_USER_MODULE_URL}/`;
 export const GET_MY_INFO_URL_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info`;
-export const PATCH_MY_INFO_UPDATE_URL_REQUEST_URL = (userId: string) => `${SERVER_USER_MODULE_URL}/info/update/${userId}`;
+export const PATCH_MY_INFO_UPDATE_URL_REQUEST_URL = (userId: string) => `${GET_MY_INFO_URL_REQUEST_URL}/update/${userId}`;
 export const PATCH_MY_INFO_PASSWORD_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info/password-modify`;
 export const PATCH_MY_INFO_EMAIL_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info/email-modify`;
 export const DELETE_MY_INFO_URL = (userId: string) => `${SERVER_USER_MODULE_URL}/info/delete/${userId}`;

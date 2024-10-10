@@ -7,7 +7,7 @@ import ResponseDto from "src/apis/response.dto";
 import { emailAuthRequest } from "src/apis/user";
 import { EmailAuthRequestDto } from "src/apis/user/dto/request";
 import InputBox from "src/components/InputBox";
-import { FIND_ID_ABSOLUTE_PATH, FIND_PASSWORD_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from "src/constant";
+import { FIND_ID_ABSOLUTE_PATH, FIND_PASSWORD_ABSOLUTE_PATH, FIND_PASSWORD_RESET_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from "src/constant";
 import "./style.css";
 
 // component: 비밀번호 찾기 //
@@ -158,6 +158,8 @@ export default function FindPassword() {
     };
 
     findPasswordRequest(requestBody).then(findPasswordResponse);
+
+    navigator(FIND_PASSWORD_RESET_ABSOLUTE_PATH(userId));
   };
 
   const onSignInClickHandler = () => navigator(SIGN_IN_ABSOLUTE_PATH);

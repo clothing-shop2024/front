@@ -1,6 +1,7 @@
 import axios from "axios";
 import { requestErrorHandler, requestHandler } from "../";
-import { PATCH_FIND_PASSWORD_RESET_REQUEST_URL, POST_EMAIL_AUTH_CHECK_REQUEST_URL, POST_EMAIL_AUTH_REQUEST_URL, POST_FIND_ID_REQUEST_URL, POST_FIND_PASSWORD_REQUEST_URL, POST_ID_CHECK_REQUEST_URL, POST_NICKNAME_CHECK_REQUEST_URL, POST_SIGN_IN_REQUEST_URL, POST_SIGN_UP_REQUEST_URL } from "../../constant";
+import { POST_EMAIL_AUTH_CHECK_REQUEST_URL, POST_EMAIL_AUTH_REQUEST_URL, POST_FIND_ID_REQUEST_URL, POST_FIND_PASSWORD_REQUEST_URL, POST_ID_CHECK_REQUEST_URL, POST_NICKNAME_CHECK_REQUEST_URL, POST_SIGN_IN_REQUEST_URL, POST_SIGN_UP_REQUEST_URL } from "../../constant";
+import { PUT_FIND_PASSWORD_RESET_REQUEST_URL } from '../../constant/index';
 import ResponseDto from "../response.dto";
 import { EmailAuthCheckRequestDto, EmailAuthRequestDto, FindIdRequestDto, FindPasswordRequestDto, FindPasswordResetRequestDto, IdCheckRequestDto, NicknameCheckRequestDto, SignInRequestDto, SignUpRequestDto } from "./dto/request";
 import { FindIdResponseDto, SignInResponseDto } from "./dto/response";
@@ -80,7 +81,7 @@ export const findPasswordRequest = async (requestBody: FindPasswordRequestDto) =
 // function: 비밀번호 찾기 비밀번호 재설정 API 함수
 export const findPwResetRequest = async (userId: string, requestBody: FindPasswordResetRequestDto) => {
     const result = await axios
-        .put(PATCH_FIND_PASSWORD_RESET_REQUEST_URL(userId), requestBody)
+        .put(PUT_FIND_PASSWORD_RESET_REQUEST_URL(userId), requestBody)
         .then(requestHandler<ResponseDto>)
         .catch(requestErrorHandler);
     return result;
