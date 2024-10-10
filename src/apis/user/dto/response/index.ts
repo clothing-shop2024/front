@@ -10,6 +10,8 @@ export interface GetSignInUserResponseDto extends ResponseDto {
 // description: 내 정보 불러오기 Response Body DTO
 export interface GetMyInfoResponseDto extends ResponseDto{
   userId: string;
+  // password 추가 
+  // password: string;
   userName: string;
   nickname: string;
   userEmail: string;

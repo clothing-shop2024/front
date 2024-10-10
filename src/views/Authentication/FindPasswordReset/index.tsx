@@ -4,7 +4,6 @@ import { findPwResetRequest } from "src/apis/auth";
 import { FindPasswordResetRequestDto } from "src/apis/auth/dto/request";
 import ResponseDto from "src/apis/response.dto";
 import InputBox from "src/components/InputBox";
-import { SIGN_IN_ABSOLUTE_PATH } from "src/constant";
 import "./style.css";
 
 export default function FindPasswordReset() {
@@ -29,6 +28,7 @@ export default function FindPasswordReset() {
     const message =
       !result ? '서버에 문제가 있습니다.' :
         result.code === 'VF' ? '입력 형식이 맞지 않습니다.' :
+        result.code === 'AF' ? '사용자 정보와 불일치 합니다.' :
           result.code === 'DBE' ? '서버에 문제가 있습니다.' : ''
 
     const isSuccess = result && result.code === 'SU';
@@ -88,12 +88,12 @@ export default function FindPasswordReset() {
       return;
     };
 
-    const requestBody: FindPasswordResetRequestDto = { userPassword: password };
+    const requestBody: FindPasswordResetRequestDto = { password: password };
 
     findPwResetRequest(userId, requestBody).then(findPwResetResponse);
 
     alert('비밀번호가 변경되었습니다.');
-    navigator(SIGN_IN_ABSOLUTE_PATH);
+    // navigator(SIGN_IN_ABSOLUTE_PATH);
   };
 
   // render //

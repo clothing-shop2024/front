@@ -22,8 +22,6 @@ export default function MyPageInfoUpdate() {
   const [userName, setUserName] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
   const [userEmail, setUserEmail] = useState<string>('');
-  const [authNumber, setAuthNumber] = useState<string>('');
-  const [userAddress, setUserAddress] = useState<string>('');
   const [userBirthDay, setUserBirthDay] = useState<string>('');
   const [joinDate, setJoinDate] = useState<string>('');
 
@@ -76,26 +74,26 @@ const PatchUpdateUserInfoResponse = (result: PatchUserInfoResponseDto | Response
 };
 
   // event handler //
+
+  const onUserNameChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const userName = event.target.value;
+    setNickname(userName);
+  };
+
   const onNicknameChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const nickname = event.target.value;
     setNickname(nickname);
   };
 
-  const onUserEmailChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    const nickname = event.target.value;
-    setNickname(userEmail);
-  };
-
   const onUserBirthDayChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    const nickname = event.target.value;
+    const userBirthDay = event.target.value;
     setNickname(userBirthDay);
   };
 
   const onUpdateButtonClickHandler = () => {
     if (!cookies.accessToken || !userId) return;
-    if (!nickname.trim() || !userAddress.trim()) return;
 
-    const requestBody: PatchUserInfoRequestDto = { userEmail, nickname, userBirthDay };
+    const requestBody: PatchUserInfoRequestDto = { userName, nickname, userBirthDay };
     patchUserInfoRequest(userId, requestBody, cookies.accessToken).then(PatchUpdateUserInfoResponse);
   };
 
@@ -120,7 +118,7 @@ const PatchUpdateUserInfoResponse = (result: PatchUserInfoResponseDto | Response
       return;
     }
     getMyInfoRequest(cookies.accessToken).then(getMyInfoResponse);
-  }, [loginUserRole, cookies.accessToken]);
+  }, []);
 
   // render //
   return (
@@ -149,7 +147,9 @@ const PatchUpdateUserInfoResponse = (result: PatchUserInfoResponseDto | Response
 
             <div className='my-page-update-info-box'>
               <div className='my-page-update-info-left'>이름</div>
-              <div className='my-page-update-info'>{userName}</div>
+              <div className='my-page-input-box'>
+                <InputBox type='text' value={userName} placeholder='이름을 입력해주세요.' onChangeHandler={onUserNameChangeHandler} />
+              </div>
             </div>
 
             <div className='my-page-update-info-box'>
@@ -161,17 +161,8 @@ const PatchUpdateUserInfoResponse = (result: PatchUserInfoResponseDto | Response
 
             <div className='my-page-update-info-box'>
               <div className='my-page-update-info-left'>이메일</div>
-              <div className='my-page-input-box'>
-                <InputBox type='text' value={userEmail} placeholder='이메일을 입력해주세요.' onChangeHandler={onUserEmailChangeHandler} />
-              </div>
+              <div className='my-page-update=info'>{userEmail}</div>
             </div>
-
-            {/* <div className='my-page-update-info-box'>
-              <div className='my-page-update-info-left'>주소</div>
-              <div className='my-page-input-box'>
-                <InputBox type='text' value={userAddress}  placeholder='주소를 입력해주세요.' onChangeHandler={onUserAddressChangeHandler} />
-              </div>
-            </div> */}
 
             <div className='my-page-update-info-box'>
               <div className='my-page-update-info-left'>생년월일</div>
