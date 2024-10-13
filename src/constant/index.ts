@@ -173,6 +173,11 @@ export const PATCH_MY_INFO_PASSWORD_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_U
 export const PATCH_MY_INFO_EMAIL_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info/email-modify`;
 export const DELETE_MY_INFO_URL = (userId: string) => `${SERVER_USER_MODULE_URL}/info/delete/${userId}`;
 
+// description : 옷 상세 전체 리스트 URL
+export const SERVER_CLOTH_MODULE_URL = `${SERVER_API_URL}/cloth-detail`
+export const GET_CLOTH_DETAIL_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/list`;
+export const GET_BEST_CLOTH_DETAIL_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/`
+
 // description : 공지사항 모듈 내의 기능 URL
 export const SERVER_NOTICE_MODULE_URL = `${SERVER_API_URL}/notice`;
 export const GET_NOTICE_LIST_URL = `${SERVER_NOTICE_MODULE_URL}/list`;
