@@ -1,7 +1,5 @@
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { findPwResetRequest } from "src/apis/auth";
-import { FindPasswordResetRequestDto } from "src/apis/auth/dto/request";
 import ResponseDto from "src/apis/response.dto";
 import InputBox from "src/components/InputBox";
 import "./style.css";
@@ -24,7 +22,7 @@ export default function FindPasswordReset() {
   //                    function                     //
   const navigator = useNavigate();
 
-  const findPwResetResponse = (result: ResponseDto | null) => {
+  const findPasswordResetResponse = (result: ResponseDto | null) => {
     const message =
       !result ? '서버에 문제가 있습니다.' :
         result.code === 'VF' ? '입력 형식이 맞지 않습니다.' :
@@ -76,10 +74,10 @@ export default function FindPasswordReset() {
 
   const onPasswordKeydownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key !== 'Enter') return;
-    onFindPwResetButtonClickHandler();
+    onFindPasswordResetButtonClickHandler();
   };
 
-  const onFindPwResetButtonClickHandler = () => {
+  const onFindPasswordResetButtonClickHandler = () => {
 
     if (!isFindPwActive || !userId) return;
 
@@ -88,9 +86,9 @@ export default function FindPasswordReset() {
       return;
     };
 
-    const requestBody: FindPasswordResetRequestDto = { password: password };
+    // const requestBody: FindPasswordResetRequestDto = { userEmail, authNumber, password };
 
-    findPwResetRequest(userId, requestBody).then(findPwResetResponse);
+    // findPasswordResetRequest(requestBody).then(findPasswordResetResponse);
 
     alert('비밀번호가 변경되었습니다.');
     // navigator(SIGN_IN_ABSOLUTE_PATH);
@@ -118,7 +116,7 @@ export default function FindPasswordReset() {
                 message={passwordCheckMessage} error 
             />
         <div className="authentication-button-container">
-            <div className={findPwResetButtonClass} onClick={ onFindPwResetButtonClickHandler }>확인</div>
+            <div className={findPwResetButtonClass} onClick={ onFindPasswordResetButtonClickHandler }>확인</div>
         </div>
     </div>
     </div>

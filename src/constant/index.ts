@@ -159,9 +159,10 @@ export const POST_NICKNAME_CHECK_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/nickna
 export const POST_EMAIL_AUTH_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/email-auth`;
 export const POST_EMAIL_AUTH_CHECK_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/email-auth-check`;
 export const POST_SIGN_UP_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/sign-up`;
+export const POST_FIND_ID_EMAIL_AUTH_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/find-id-email-auth`;
 export const POST_FIND_ID_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/find-id`;
 export const POST_FIND_PASSWORD_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/find-password`;
-export const PUT_FIND_PASSWORD_RESET_REQUEST_URL = (userId: string) => `${POST_FIND_PASSWORD_REQUEST_URL}/${userId}`;
+export const PUT_FIND_PASSWORD_RESET_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/find-password-reset`;
 
 // description: USER 모듈 내의 기능 URL
 export const SERVER_USER_MODULE_URL = `${SERVER_API_URL}/user`;
