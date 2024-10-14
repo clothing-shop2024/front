@@ -1,9 +1,9 @@
 import axios from "axios";
 import { requestErrorHandler, requestHandler } from "../";
-import { POST_EMAIL_AUTH_CHECK_REQUEST_URL, POST_EMAIL_AUTH_REQUEST_URL, POST_FIND_ID_REQUEST_URL, POST_FIND_PASSWORD_REQUEST_URL, POST_ID_CHECK_REQUEST_URL, POST_NICKNAME_CHECK_REQUEST_URL, POST_SIGN_IN_REQUEST_URL, POST_SIGN_UP_REQUEST_URL } from "../../constant";
+import { POST_EMAIL_AUTH_CHECK_REQUEST_URL, POST_EMAIL_AUTH_REQUEST_URL, POST_FIND_ID_EMAIL_AUTH_REQUEST_URL, POST_FIND_ID_REQUEST_URL, POST_FIND_PASSWORD_REQUEST_URL, POST_ID_CHECK_REQUEST_URL, POST_NICKNAME_CHECK_REQUEST_URL, POST_SIGN_IN_REQUEST_URL, POST_SIGN_UP_REQUEST_URL } from "../../constant";
 import { PUT_FIND_PASSWORD_RESET_REQUEST_URL } from '../../constant/index';
 import ResponseDto from "../response.dto";
-import { EmailAuthCheckRequestDto, EmailAuthRequestDto, FindIdRequestDto, FindPasswordRequestDto, FindPasswordResetRequestDto, IdCheckRequestDto, NicknameCheckRequestDto, SignInRequestDto, SignUpRequestDto } from "./dto/request";
+import { EmailAuthCheckRequestDto, EmailAuthRequestDto, FindIdEmailAuthRequestDto, FindIdRequestDto, FindPasswordRequestDto, FindPasswordResetRequestDto, IdCheckRequestDto, NicknameCheckRequestDto, SignInRequestDto, SignUpRequestDto } from "./dto/request";
 import { FindIdResponseDto, SignInResponseDto } from "./dto/response";
 
 // function : 로그인 API 함수
@@ -60,6 +60,15 @@ export const signUpRequest = async (requestBody: SignUpRequestDto) => {
     return result;
 };
 
+// function: 아이디 인증 확인 API 함수
+export const FindIdEmailAuthRequest = async (requestBody: FindIdEmailAuthRequestDto) => {
+    const result = await axios
+        .post(POST_FIND_ID_EMAIL_AUTH_REQUEST_URL, requestBody)
+        .then(requestHandler<ResponseDto>)
+        .catch(requestErrorHandler);
+    return result;
+};
+
 // function: 아이디 찾기 API 함수
 export const findIdRequest = async (requestBody: FindIdRequestDto) => {
     const result = await axios
@@ -79,9 +88,9 @@ export const findPasswordRequest = async (requestBody: FindPasswordRequestDto) =
 };
 
 // function: 비밀번호 찾기 비밀번호 재설정 API 함수
-export const findPwResetRequest = async (userId: string, requestBody: FindPasswordResetRequestDto) => {
+export const findPasswordResetRequest = async (requestBody: FindPasswordResetRequestDto) => {
     const result = await axios
-        .put(PUT_FIND_PASSWORD_RESET_REQUEST_URL(userId), requestBody)
+        .put(PUT_FIND_PASSWORD_RESET_REQUEST_URL, requestBody)
         .then(requestHandler<ResponseDto>)
         .catch(requestErrorHandler);
     return result;

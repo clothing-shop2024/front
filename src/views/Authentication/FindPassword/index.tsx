@@ -153,8 +153,7 @@ export default function FindPassword() {
     const requestBody: FindPasswordRequestDto = {
       userId,
       userName,
-      userEmail,
-      authNumber
+      userEmail
     };
 
     findPasswordRequest(requestBody).then(findPasswordResponse);

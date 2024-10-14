@@ -38,6 +38,12 @@ export interface SignUpRequestDto {
     joinDate : string | null;
 }
 
+// 아이디 인증번호 Request Body DTO
+export interface FindIdEmailAuthRequestDto {
+    userName : string;
+    userEmail : string;
+}
+
 // description: 아이디 찾기 Request Body DTO 
 export interface FindIdRequestDto {
     userName : string;
@@ -50,11 +56,12 @@ export interface FindPasswordRequestDto {
     userId : string;
     userName : string;
     userEmail : string;
-    authNumber : string;
 }
 
 // description: 비밀번호 재설정 Request Body DTO 
 export interface FindPasswordResetRequestDto {
+    userEmail : string;
+    authNumber : string;
     password : string;
 }
 
