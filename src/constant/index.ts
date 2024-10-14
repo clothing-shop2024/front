@@ -117,6 +117,9 @@ export const MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH = (userId : string) => `${MAIN_PA
 export const MY_PAGE_DELETE_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/${MY_PAGE_PATH}/delete/${userId}`;
 export const MY_PAGE_COUPON_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${MY_PAGE_COUPON_PATH}`;
 
+// description: 옷 상세 리스트 URL PATH
+export const CLOTH_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${CLOTH_PATH}/list`;
+
 // description: 공지사항 절대 URL PATH 
 // ???? NOTICE_LIST 뺌
 export const NOTICE_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${NOTICE_PATH}/list`;
@@ -175,9 +178,9 @@ export const PATCH_MY_INFO_EMAIL_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_URL}
 export const DELETE_MY_INFO_URL = (userId: string) => `${SERVER_USER_MODULE_URL}/info/delete/${userId}`;
 
 // description : 옷 상세 전체 리스트 URL
-export const SERVER_CLOTH_MODULE_URL = `${SERVER_API_URL}/cloth-detail`
+export const SERVER_CLOTH_MODULE_URL = `${SERVER_API_URL}/cloth-detail`;
 export const GET_CLOTH_DETAIL_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/list`;
-export const GET_BEST_CLOTH_DETAIL_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/`
+export const GET_BEST_CLOTH_DETAIL_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/list/popular`;
 
 // description : 공지사항 모듈 내의 기능 URL
 export const SERVER_NOTICE_MODULE_URL = `${SERVER_API_URL}/notice`;
@@ -214,6 +217,7 @@ export const DELETE_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODU
 export const COUNT_PER_PAGE = 10;
 export const COUNT_PER_SECTION = 10;
 export const COUNT_RESERVATION_PAGE = 6;
+export const COUNT_CLOTH_LIST_PAGE = 16;
 
 export const ITEM_PER_PAGE1 = 8;
 export const ITEM_PER_PAGE2 = 5;

@@ -4,10 +4,11 @@ import { useNavigate } from "react-router";
 import ResponseDto from "src/apis/response.dto";
 import { getSignInUserRequest } from "src/apis/user";
 import { GetMyInfoResponseDto, GetSignInUserResponseDto } from "src/apis/user/dto/response";
-import { ITEM_PER_PAGE1, MAIN_ABSOLUTE_PATH } from "src/constant";
+import { COUNT_CLOTH_LIST_PAGE, COUNT_PER_SECTION, ITEM_PER_PAGE1, MAIN_ABSOLUTE_PATH } from "src/constant";
 import useUserStore from "src/stores/user.store";
 import "./style.css";
 import { ClothDetailListItem } from "src/types";
+import { usePagination } from "src/hooks";
 
 //                    component                    //
 function ListItem(props: ClothDetailListItem) {
@@ -31,19 +32,37 @@ function ListItem(props: ClothDetailListItem) {
     //                  render                  //
     return (
         <>
-            <div></div>
+            <div className='cloth-detail-list'>
+                <div className='cloth-detail-image'>
+                    <img style={{ width: '180%', height: '150%'}} src={clothImage1} />
+                </div>
+                <div className='cloth-detail-bottom'>
+                    <div className='cloth-detail-name'>{clothDetailName}</div>
+                    <div className='cloth-detail-all-price'>
+                        <div className='cloth-detail-price'>{price}</div>
+                        <div className='cloth-detail-discount-price'>{discountPrice}</div>
+                    </div>
+                    <div className='cloth-detail-rating-avg'>{ratingAvg}</div>
+                </div>
+            </div>
         </>
     );
 
 };
 
+//                    component                    //
 export default function Main() {
 
-    // state //
+    //                   state                   //
     const [cookies] = useCookies();
+
+    const { viewList, setCurrentSection } = usePagination<ClothDetailListItem>(COUNT_CLOTH_LIST_PAGE, COUNT_PER_SECTION);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [visibleItems, setVisibleItems] = useState<ClothDetailListItem[]>([]);
+    const ITEMS_PER_LOAD = 16; // 한번에 로드할 아이템 수
+
     const [searchWord] = useState<string>('');
     const [curSlide, setCurSlide] = useState(0);
-    const [currentPage, setCurrentPage] = useState(0);
     const [intervalId] = useState<number | null>(null);
     const { setLoginUserId, setLoginUserRole } = useUserStore();
     // const [noticeList, SetNoticeList] = useState<NoticeListItem[]>([]);
@@ -108,6 +127,21 @@ export default function Main() {
         autoMoveSlide();
     },);
 
+    // 첫 로드 시 초기 아이템 16개 보여줌
+    useEffect(() => {
+        console.log(viewList);
+        const initialItems = viewList.slice(0, ITEMS_PER_LOAD);
+        setVisibleItems(initialItems);
+    }, [viewList]);
+
+    // 더보기 버튼을 눌렀을 때 아이템 추가 로드
+     const loadMoreItems = () => {
+        const nextPage = currentPage + 1;
+        const newItems = viewList.slice(nextPage * ITEMS_PER_LOAD, (nextPage +1) * ITEMS_PER_LOAD);
+        setVisibleItems([...visibleItems, ...newItems]);
+        setCurrentPage(nextPage);
+     };
+
     // render //
     return (
         <div className='main-banner' >
@@ -125,6 +159,14 @@ export default function Main() {
                         </div>
                     ))
                 }
+            </div>
+            <div className='cloth-detail-list-wrap'>
+                <div className='cloth-detail-grid'>
+                    {visibleItems.map(item => <ListItem key={item.clothDetailNumber} {...item} />)}
+                </div>
+                {visibleItems.length < viewList.length && (
+                    <button onClick={loadMoreItems} className='board-button'>더보기</button>
+                )}
             </div>
         </div>
     );
