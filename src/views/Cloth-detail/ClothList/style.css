@@ -1,0 +1,13 @@
+.cloth-detail-list-wrap {
+    display: grid; /* 그리드 레이아웃을 활성화 */
+    grid-template-columns: repeat(4, 1fr); /* 4개의 열을 생성 */
+    gap: 20px; /* 열 간 간격 */
+    padding: 20px; /* 패딩 추가 */
+}
+
+.cloth-detail-list {
+    border: 1px solid #ccc; /* 테두리 추가 (선택 사항) */
+    padding: 10px; /* 패딩 추가 (선택 사항) */
+    background-color: #f9f9f9; /* 배경색 (선택 사항) */
+    border-radius: 5px; /* 둥근 모서리 (선택 사항) */
+}

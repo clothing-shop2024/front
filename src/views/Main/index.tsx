@@ -15,7 +15,6 @@ function ListItem(props: ClothDetailListItem) {
 
     //                   state                   //
     const {
-        clothDetailNumber,
         clothDetailName,
         price,
         discountPrice,
@@ -130,6 +129,7 @@ export default function Main() {
     // 첫 로드 시 초기 아이템 16개 보여줌
     useEffect(() => {
         console.log(viewList);
+        console.log(visibleItems);
         const initialItems = viewList.slice(0, ITEMS_PER_LOAD);
         setVisibleItems(initialItems);
     }, [viewList]);
@@ -160,6 +160,7 @@ export default function Main() {
                     ))
                 }
             </div>
+            <div className='cloth-detail-best-list-title'>BEST</div>
             <div className='cloth-detail-list-wrap'>
                 <div className='cloth-detail-grid'>
                     {visibleItems.map(item => <ListItem key={item.clothDetailNumber} {...item} />)}
@@ -168,6 +169,15 @@ export default function Main() {
                     <button onClick={loadMoreItems} className='board-button'>더보기</button>
                 )}
             </div>
+
+            <div className='cloth-detail-category1-select'>
+                <div className='cloth-detail-category1'>OUTER</div>
+                <div>TOP</div>
+                <div>BOTTOM</div>
+                <div>OPS/SK</div>
+                <div>ACC</div>
+            </div>
+            
         </div>
     );
 }
