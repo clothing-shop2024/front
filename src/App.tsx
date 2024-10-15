@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Route, Routes, useNavigate } from "react-router-dom";
 import './App.css';
 
-import { ADMIN_FAQ_UPDATE_PATH, ADMIN_NOTICE_UPDATE_PATH, ADMIN_PATH, AUTH_PATH, FAQ_LIST_PATH, FAQ_PATH, FIND_ID_PATH, FIND_PASSWORD_PATH, FIND_PASSWORD_RESET_PATH, MAIN_ABSOLUTE_PATH, MAIN_PATH, MY_PAGE_COUPON_PATH, MY_PAGE_INFO_PATH, MY_PAGE_INFO_UPDATE_PATH, MY_PAGE_PATH, NOTICE_DETAIL_PATH, NOTICE_LIST_PATH, NOTICE_PATH, QNA_DETAIL_PATH, QNA_LIST_PATH, QNA_PATH, QNA_UPDATE_PATH, REGIST_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH } from './constant';
+import { ADMIN_FAQ_UPDATE_PATH, ADMIN_NOTICE_UPDATE_PATH, ADMIN_PATH, AUTH_PATH, CLOTH_LIST_PATH, CLOTH_PATH, FAQ_LIST_PATH, FAQ_PATH, FIND_ID_PATH, FIND_PASSWORD_PATH, FIND_PASSWORD_RESET_PATH, MAIN_ABSOLUTE_PATH, MAIN_PATH, MY_PAGE_COUPON_PATH, MY_PAGE_INFO_PATH, MY_PAGE_INFO_UPDATE_PATH, MY_PAGE_PATH, NOTICE_DETAIL_PATH, NOTICE_LIST_PATH, NOTICE_PATH, QNA_DETAIL_PATH, QNA_LIST_PATH, QNA_PATH, QNA_UPDATE_PATH, REGIST_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH } from './constant';
 import ServiceContainer from './layouts/ServiceContainer';
 import FindId from './views/Authentication/FindId';
 import FindPassword from './views/Authentication/FindPassword';
@@ -24,6 +24,7 @@ import MyPageInfoUpdate from './views/MyPage/MyPageInfoUpdate';
 import QnaDetail from './views/Board/Qna/QnaDetail';
 import QnaRegist from './views/Board/Qna/QnaRegist';
 import QnaUpdate from './views/Board/Qna/QnaUpdate';
+import ClothDetailList from './views/Cloth-detail/ClothList';
 
 // component: root 경로 컴포넌트
 function Index() {
@@ -65,6 +66,11 @@ function App() {
                     <Route path={MY_PAGE_INFO_PATH} element={<MyPageInfo />} />
                     <Route path={MY_PAGE_INFO_UPDATE_PATH} element={<MyPageInfoUpdate />} />
                     <Route path={MY_PAGE_COUPON_PATH} element={<MyPageCoupon />} />
+                </Route>
+
+                {/* 옷 페이지 */}
+                <Route path={CLOTH_PATH}>
+                    <Route path={CLOTH_LIST_PATH} element={<ClothDetailList />} />
                 </Route>
 
                 {/* 공지사항 페이지 */}

@@ -118,7 +118,7 @@ export const MY_PAGE_DELETE_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/$
 export const MY_PAGE_COUPON_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${MY_PAGE_COUPON_PATH}`;
 
 // description: 옷 상세 리스트 URL PATH
-export const CLOTH_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${CLOTH_PATH}/list`;
+export const CLOTH_DETAIL_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${CLOTH_PATH}/list`;
 
 // description: 공지사항 절대 URL PATH 
 // ???? NOTICE_LIST 뺌
