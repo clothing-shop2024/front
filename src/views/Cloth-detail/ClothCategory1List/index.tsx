@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
-import { getClothDetailListRequest } from "src/apis/clothDetail";
+import { useNavigate, useParams } from "react-router";
+import { getClothDetailCategory1ListRequest, getClothDetailListRequest } from "src/apis/clothDetail";
 import { GetClothDetailListResponseDto } from "src/apis/clothDetail/dto/response";
 import ResponseDto from "src/apis/response.dto";
 import { CLOTH_DETAIL_LIST_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH } from "src/constant";
@@ -49,6 +49,8 @@ export default function ClothDetailList() {
     const [currentItems, setCurrentItems] = useState<ClothDetailListItem[]>([]);
     // 처음에는 16개만 표시
     const [itemsToShow, setItemsToShow] = useState<number>(5);
+    const { clothCategory1 } = useParams();
+    // const [clothCategory1, setClothCategory1] = useState<string>('');
 
     const navigator = useNavigate();
 
@@ -66,7 +68,8 @@ export default function ClothDetailList() {
     };
 
     useEffect(() => {
-        getClothDetailListRequest().then(clothDetailListResponse);
+        if (!clothCategory1) return;
+        getClothDetailCategory1ListRequest(clothCategory1).then(clothDetailListResponse);
         
     }, []);
 
@@ -76,30 +79,28 @@ export default function ClothDetailList() {
         setCurrentItems(clothDetailList.slice(0, newItemsToShow)); // 새로운 아이템 설정
     };
 
-    const onListClickHandler = () => {
-        navigator(CLOTH_DETAIL_LIST_ABSOLUTE_PATH);
-    }
-
-
     return (
         <div>
             <div className='page-title-outside'>
-                <div className='page-big-title' onClick={onListClickHandler}>CLOTH</div>
+                <div className='page-big-title'>CLOTH</div>
             </div>
             <div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+                <div className='cloth-detail-list-category1-title'>{clothCategory1}</div>
+                <div className='cloth-detail-list-category2'>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div className='cloth-detail-list-wrap'>
+                    {currentItems.map(item => <ListItem key={item.clothDetailName} {...item} />)}
+                </div>
+                {currentItems.length < clothDetailList.length && (
+                <div className='board-button' onClick={handleLoadMore}>
+                    더보기
+                </div>
+                )}
             </div>
-            <div className='cloth-detail-list-wrap'>
-                {currentItems.map(item => <ListItem key={item.clothDetailName} {...item} />)}
-            </div>
-            {currentItems.length < clothDetailList.length && (
-            <div className='board-button' onClick={handleLoadMore}>
-                더보기
-            </div>
-            )}
         </div>
     )
 }
