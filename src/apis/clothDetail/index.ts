@@ -1,5 +1,5 @@
 import axios from "axios"
-import { GET_BEST_CLOTH_DETAIL_LIST_URL, GET_CLOTH_DETAIL_LIST_URL } from "src/constant"
+import { GET_BEST_CLOTH_DETAIL_LIST_URL, GET_CLOTH_DETAIL_CATEGORY1_LIST_URL, GET_CLOTH_DETAIL_LIST_URL } from "src/constant"
 import { bearerAuthorization, requestErrorHandler, requestHandler } from ".."
 import { GetBestClothDetailListResponseDto, GetClothDetailListResponseDto } from "./dto/response"
 
@@ -19,4 +19,14 @@ export const getBestClothDetailListRequest = async() => {
         .then(requestHandler<GetBestClothDetailListResponseDto>)
         .catch(requestErrorHandler);
     return result;
+};
+
+// 
+export const getClothDetailCategory1ListRequest = async(clothCategory1: string) => {
+    const result = await axios
+        .get(GET_CLOTH_DETAIL_CATEGORY1_LIST_URL(clothCategory1))
+        .then(requestHandler<GetClothDetailListResponseDto>)
+        .catch(requestErrorHandler);
+    return result;
+    console.log(clothCategory1);
 };

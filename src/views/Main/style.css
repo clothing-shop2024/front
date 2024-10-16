@@ -72,8 +72,29 @@ h {
     margin-top: 50px;
 }
 
-.best-cloth-detail-list-wrap {
+.cloth-detail-list {
+    width: 230px;
+    height: 250px;
+
+}
+
+.cloth-detail-list-container {
+    margin-top: 100px;
+    margin-bottom: 100px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.best-cloth-detail-list-wrap {
+    display: grid; /* 그리드 레이아웃을 활성화 */
+    grid-template-columns: repeat(4, 1fr); /* 4개의 열을 생성 */
+    gap: 20px;
+}
+
+.best-cloth-detail-list-title {
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .cloth-detail-category1-select {

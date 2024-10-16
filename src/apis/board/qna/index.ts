@@ -52,7 +52,7 @@ export const getQnaCategoryListRequest = async(qnaCategory: string) => {
     return result;
 };
 
-// function : 문의사항 카테고리 필터 리스트 불러오기 API 함수
+// function : 문의사항 카테고리 검색 필터 리스트 불러오기 API 함수
 export const getQnaCategorySearchListRequest = async(qnaCategory: string, word: string) => {
     const config = { params: { word } }
 
