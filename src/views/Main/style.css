@@ -72,6 +72,10 @@ h {
     margin-top: 50px;
 }
 
+.best-cloth-detail-list-wrap {
+    display: flex;
+}
+
 .cloth-detail-category1-select {
     display: flex;
     justify-content: center;
