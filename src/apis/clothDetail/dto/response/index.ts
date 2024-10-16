@@ -8,5 +8,5 @@ export interface GetClothDetailListResponseDto extends ResponseDto {
 
 // description: 옷 상세 테이블 전체 리스트 불러오기 Response Body DTO
 export interface GetBestClothDetailListResponseDto extends ResponseDto {
-    bestClothDetailList: ClothDetailListItem;
+    clothDetailList: ClothDetailListItem;
 }

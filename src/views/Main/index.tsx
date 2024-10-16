@@ -9,6 +9,8 @@ import useUserStore from "src/stores/user.store";
 import "./style.css";
 import { ClothDetailListItem } from "src/types";
 import { usePagination } from "src/hooks";
+import { GetBestClothDetailListResponseDto } from "src/apis/clothDetail/dto/response";
+import { getBestClothDetailListRequest } from "src/apis/clothDetail";
 
 //                    component                    //
 function ListItem(props: ClothDetailListItem) {
@@ -55,9 +57,10 @@ export default function Main() {
     //                   state                   //
     const [cookies] = useCookies();
 
-    const { viewList, setCurrentSection } = usePagination<ClothDetailListItem>(COUNT_CLOTH_LIST_PAGE, COUNT_PER_SECTION);
+    const [clothDetailList, setClothDetailList] = useState<ClothDetailListItem[]>([]);
+    const [currentItems, setCurrentItems] = useState<ClothDetailListItem[]>([]);
+    const [itemsToShow, setItemsToShow] = useState<number>(5);
     const [currentPage, setCurrentPage] = useState(0);
-    const [visibleItems, setVisibleItems] = useState<ClothDetailListItem[]>([]);
     const ITEMS_PER_LOAD = 16; // 한번에 로드할 아이템 수
 
     const [searchWord] = useState<string>('');
@@ -103,6 +106,21 @@ export default function Main() {
         }, 3000)
     };
 
+    const bestClothDetailListResponse = (result: GetBestClothDetailListResponseDto | ResponseDto | null) => {
+        if (!result || result.code !== 'SU') return;
+
+        const { clothDetailList } = result as GetBestClothDetailListResponseDto;
+
+
+        if (Array.isArray(clothDetailList)) {
+            setClothDetailList(clothDetailList);
+            setCurrentItems(clothDetailList.slice(0, itemsToShow));
+        } else {
+            console.error("Fetched cloth detail list is not an array");
+        }
+
+    };
+
     //  event handler //
 
     // effect //
@@ -126,21 +144,16 @@ export default function Main() {
         autoMoveSlide();
     },);
 
-    // 첫 로드 시 초기 아이템 16개 보여줌
     useEffect(() => {
-        console.log(viewList);
-        console.log(visibleItems);
-        const initialItems = viewList.slice(0, ITEMS_PER_LOAD);
-        setVisibleItems(initialItems);
-    }, [viewList]);
+        getBestClothDetailListRequest().then(bestClothDetailListResponse);
+        
+    }, []);
 
-    // 더보기 버튼을 눌렀을 때 아이템 추가 로드
-     const loadMoreItems = () => {
-        const nextPage = currentPage + 1;
-        const newItems = viewList.slice(nextPage * ITEMS_PER_LOAD, (nextPage +1) * ITEMS_PER_LOAD);
-        setVisibleItems([...visibleItems, ...newItems]);
-        setCurrentPage(nextPage);
-     };
+    const handleLoadMore = () => {
+        const newItemsToShow = itemsToShow + 16; // 더보기 클릭 시 16개씩 추가
+        setItemsToShow(newItemsToShow);
+        setCurrentItems(clothDetailList.slice(0, newItemsToShow)); // 새로운 아이템 설정
+    };
 
     // render //
     return (
@@ -160,15 +173,15 @@ export default function Main() {
                     ))
                 }
             </div>
-            <div className='cloth-detail-best-list-title'>BEST</div>
-            <div className='cloth-detail-list-wrap'>
-                <div className='cloth-detail-grid'>
-                    {visibleItems.map(item => <ListItem key={item.clothDetailNumber} {...item} />)}
-                </div>
-                {visibleItems.length < viewList.length && (
-                    <button onClick={loadMoreItems} className='board-button'>더보기</button>
-                )}
+            <div className='best-cloth-detail-list-title'>BEST</div>
+            <div className='best-cloth-detail-list-wrap'>
+                {currentItems.map(item => <ListItem key={item.clothDetailName} {...item} />)}
             </div>
+            {currentItems.length < clothDetailList.length && (
+            <div className='board-button' onClick={handleLoadMore}>
+                더보기
+            </div>
+            )}
 
             <div className='cloth-detail-category1-select'>
                 <div className='cloth-detail-category1'>OUTER</div>

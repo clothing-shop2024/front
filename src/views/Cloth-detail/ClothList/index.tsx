@@ -87,7 +87,7 @@ export default function ClothDetailList() {
                 <div className='page-big-title' onClick={onListClickHandler}>CLOTH</div>
             </div>
             <div>
-                <div ></div>
+                <div></div>
                 <div></div>
                 <div></div>
                 <div></div>
