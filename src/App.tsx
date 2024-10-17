@@ -71,7 +71,7 @@ function App() {
                 {/* 옷 페이지 */}
                 <Route path={CLOTH_PATH}>
                     <Route path={CLOTH_LIST_PATH}>
-                    <Route path={CLOTH_CATEGORY1_PATH} element={<ClothDetailList />} />
+                        <Route path={CLOTH_CATEGORY1_PATH} element={<ClothDetailList />} />
                     </Route>
                 </Route>
 

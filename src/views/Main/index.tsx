@@ -9,7 +9,7 @@ import useUserStore from "src/stores/user.store";
 import "./style.css";
 import { ClothDetailListItem } from "src/types";
 import { usePagination } from "src/hooks";
-import { GetBestClothDetailListResponseDto, GetClothDetailListResponseDto } from "src/apis/clothDetail/dto/response";
+import { GetClothDetailListResponseDto } from "src/apis/clothDetail/dto/response";
 import { getBestClothDetailListRequest, getClothDetailCategory1ListRequest } from "src/apis/clothDetail";
 
 //                    component                    //
@@ -117,10 +117,11 @@ export default function Main() {
         }, 3000)
     };
 
-    const getbestClothDetailListResponse = (result: GetBestClothDetailListResponseDto | ResponseDto | null) => {
+    const getBestClothDetailListResponse = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
+
         if (!result || result.code !== 'SU') return;
 
-        const { clothDetailList } = result as GetBestClothDetailListResponseDto;
+        const { clothDetailList } = result as GetClothDetailListResponseDto;
 
 
         if (Array.isArray(clothDetailList)) {
@@ -129,10 +130,10 @@ export default function Main() {
         } else {
             console.error("Fetched cloth detail list is not an array");
         }
-
     };
 
     const getClothDetailCategory1ListResponse = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
+
         if (!result || result.code !== 'SU') return;
 
         const { clothDetailList } = result as GetClothDetailListResponseDto;
@@ -147,10 +148,10 @@ export default function Main() {
 
     };
 
-    //  event handler //
+    //                event handler                    //
     const onCategoryClickHandler = (category1: string) => {
         setClothCategory1(category1);
-        getClothDetailCategory1ListRequest(category1).then(getClothDetailCategory1ListResponse);
+        // getClothDetailCategory1ListRequest(category1).then(getClothDetailCategory1ListResponse);
         navigation(CLOTH_DETAIL_CATEGORY1_LIST_ABSOLUTE_PATH(category1));
     };
 
@@ -182,10 +183,10 @@ export default function Main() {
     },);
 
     useEffect(() => {
-        getBestClothDetailListRequest().then(getbestClothDetailListResponse);
+        getBestClothDetailListRequest().then(getBestClothDetailListResponse);
     }, []);
 
-    // render //
+    //                  render                  //
     return (
         <div className='main-banner' >
             <div className='main-show'>

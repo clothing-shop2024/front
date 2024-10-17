@@ -1,3 +1,14 @@
+.cloth-detail-list-category2-title {
+    display: flex;
+    gap: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.best-cloth-detail-list {
+    margin-bottom: 100px;
+}
+
 .cloth-detail-list-wrap {
     display: grid; /* 그리드 레이아웃을 활성화 */
     grid-template-columns: repeat(4, 1fr); /* 4개의 열을 생성 */
