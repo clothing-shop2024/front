@@ -182,7 +182,8 @@ export const DELETE_MY_INFO_URL = (userId: string) => `${SERVER_USER_MODULE_URL}
 // description : 옷 상세 전체 리스트 URL
 export const SERVER_CLOTH_MODULE_URL = `${SERVER_API_URL}/cloth-detail`;
 export const GET_CLOTH_DETAIL_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/list`;
-export const GET_BEST_CLOTH_DETAIL_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/list/popular`;
+export const GET_BEST_CLOTH_DETAIL_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/list/best`;
+export const GET_BEST_CLOTH_DETAIL_CATEGORY1_LIST_URL = (clothCategory1: string) => `${SERVER_CLOTH_MODULE_URL}/list/category1/${clothCategory1}/best`;
 export const GET_CLOTH_DETAIL_CATEGORY1_LIST_URL = (clothCategory1: string) => `${SERVER_CLOTH_MODULE_URL}/list/category1/${clothCategory1}`;
 
 // description : 공지사항 모듈 내의 기능 URL
