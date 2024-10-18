@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { getBestClothDetailCategory1ListRequest, getClothDetailCategory1ListRequest, getClothDetailListRequest } from "src/apis/clothDetail";
+import { getBestClothDetailCategory1ListRequest, getClothDetailCategory1ListRequest, getClothDetailListRequest, getPriceAscClothDetailCategory1ListRequest, getPriceDescClothDetailCategory1ListRequest } from "src/apis/clothDetail";
 import { GetClothDetailListResponseDto } from "src/apis/clothDetail/dto/response";
 import ResponseDto from "src/apis/response.dto";
 import { CLOTH_DETAIL_LIST_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH } from "src/constant";
@@ -57,6 +57,9 @@ export default function ClothDetailList() {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [currentItems2, setCurrentItems2] = useState<ClothDetailListItem[]>([]);
 
+    // 동적 스타일 -> 해당 필터 클릭 시 진하게 표시
+    const [activeFilter, setActiveFilter] = useState<string | null>(null);
+
     const navigator = useNavigate();
 
     const clothDetailCategory1ListResponse = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
@@ -84,9 +87,49 @@ export default function ClothDetailList() {
         }
     };
 
+    const getPriceAscClothDetailCategory1ListRespone = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
+
+        if (!result || result.code !== 'SU') return;
+
+        const { clothDetailList } = result as GetClothDetailListResponseDto;
+
+        if (Array.isArray(clothDetailList)) {
+            setClothDetailList(clothDetailList);
+            setCurrentItems1(clothDetailList.slice(0, itemsToShow));
+        } else {
+            console.error("Fetched cloth detail list is not an array");
+        }
+    };
+
+    const getPriceDescClothDetailCategory1ListRespone = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
+
+        if (!result || result.code !== 'SU') return;
+
+        const { clothDetailList } = result as GetClothDetailListResponseDto;
+
+        if (Array.isArray(clothDetailList)) {
+            setClothDetailList(clothDetailList);
+            setCurrentItems1(clothDetailList.slice(0, itemsToShow));
+        } else {
+            console.error("Fetched cloth detail list is not an array");
+        }
+    };
+
     //                event handler                    //
     const onListClickHandler = (category1: string) => {
         // navigator(CLOTH_DETAIL_LIST_ABSOLUTE_PATH(category1));
+    };
+
+    const onPriceAscClickHandler = (category1: string) => {
+        if (!clothCategory1) return;
+        setActiveFilter('asc');
+        getPriceAscClothDetailCategory1ListRequest(clothCategory1).then(getPriceAscClothDetailCategory1ListRespone);
+    }
+    
+    const onPriceDescClickHandler = (category1: string) => {
+        if (!clothCategory1) return;
+        setActiveFilter('desc');
+        getPriceDescClothDetailCategory1ListRequest(clothCategory1).then(getPriceDescClothDetailCategory1ListRespone);
     }
     
     const handleLoadMore = () => {
@@ -174,11 +217,11 @@ export default function ClothDetailList() {
                             <div>etc</div>
                         </div>
                     }
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <div className='cloth-detail-list-filter'>
+                        <div onClick={() => onPriceAscClickHandler(clothCategory1 || '')} className={activeFilter === 'asc' ? 'active-filter' : ''}>낮은가격</div>
+                        <div onClick={() => onPriceDescClickHandler(clothCategory1 || '')}className={activeFilter === 'desc' ? 'active-filter' : ''}>높은가격</div>
+                        <div>사용후기</div>
+                    </div>
                 </div>
                 <div className='cloth-detail-list-wrap'>
                     {currentItems1.map(item => <ListItem key={item.clothDetailName} {...item} />)}
