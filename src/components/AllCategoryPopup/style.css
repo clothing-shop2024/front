@@ -20,7 +20,6 @@
 }
 
 .all-cloth-category-detail {
-    
     margin-bottom: 30px;
 }
 
@@ -30,6 +29,10 @@
 
 .all-auth-category {
     margin-bottom: 30px;
+}
+
+.side-bar-button-container {
+    display: flex;
 }
 
 .side-bar-button:hover {

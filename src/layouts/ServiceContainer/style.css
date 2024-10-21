@@ -11,13 +11,20 @@
 /* TopBar */
 .topbar {
     grid-area: topbar;
-
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: rgba(255, 254, 178, 0.8);
+    padding: 10px;
 
-    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* 다른 요소들과 겹쳤을 때 어떤 요소가 위에 표시될지 */
+    z-index: 1000; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
 }
 
 .all-category-box {
