@@ -8,7 +8,7 @@ export const SIGN_IN_PATH = 'sign-in';
 export const SIGN_UP_PATH = 'sign-up';
 export const FIND_ID_PATH = 'find-id';
 export const FIND_PASSWORD_PATH = 'find-password';
-export const FIND_PASSWORD_RESET_PATH = 'find-password/:userId';
+export const FIND_PASSWORD_RESET_PATH = 'find-password-reset';
 export const SNS_PATH = 'sns/:accessToken/:expires';
 
 // description : 옷 페이지 URL 
@@ -110,7 +110,8 @@ export const SIGN_IN_ABSOLUTE_PATH = `${MAIN_PATH}/${AUTH_PATH}/${SIGN_IN_PATH}`
 export const SIGN_UP_ABSOLUTE_PATH = `${MAIN_PATH}/${AUTH_PATH}/${SIGN_UP_PATH}`;
 export const FIND_ID_ABSOLUTE_PATH = `${MAIN_PATH}/${AUTH_PATH}/${FIND_ID_PATH}`;
 export const FIND_PASSWORD_ABSOLUTE_PATH = `${MAIN_PATH}/${AUTH_PATH}/${FIND_PASSWORD_PATH}`;
-export const FIND_PASSWORD_RESET_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/${AUTH_PATH}/${FIND_PASSWORD_PATH}/${userId}`;
+// export const FIND_PASSWORD_RESET_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/${AUTH_PATH}/${FIND_PASSWORD_PATH}/${userId}`;
+export const FIND_PASSWORD_RESET_ABSOLUTE_PATH = `${MAIN_PATH}/${AUTH_PATH}/${FIND_PASSWORD_RESET_PATH}`;
 
 // description: 마이페이지 URL PATH 
 export const MY_PAGE_INFO_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${MY_PAGE_INFO_PATH}`;

@@ -329,7 +329,7 @@ export default function SignUp() {
                             onChangeHandler={onPasswordCheckChangeHandler} 
                             message={passwordCheckMessage} error 
                         />
-                         <InputBox 
+                        <InputBox 
                             label="이름"
                             type="text" 
                             value={userName} 
