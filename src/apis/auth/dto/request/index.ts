@@ -56,6 +56,7 @@ export interface FindPasswordRequestDto {
     userId : string;
     userName : string;
     userEmail : string;
+    authNumber : string;
 }
 
 // description: 비밀번호 재설정 Request Body DTO 
