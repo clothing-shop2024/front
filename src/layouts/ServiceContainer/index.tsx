@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import ResponseDto from "src/apis/response.dto";
 import { getMyInfoRequest, getSignInUserRequest } from "src/apis/user";
 import { GetMyInfoResponseDto, GetSignInUserResponseDto } from "src/apis/user/dto/response";
 import AllCategoryPopup from "src/components/AllCategoryPopup";
-import { MAIN_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from "src/constant";
+import { CLOTH_DEATIL_SEARCH_LIST_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from "src/constant";
 import useUserStore from "src/stores/user.store";
 import { MY_PAGE_INFO_ABSOLUTE_PATH } from '../../constant/index';
 import './style.css';
@@ -20,6 +20,12 @@ function TopBar() {
     const [cookies, removeCookie] = useCookies();
     const [userName, setUserName] = useState<string>('');
     const [isShownCategory, setIsShownCategory] = useState(false);
+
+    // search
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const initialSearchWord = queryParams.get('search') || '';
+    const [searchWord, setSearchWord] = useState<string>(initialSearchWord);
 
     const openAllCategoryHandler = () => {
         setIsShownCategory(true); 
@@ -43,13 +49,21 @@ function TopBar() {
     };
 
     //                event handler                    //
-
     const onLogoClickHandler = () => {
       if (pathname === MAIN_ABSOLUTE_PATH) {
         window.location.reload();
       } else {
         navigator(MAIN_ABSOLUTE_PATH);
       }
+    }
+
+    const onSearchWordChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        const searchWord = event.target.value;
+        setSearchWord(searchWord);
+    };
+
+    const onSearchButtonClickHandler = () => {
+        navigator(CLOTH_DEATIL_SEARCH_LIST_ABSOLUTE_PATH + `?search=${searchWord}`);
     }
 
     const onSignInClickHandler = () => navigator(SIGN_IN_ABSOLUTE_PATH);
@@ -82,9 +96,9 @@ function TopBar() {
             <div className='topbar-right'>
                 <div className='topbar-right-search'>
                     <div className='search-cloth-input-box'>
-                        <input className='search-cloth-input' />
+                        <input className='search-cloth-input' value={searchWord} onChange={onSearchWordChangeHandler} />
                     </div>
-                    <div className='search-cloth-button search'></div>
+                    <div className='search-cloth-button search' onClick={onSearchButtonClickHandler}></div>
                 </div>
                 <div className='topbar-right-user'>
                 { notLoginInState &&
