@@ -60,6 +60,7 @@ export default function ClothDetailList() {
     // 동적 스타일 -> 해당 필터 클릭 시 진하게 표시
     const [activeFilter, setActiveFilter] = useState<string | null>(null);
 
+    //                    function                     //
     const navigator = useNavigate();
 
     const clothDetailCategory1ListResponse = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
