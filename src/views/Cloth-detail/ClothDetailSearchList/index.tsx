@@ -1,9 +1,9 @@
-import { ClothDetailListItem } from 'src/types';
-import './style.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { GetClothDetailListResponseDto } from 'src/apis/clothDetail/dto/response';
 import ResponseDto from 'src/apis/response.dto';
+import { ClothDetailListItem } from 'src/types';
+import './style.css';
 
 //                    component                    //
 function ListItem (props: ClothDetailListItem) {
@@ -45,7 +45,8 @@ export default function ClothDetailSearchList() {
     const [clothDetailList, setClothDetailList] = useState<ClothDetailListItem[]>([]);
     const [currentItems1, setCurrentItems1] = useState<ClothDetailListItem[]>([]);
     const [itemsToShow, setItemsToShow] = useState<number>(8);
-    const queryParams = new URLSearchParams(location.search);
+    // window 추가
+    const queryParams = new URLSearchParams(window.location.search);
     const initialSearchWord = queryParams.get('search') || '';
     const [searchWord, setSearchWord] = useState<string>(initialSearchWord);
 

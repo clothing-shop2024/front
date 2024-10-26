@@ -71,6 +71,8 @@ export const FAQ_LIST_PATH = 'list';
 // description : 마이 페이지 URL
 export const MY_PAGE_PATH = 'my-page';
 export const MY_PAGE_INFO_PATH = 'info';
+export const USER_PASSWORD_UPDATE_PATH = 'password-update';
+export const USER_EMAIL_UPDATE_PATH = 'email-update';
 export const MY_PAGE_INFO_UPDATE_PATH = 'update/:userId';
 export const MY_PAGE_INFO_DELETE_PATH = 'delete/:userId';
 
@@ -117,7 +119,9 @@ export const FIND_PASSWORD_RESET_ABSOLUTE_PATH = `${MAIN_PATH}/${AUTH_PATH}/${FI
 // description: 마이페이지 URL PATH 
 export const MY_PAGE_INFO_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${MY_PAGE_INFO_PATH}`;
 export const MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/${MY_PAGE_PATH}/update/${userId}`;
-export const MY_PAGE_DELETE_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/${MY_PAGE_PATH}/delete/${userId}`;
+export const USER_PASSWORD_UPDATE_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${USER_PASSWORD_UPDATE_PATH}`;
+export const USER_EMAIL_UPDATE_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${USER_EMAIL_UPDATE_PATH}`;
+export const MY_PAGE_INFO_DELETE_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/${MY_PAGE_PATH}/delete/${userId}`;
 export const MY_PAGE_COUPON_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${MY_PAGE_COUPON_PATH}`;
 
 // description: 옷 상세 리스트 URL PATH
@@ -176,11 +180,11 @@ export const PUT_FIND_PASSWORD_RESET_REQUEST_URL = `${SERVER_AUTH_MODULE_URL}/fi
 export const SERVER_USER_MODULE_URL = `${SERVER_API_URL}/user`;
 
 export const GET_USER_INFO_REQUEST_URL = `${SERVER_USER_MODULE_URL}/`;
-export const GET_MY_INFO_URL_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info`;
-export const PATCH_MY_INFO_UPDATE_URL_REQUEST_URL = (userId: string) => `${GET_MY_INFO_URL_REQUEST_URL}/update/${userId}`;
-export const PATCH_MY_INFO_PASSWORD_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info/password-modify`;
-export const PATCH_MY_INFO_EMAIL_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info/email-modify`;
-export const DELETE_MY_INFO_URL = (userId: string) => `${SERVER_USER_MODULE_URL}/info/delete/${userId}`;
+export const GET_MY_INFO_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info`;
+export const PATCH_MY_INFO_UPDATE_REQUEST_URL = (userId: string) => `${SERVER_USER_MODULE_URL}/info-update/${userId}`;
+export const PUT_MY_INFO_PASSWORD_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info/password-modify`;
+export const PUT_MY_INFO_EMAIL_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info/email-modify`;
+export const POST_MY_INFO_DELETE_REQUEST_URL = (userId: string) => `${SERVER_USER_MODULE_URL}/info-delete/${userId}`;
 
 // description : 옷 상세 전체 리스트 URL
 export const SERVER_CLOTH_MODULE_URL = `${SERVER_API_URL}/cloth-detail`;

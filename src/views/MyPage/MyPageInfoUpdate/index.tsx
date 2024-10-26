@@ -6,7 +6,7 @@ import { getMyInfoRequest, patchUserInfoRequest } from "src/apis/user";
 import { PatchUserInfoRequestDto } from "src/apis/user/dto/request";
 import { GetMyInfoResponseDto, PatchUserInfoResponseDto } from "src/apis/user/dto/response";
 import InputBox from "src/components/InputBox";
-import { MAIN_ABSOLUTE_PATH, MY_PAGE_INFO_ABSOLUTE_PATH, MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH } from "src/constant";
+import { MAIN_ABSOLUTE_PATH, MY_PAGE_INFO_ABSOLUTE_PATH, MY_PAGE_INFO_DELETE_ABSOLUTE_PATH, MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH, USER_EMAIL_UPDATE_ABSOLUTE_PATH, USER_PASSWORD_UPDATE_ABSOLUTE_PATH } from "src/constant";
 import useUserStore from "src/stores/user.store";
 import "./style.css";
 
@@ -18,7 +18,7 @@ export default function MyPageInfoUpdate() {
   const { loginUserRole } = useUserStore();
   const [userRole, setUserRole] = useState<string>('');
   const [userId, setUserId] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  // const [password, setPassword] = useState<string>('');
   const [userName, setUserName] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
   const [userEmail, setUserEmail] = useState<string>('');
@@ -42,9 +42,11 @@ export default function MyPageInfoUpdate() {
             navigator(MAIN_ABSOLUTE_PATH);
             return;
         };
-        
+        navigator(MY_PAGE_INFO_ABSOLUTE_PATH);
         return;
     };
+
+    if (!cookies.accessToken) return;
 
     const { userId, userName, nickname, userEmail, userBirthDay } = result as GetMyInfoResponseDto;
     setUserId(userId);
@@ -77,7 +79,7 @@ const PatchUpdateUserInfoResponse = (result: PatchUserInfoResponseDto | Response
 
   const onUserNameChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const userName = event.target.value;
-    setNickname(userName);
+    setUserName(userName);
   };
 
   const onNicknameChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -87,11 +89,12 @@ const PatchUpdateUserInfoResponse = (result: PatchUserInfoResponseDto | Response
 
   const onUserBirthDayChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const userBirthDay = event.target.value;
-    setNickname(userBirthDay);
+    setUserBirthDay(userBirthDay);
   };
 
   const onUpdateButtonClickHandler = () => {
     if (!cookies.accessToken || !userId) return;
+    if (!nickname.trim() || !userName.trim()) return;
 
     const requestBody: PatchUserInfoRequestDto = { userName, nickname, userBirthDay };
     patchUserInfoRequest(userId, requestBody, cookies.accessToken).then(PatchUpdateUserInfoResponse);
@@ -99,6 +102,9 @@ const PatchUpdateUserInfoResponse = (result: PatchUserInfoResponseDto | Response
 
   const onMyPageInfoClickHandler = () => navigator(MY_PAGE_INFO_ABSOLUTE_PATH);
   const onMyPageInfoUpdateClickHandler = (userId:string) => navigator(MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH(userId));
+  const onMyPageInfoDeleteClickHandler = (userId:string) => navigator(MY_PAGE_INFO_DELETE_ABSOLUTE_PATH(userId));
+  const onUserPasswordModifyClickHandler = () => navigator(USER_PASSWORD_UPDATE_ABSOLUTE_PATH);
+  const onUserEmaildModifyClickHandler = () => navigator(USER_EMAIL_UPDATE_ABSOLUTE_PATH);
 
   // effect //
   let effectFlag = useRef(false);
@@ -114,7 +120,7 @@ const PatchUpdateUserInfoResponse = (result: PatchUserInfoResponseDto | Response
     if (effectFlag.current) return;
     effectFlag.current = true;
     if (loginUserRole !== 'ROLE_USER') {
-      navigator(MAIN_ABSOLUTE_PATH);
+      navigator(MY_PAGE_INFO_ABSOLUTE_PATH);
       return;
     }
     getMyInfoRequest(cookies.accessToken).then(getMyInfoResponse);
@@ -141,8 +147,8 @@ const PatchUpdateUserInfoResponse = (result: PatchUserInfoResponseDto | Response
             </div>
           
             <div className='my-page-update-info-box'>
-              <div className='my-page-update-info-left'>비밀번호</div>
-              <div className='my-page-update-info'>{password}</div>
+              <div className='my-page-update-info-left' onClick={onUserPasswordModifyClickHandler}>비밀번호</div>
+              {/* <div className='my-page-update-info'>{password}</div> */}
             </div>
 
             <div className='my-page-update-info-box'>
@@ -160,7 +166,7 @@ const PatchUpdateUserInfoResponse = (result: PatchUserInfoResponseDto | Response
             </div>
 
             <div className='my-page-update-info-box'>
-              <div className='my-page-update-info-left'>이메일</div>
+              <div className='my-page-update-info-left' onClick={onUserEmaildModifyClickHandler}>이메일</div>
               <div className='my-page-update=info'>{userEmail}</div>
             </div>
 
@@ -173,7 +179,7 @@ const PatchUpdateUserInfoResponse = (result: PatchUserInfoResponseDto | Response
 
           </div>
           <div className='my-page-update-button' onClick={onUpdateButtonClickHandler}>수정</div>
-          <div className='my-page-delete-button'>회원탈퇴</div>
+          <div className='my-page-delete-button' onClick={() => onMyPageInfoDeleteClickHandler(userId)}>회원탈퇴</div>
         </div>
       </div>
     </div>
