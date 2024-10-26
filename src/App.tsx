@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Route, Routes, useNavigate } from "react-router-dom";
 import './App.css';
 
-import { ADMIN_FAQ_UPDATE_PATH, ADMIN_NOTICE_UPDATE_PATH, ADMIN_PATH, AUTH_PATH, CLOTH_CATEGORY1_PATH, CLOTH_LIST_PATH, CLOTH_PATH, CLOTH_SEARCH_PATH, FAQ_LIST_PATH, FAQ_PATH, FIND_ID_PATH, FIND_PASSWORD_PATH, FIND_PASSWORD_RESET_PATH, MAIN_ABSOLUTE_PATH, MAIN_PATH, MY_PAGE_COUPON_PATH, MY_PAGE_INFO_PATH, MY_PAGE_INFO_UPDATE_PATH, MY_PAGE_PATH, NOTICE_DETAIL_PATH, NOTICE_LIST_PATH, NOTICE_PATH, QNA_DETAIL_PATH, QNA_LIST_PATH, QNA_PATH, QNA_UPDATE_PATH, REGIST_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH } from './constant';
+import { ADMIN_FAQ_UPDATE_PATH, ADMIN_NOTICE_UPDATE_PATH, ADMIN_PATH, AUTH_PATH, CLOTH_CATEGORY1_PATH, CLOTH_LIST_PATH, CLOTH_PATH, CLOTH_SEARCH_PATH, FAQ_LIST_PATH, FAQ_PATH, FIND_ID_PATH, FIND_PASSWORD_PATH, FIND_PASSWORD_RESET_PATH, MAIN_ABSOLUTE_PATH, MAIN_PATH, MY_PAGE_COUPON_PATH, MY_PAGE_INFO_DELETE_PATH, MY_PAGE_INFO_PATH, MY_PAGE_INFO_UPDATE_PATH, MY_PAGE_PATH, NOTICE_DETAIL_PATH, NOTICE_LIST_PATH, NOTICE_PATH, QNA_DETAIL_PATH, QNA_LIST_PATH, QNA_PATH, QNA_UPDATE_PATH, REGIST_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH, USER_EMAIL_UPDATE_PATH, USER_PASSWORD_UPDATE_PATH } from './constant';
 import ServiceContainer from './layouts/ServiceContainer';
 import FindId from './views/Authentication/FindId';
 import FindPassword from './views/Authentication/FindPassword';
@@ -16,16 +16,19 @@ import NoticeDetail from './views/Board/Notice/NoticeDetail';
 import NoticeList from './views/Board/Notice/NoticeList';
 import NoticeRegist from './views/Board/Notice/NoticeRegist';
 import NoticeUpdate from './views/Board/Notice/NoticeUpdate';
-import QnaList from './views/Board/Qna/QnaList';
-import Main from './views/Main';
-import MyPageCoupon from './views/MyPage/MyPageCoupon';
-import MyPageInfo from './views/MyPage/MyPageInfo';
-import MyPageInfoUpdate from './views/MyPage/MyPageInfoUpdate';
 import QnaDetail from './views/Board/Qna/QnaDetail';
+import QnaList from './views/Board/Qna/QnaList';
 import QnaRegist from './views/Board/Qna/QnaRegist';
 import QnaUpdate from './views/Board/Qna/QnaUpdate';
 import ClothDetailList from './views/Cloth-detail/ClothCategory1List';
 import ClothDetailSearchList from './views/Cloth-detail/ClothDetailSearchList';
+import Main from './views/Main';
+import EmailModify from './views/MyPage/EmailModify';
+import MyPageCoupon from './views/MyPage/MyPageCoupon';
+import MyPageInfo from './views/MyPage/MyPageInfo';
+import MyPageInfoDelete from './views/MyPage/MyPageInfoDelete';
+import MyPageInfoUpdate from './views/MyPage/MyPageInfoUpdate';
+import PasswordModify from './views/MyPage/PasswordModify';
 
 // component: root 경로 컴포넌트
 function Index() {
@@ -66,6 +69,9 @@ function App() {
                 <Route path={MY_PAGE_PATH}>
                     <Route path={MY_PAGE_INFO_PATH} element={<MyPageInfo />} />
                     <Route path={MY_PAGE_INFO_UPDATE_PATH} element={<MyPageInfoUpdate />} />
+                    <Route path={USER_PASSWORD_UPDATE_PATH} element={<PasswordModify />} />
+                    <Route path={USER_EMAIL_UPDATE_PATH} element={<EmailModify />} />
+                    <Route path={MY_PAGE_INFO_DELETE_PATH} element={<MyPageInfoDelete />} />
                     <Route path={MY_PAGE_COUPON_PATH} element={<MyPageCoupon />} />
                 </Route>
 
