@@ -10,7 +10,7 @@ import "./style.css";
 import { ClothDetailListItem } from "src/types";
 import { usePagination } from "src/hooks";
 import { GetClothDetailListResponseDto } from "src/apis/clothDetail/dto/response";
-import { getBestClothDetailListRequest, getClothDetailCategory1ListRequest } from "src/apis/clothDetail";
+import { getBestClothDetailListRequest, getClothDetailCategory1ListRequest, getClothDetailListRequest } from "src/apis/clothDetail";
 
 //                    component                    //
 function ListItem(props: ClothDetailListItem) {
@@ -63,31 +63,20 @@ export default function Main() {
     const [curSlide, setCurSlide] = useState(0);
     const [intervalId] = useState<number | null>(null);
     const { setLoginUserId, setLoginUserRole } = useUserStore();
-    // const [noticeList, SetNoticeList] = useState<NoticeListItem[]>([]);
 
     const startIndex = currentPage * ITEM_PER_PAGE1;
     const endIndex = startIndex + ITEM_PER_PAGE1;
-    // const totalPages = Math.ceil(noticeList.length / ITEM_PER_PAGE1);
 
     const trainCompartment = ['', '', '', '', ''];
     const FIRST_SLIDE_INDEX = 0;
     const LAST_SLIDE_INDEX = trainCompartment.length - 1;
     const MOVE_SLIDE_INDEX = 1;
     
-    // best cloth slide
     const [clothDetailList, setClothDetailList] = useState<ClothDetailListItem[]>([]);
-    const [currentItems, setCurrentItems] = useState<ClothDetailListItem[]>([]);
-    const [itemsToShow, setItemsToShow] = useState<number>(8);
-    const ITEMS_PER_SLIDE = 4;
-    const TOTAL_CLOTH_ITEMS = 8;
-
-    // clothCategory
-    const [clothCategory1, setClothCategory1] = useState<string>('');
-    const outerCategory1 = "OUTER";
-    const topCategory1 = "TOP";
-    const bottomCategory1 = "BOTTOM";
-    const opsCategory1 = "OPS/SK";
-    const accCategory1 = "ACC";
+    const [bestItemsToShow, setBestItemsToShow] = useState<number>(8);
+    const [newItemsToShow, setNewItemsToShow] = useState<number>(8);
+    const [bestItems, setBestItems] = useState<ClothDetailListItem[]>([]);
+    const [newItems, setNewItems] = useState<ClothDetailListItem[]>([]);
 
     // function // 
     const navigation = useNavigate();
@@ -120,45 +109,41 @@ export default function Main() {
     const getBestClothDetailListResponse = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
 
         if (!result || result.code !== 'SU') return;
-
         const { clothDetailList } = result as GetClothDetailListResponseDto;
 
-
         if (Array.isArray(clothDetailList)) {
-            setClothDetailList(clothDetailList);
-            setCurrentItems(clothDetailList.slice(0, itemsToShow));
+            setBestItems(clothDetailList.slice(0, bestItemsToShow));
+            console.log(bestItems.length);
+            console.log(clothDetailList.length);
+            console.log(bestItemsToShow);
         } else {
             console.error("Fetched cloth detail list is not an array");
         }
     };
 
-    const getClothDetailCategory1ListResponse = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
+    const getNewClothDetailListResponse = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
 
         if (!result || result.code !== 'SU') return;
-
         const { clothDetailList } = result as GetClothDetailListResponseDto;
 
-
         if (Array.isArray(clothDetailList)) {
-            setClothDetailList(clothDetailList);
-            setCurrentItems(clothDetailList.slice(0, 40));
+            setNewItems(clothDetailList.slice(0, newItemsToShow));
         } else {
             console.error("Fetched cloth detail list is not an array");
         }
-
     };
 
     //                event handler                    //
-    const onCategoryClickHandler = (category1: string) => {
-        setClothCategory1(category1);
-        // getClothDetailCategory1ListRequest(category1).then(getClothDetailCategory1ListResponse);
-        navigation(CLOTH_DETAIL_CATEGORY1_LIST_ABSOLUTE_PATH(category1));
+    const bestHandleLoadMore = () => {
+        const currentBestItemsToShow = Math.min(bestItemsToShow + 8, 40); // 8개씩 추가, 총 최대 40개까지
+        setBestItemsToShow(currentBestItemsToShow);
+        setBestItems(clothDetailList.slice(0, currentBestItemsToShow)); // BEST ITEM 리스트 업데이트
     };
-
-    const handleLoadMore = () => {
-        const newItemsToShow = Math.min(itemsToShow + 8, 40); // 더보기 클릭 시 8개씩 추가, 총 100개
-        setItemsToShow(newItemsToShow);
-        setCurrentItems(clothDetailList.slice(0, newItemsToShow)); // 새로운 아이템 설정
+    
+    const newHandleLoadMore = () => {
+        const currentNewItemsToShow = Math.min(newItemsToShow + 8, 40); // 8개씩 추가, 총 최대 40개까지
+        setNewItemsToShow(currentNewItemsToShow);
+        setNewItems(clothDetailList.slice(0, currentNewItemsToShow)); // NEW ITEM 리스트 업데이트
     };
 
     // effect //
@@ -184,6 +169,7 @@ export default function Main() {
 
     useEffect(() => {
         getBestClothDetailListRequest().then(getBestClothDetailListResponse);
+        getClothDetailListRequest().then(getNewClothDetailListResponse);
     }, []);
 
     //                  render                  //
@@ -208,22 +194,26 @@ export default function Main() {
                 <div className='best-cloth-detail-list-title'>BEST ITEM</div>
                 <div>
                     <div className='best-cloth-detail-list-wrap'>
-                        {currentItems.map(item => <ListItem key={item.clothDetailName} {...item} />)}
+                        {bestItems.map(item => <ListItem key={item.clothDetailName} {...item} />)}
                     </div>
                 </div>
-                {itemsToShow < 40 && currentItems.length < clothDetailList.length && (
-                    <div className='board-button' onClick={handleLoadMore}>
-                        MORE+
-                    </div>
-                )}
+                    {bestItemsToShow < 40 && bestItems.length < clothDetailList.length && (
+                        <div className='board-button' onClick={bestHandleLoadMore}>
+                            MORE+
+                        </div>
+                    )}
 
-                <div className='cloth-detail-category1-select'>
-                    <div className='cloth-detail-category1' onClick={() => onCategoryClickHandler(outerCategory1)}>OUTER</div>
-                    <div className='cloth-detail-category1' onClick={() => onCategoryClickHandler(topCategory1)}>TOP</div>
-                    <div className='cloth-detail-category1' onClick={() => onCategoryClickHandler(bottomCategory1)}>BOTTOM</div>
-                    <div className='cloth-detail-category1' onClick={() => onCategoryClickHandler(opsCategory1)}>OPS/SK</div>
-                    <div className='cloth-detail-category1' onClick={() => onCategoryClickHandler(accCategory1)}>ACC</div>
+                <div className='best-cloth-detail-list-title'>NEW ITEM</div>
+                <div>
+                    <div className='best-cloth-detail-list-wrap'>
+                        {newItems.map(item => <ListItem key={item.clothDetailName} {...item} />)}
+                    </div>
                 </div>
+                    {newItemsToShow < 40 && newItems.length < clothDetailList.length && (
+                        <div className='board-button' onClick={newHandleLoadMore}>
+                            MORE+
+                        </div>
+                    )}
             </div>
             
             
