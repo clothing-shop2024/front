@@ -9,6 +9,8 @@ import { CLOTH_DEATIL_SEARCH_LIST_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH, SIGN_IN_ABS
 import useUserStore from "src/stores/user.store";
 import { MY_PAGE_INFO_ABSOLUTE_PATH } from '../../constant/index';
 import './style.css';
+import useClothSearchStore from "src/stores/cloth-search.store";
+import { GetClothDetailListResponseDto } from "src/apis/clothDetail/dto/response";
 
 //                    component                    //
 function TopBar() {
@@ -16,6 +18,7 @@ function TopBar() {
     //                      state                      //
     const { pathname } = useLocation();
     const { loginUserRole, setLoginUserId, setLoginUserRole } = useUserStore();
+
 
     const [cookies, removeCookie] = useCookies();
     const [userName, setUserName] = useState<string>('');
@@ -25,7 +28,8 @@ function TopBar() {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const initialSearchWord = queryParams.get('search') || '';
-    const [searchWord, setSearchWord] = useState<string>(initialSearchWord);
+    const { searchWord, setSearchWord } = useClothSearchStore();
+    const [inputSearchWord, setInputSearchWord] = useState<string>(searchWord);
 
     const openAllCategoryHandler = () => {
         setIsShownCategory(true); 
@@ -58,13 +62,13 @@ function TopBar() {
     }
 
     const onSearchWordChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        const searchWord = event.target.value;
-        setSearchWord(searchWord);
+        setInputSearchWord(event.target.value);
     };
 
     const onSearchButtonClickHandler = () => {
+        setSearchWord(inputSearchWord);
         navigator(CLOTH_DEATIL_SEARCH_LIST_ABSOLUTE_PATH + `?search=${searchWord}`);
-    }
+    };
 
     const onSignInClickHandler = () => navigator(SIGN_IN_ABSOLUTE_PATH);
     const onMyPageClickHandler = () => navigator(MY_PAGE_INFO_ABSOLUTE_PATH)
@@ -96,7 +100,7 @@ function TopBar() {
             <div className='topbar-right'>
                 <div className='topbar-right-search'>
                     <div className='search-cloth-input-box'>
-                        <input className='search-cloth-input' value={searchWord} onChange={onSearchWordChangeHandler} />
+                        <input className='search-cloth-input' value={inputSearchWord} onChange={onSearchWordChangeHandler} />
                     </div>
                     <div className='search-cloth-button search' onClick={onSearchButtonClickHandler}></div>
                 </div>
