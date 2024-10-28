@@ -117,10 +117,6 @@ export default function ClothDetailList() {
     };
 
     //                event handler                    //
-    const onListClickHandler = (category1: string) => {
-        // navigator(CLOTH_DETAIL_LIST_ABSOLUTE_PATH(category1));
-    };
-
     const onPriceAscClickHandler = (category1: string) => {
         if (!clothCategory1) return;
         setActiveFilter('asc');
