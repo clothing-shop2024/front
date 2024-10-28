@@ -24,7 +24,7 @@ function ListItem (props: ClothDetailListItem) {
         <>
             <div className='cloth-detail-list'>
                 <div className='cloth-detail-image'>
-                    <img src={clothImage1} />
+                    <img style={{ width: '230px', height: '180px'}} src={clothImage1} />
                 </div>
                 <div className='cloth-detail-bottom'>
                     <div className='cloth-detail-name'>{clothDetailName}</div>
