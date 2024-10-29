@@ -214,66 +214,62 @@ export default function ClothDetailList() {
     //                  render                  //
     return (
         <div>
-        <div className='page-title-outside'>
-            <div className='page-big-title'>{clothCategory1}</div>
-        </div>
+            <div className='page-title-outside'>
+                <div className='page-big-title'>{clothCategory1}</div>
+            </div>
 
-        <div className='cloth-detail-list-container'>
+            <div className='cloth-detail-list-container'>
+                <div className='best-cloth-detail-list'>
+                    <div className='best-cloth-detail-list-title'>best Item</div>
+                    <div className='cloth-detail-list-wrap'>
+                        {currentItems2.map(item => (
+                            <ListItem key={item.clothDetailName} {...item} />
+                        ))}
+                    </div>
+                </div>
 
-            {/* Best Item Carousel */}
-            <div className='best-cloth-detail-list'>
-                <div className='best-cloth-detail-list-title'>best Item</div>
+                <div className='cloth-detail-list-category2'>
+                    <div className='cloth-detail-list-category2-title'>
+                        <div onClick={onAllCategory2ClickHandler} className={!activeCategory2 ? 'active-filter' : ''}>전체</div>
+                        {selectedCategory2.map((category2) => (
+                            <div
+                                key={category2}
+                                onClick={() => onCategory2ClickHandler(category2)}
+                                className={activeCategory2 === category2 ? 'active-filter' : ''}
+                            >
+                                {category2}
+                            </div>
+                        ))}
+                    </div>
+                    
+                    <div className='cloth-detail-list-filter'>
+                        <div 
+                            onClick={() => onPriceAscClickHandler(clothCategory1 || '')} 
+                            className={activeFilter === 'asc' ? 'active-filter' : ''}
+                        >
+                            낮은가격
+                        </div>
+                        <div 
+                            onClick={() => onPriceDescClickHandler(clothCategory1 || '')} 
+                            className={activeFilter === 'desc' ? 'active-filter' : ''}
+                        >
+                            높은가격
+                        </div>
+                        <div>사용후기</div>
+                    </div>
+                </div>
+
                 <div className='cloth-detail-list-wrap'>
-                    {currentItems2.map(item => (
+                    {currentItems1.map(item => (
                         <ListItem key={item.clothDetailName} {...item} />
                     ))}
                 </div>
-            </div>
 
-            {/* Category 2 and Filter Options */}
-            <div className='cloth-detail-list-category2'>
-                <div className='cloth-detail-list-category2-title'>
-                    <div onClick={onAllCategory2ClickHandler} className={!activeCategory2 ? 'active-filter' : ''}>전체</div>
-                    {selectedCategory2.map((category2) => (
-                        <div
-                            key={category2}
-                            onClick={() => onCategory2ClickHandler(category2)}
-                            className={activeCategory2 === category2 ? 'active-filter' : ''}
-                        >
-                            {category2}
-                        </div>
-                    ))}
+                {/* Load More Button */}
+                <div className='load-more-button'>
+                    <button onClick={handleLoadMore}>더보기</button>
                 </div>
-                
-                <div className='cloth-detail-list-filter'>
-                    <div 
-                        onClick={() => onPriceAscClickHandler(clothCategory1 || '')} 
-                        className={activeFilter === 'asc' ? 'active-filter' : ''}
-                    >
-                        낮은가격
-                    </div>
-                    <div 
-                        onClick={() => onPriceDescClickHandler(clothCategory1 || '')} 
-                        className={activeFilter === 'desc' ? 'active-filter' : ''}
-                    >
-                        높은가격
-                    </div>
-                    <div>사용후기</div>
-                </div>
-            </div>
-
-            {/* Cloth Detail List */}
-            <div className='cloth-detail-list-wrap'>
-                {currentItems1.map(item => (
-                    <ListItem key={item.clothDetailName} {...item} />
-                ))}
-            </div>
-
-            {/* Load More Button */}
-            <div className='load-more-button'>
-                <button onClick={handleLoadMore}>더보기</button>
             </div>
         </div>
-    </div>
     )
 }
