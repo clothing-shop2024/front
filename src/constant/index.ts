@@ -195,6 +195,7 @@ export const GET_CLOTH_DETAIL_CATEGORY1_LIST_URL = (clothCategory1: string) => `
 export const GET_PRICE_ASC_CLOTH_DETAIL_CATEGORY1_LIST_URL = (clothCategory1: string) => `${SERVER_CLOTH_MODULE_URL}/list/category1/${clothCategory1}/price-asc`;
 export const GET_PRICE_DESC_CLOTH_DETAIL_CATEGORY1_LIST_URL = (clothCategory1: string) => `${SERVER_CLOTH_MODULE_URL}/list/category1/${clothCategory1}/price-desc`;
 export const GET_CLOTH_DETAIL_SEARCH_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/list/search`;
+export const GET_CLOTH_DETAIL_CATEGORY2_LIST_URL = (clothCategory2: string) => `${SERVER_CLOTH_MODULE_URL}/list/category2/${clothCategory2}`;
 
 // description : 공지사항 모듈 내의 기능 URL
 export const SERVER_NOTICE_MODULE_URL = `${SERVER_API_URL}/notice`;

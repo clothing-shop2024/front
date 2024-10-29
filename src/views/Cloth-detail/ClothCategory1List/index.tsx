@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { getBestClothDetailCategory1ListRequest, getClothDetailCategory1ListRequest, getClothDetailListRequest, getPriceAscClothDetailCategory1ListRequest, getPriceDescClothDetailCategory1ListRequest } from "src/apis/clothDetail";
+import { getBestClothDetailCategory1ListRequest, getClothDetailCategory1ListRequest, getClothDetailCategory2ListRequest, getClothDetailListRequest, getPriceAscClothDetailCategory1ListRequest, getPriceDescClothDetailCategory1ListRequest } from "src/apis/clothDetail";
 import { GetClothDetailListResponseDto } from "src/apis/clothDetail/dto/response";
 import ResponseDto from "src/apis/response.dto";
 import { CLOTH_DETAIL_LIST_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH } from "src/constant";
@@ -60,6 +60,18 @@ export default function ClothDetailList() {
     // 동적 스타일 -> 해당 필터 클릭 시 진하게 표시
     const [activeFilter, setActiveFilter] = useState<string | null>(null);
 
+    // clothCategory1에 따른 clothCategory2 동적 관리
+    const categories = {
+        "TOP": ["티셔츠", "셔츠/블라우스", "니트", "맨투맨/후드", "슬리브리스"],
+        "BOTTOM": ["데님", "슬랙스", "트레이닝팬츠", "쇼츠"],
+        "OUTER": ["자켓", "점퍼", "가디건", "코트"],
+        "OPS/SKI": ["원피스", "미니스커트", "미디/롱스커트"],
+        "ACC": ["악세서리", "슈즈", "가방", "etc"]
+    };
+    const selectedCategory2 = categories[clothCategory1 as keyof typeof categories] || [];
+    const [clothCategory2, setClothCategory2] = useState<string>('');
+    const [activeCategory2, setActiveCategory2] = useState<string | null>(null);
+
     //                    function                     //
     const navigator = useNavigate();
 
@@ -116,6 +128,27 @@ export default function ClothDetailList() {
         }
     };
 
+    const clothDetailCategory2ListResponse = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
+        const message = 
+            !result ? '서버에 문제가 있습니다.' :
+            result.code === 'VF' ? '존재하지 않는 카테고리를 선택하셨습니다.' :
+            result.code === 'AF' ? '인증에 실패했습니다.' :
+            result.code === 'DBE' ? '서버에 문제가 있습니다.' : '';
+
+        if (!result || result.code !== 'SU') {
+            alert(message);
+            return;
+        }
+
+        const { clothDetailList: fetchedClothDetailList } = result as GetClothDetailListResponseDto;
+        if (Array.isArray(fetchedClothDetailList)) {
+            setClothDetailList(fetchedClothDetailList); // 상태 업데이트
+            setCurrentItems1(fetchedClothDetailList.slice(0, itemsToShow)); // 초기 화면에 보여줄 아이템 설정
+        } else {
+            console.error("Fetched cloth detail list is not an array");
+        }
+    };
+
     //                event handler                    //
     const onPriceAscClickHandler = (category1: string) => {
         if (!clothCategory1) return;
@@ -128,6 +161,17 @@ export default function ClothDetailList() {
         setActiveFilter('desc');
         getPriceDescClothDetailCategory1ListRequest(clothCategory1).then(getPriceDescClothDetailCategory1ListRespone);
     }
+
+    const onAllCategory2ClickHandler = () => {
+        setClothCategory2('');
+        setActiveCategory2(null);
+        getClothDetailCategory1ListRequest(clothCategory1!).then(clothDetailCategory1ListResponse);
+    }
+
+    const onCategory2ClickHandler = (selectedCategory2: string) => {
+        setClothCategory2(selectedCategory2);
+        setActiveCategory2(selectedCategory2);
+    };
     
     const handleLoadMore = () => {
         const newItemsToShow = itemsToShow + 16; // 더보기 클릭 시 16개씩 추가
@@ -137,10 +181,15 @@ export default function ClothDetailList() {
 
 
     useEffect(() => {
-        if(!clothCategory1) return;
+        if (!clothCategory1) return;
         getClothDetailCategory1ListRequest(clothCategory1).then(clothDetailCategory1ListResponse);
         getBestClothDetailCategory1ListRequest(clothCategory1).then(getBestClothDetailCategory1ListResponse);
     }, [clothCategory1]);
+
+    useEffect(() => {
+        if (!clothCategory2) return;
+        getClothDetailCategory2ListRequest(clothCategory2).then(clothDetailCategory2ListResponse);
+    }, [clothCategory2]);
 
     // 슬라이드
     useEffect(() => {
@@ -165,70 +214,66 @@ export default function ClothDetailList() {
     //                  render                  //
     return (
         <div>
-            <div className='page-title-outside'>
-                <div className='page-big-title'>{clothCategory1}</div>
-            </div>
-            <div className='cloth-detail-list-container'>
-                <div className='best-cloth-detail-list'>
-                    <div className='best-cloth-detail-list-title'>best Item</div>
-                    <div className='cloth-detail-list-wrap'>
-                        {currentItems2.map(item => <ListItem key={item.clothDetailName} {...item} />)}
-                    </div>
-                </div>
+        <div className='page-title-outside'>
+            <div className='page-big-title'>{clothCategory1}</div>
+        </div>
 
-                <div className='cloth-detail-list-category2'>
-                    { clothCategory1 === 'TOP' &&
-                        <div className='cloth-detail-list-category2-title'>
-                            <div>전체</div>
-                            <div>티셔츠</div>
-                            <div>셔츠/블라우스</div>
-                            <div>니트</div>
-                            <div>맨투맨/후드</div>
-                            <div>슬리브리스</div>
-                        </div>
-                    }
-                    { clothCategory1 === 'BOTTOM' &&
-                        <div className='cloth-detail-list-category2-title'>
-                            <div>전체</div>
-                            <div>데님</div>
-                            <div>슬랙스</div>
-                            <div>트레이닝팬츠</div>
-                            <div>쇼츠</div>
-                        </div>
-                    }
-                    { clothCategory1 === 'OUTER' &&
-                        <div className='cloth-detail-list-category2-title'>
-                            <div>전체</div>
-                            <div>자켓</div>
-                            <div>점퍼</div>
-                            <div>가디건</div>
-                            <div>코트</div>
-                        </div>
-                    }
-                    { clothCategory1 === 'ACC' &&
-                        <div className='cloth-detail-list-category2-title'>
-                            <div>전체</div>
-                            <div>악세서리</div>
-                            <div>슈즈</div>
-                            <div>가방</div>
-                            <div>etc</div>
-                        </div>
-                    }
-                    <div className='cloth-detail-list-filter'>
-                        <div onClick={() => onPriceAscClickHandler(clothCategory1 || '')} className={activeFilter === 'asc' ? 'active-filter' : ''}>낮은가격</div>
-                        <div onClick={() => onPriceDescClickHandler(clothCategory1 || '')}className={activeFilter === 'desc' ? 'active-filter' : ''}>높은가격</div>
-                        <div>사용후기</div>
-                    </div>
-                </div>
+        <div className='cloth-detail-list-container'>
+
+            {/* Best Item Carousel */}
+            <div className='best-cloth-detail-list'>
+                <div className='best-cloth-detail-list-title'>best Item</div>
                 <div className='cloth-detail-list-wrap'>
-                    {currentItems1.map(item => <ListItem key={item.clothDetailName} {...item} />)}
+                    {currentItems2.map(item => (
+                        <ListItem key={item.clothDetailName} {...item} />
+                    ))}
                 </div>
-                {currentItems1.length < clothDetailList.length && (
-                <div className='board-button' onClick={handleLoadMore}>
-                    더보기
+            </div>
+
+            {/* Category 2 and Filter Options */}
+            <div className='cloth-detail-list-category2'>
+                <div className='cloth-detail-list-category2-title'>
+                    <div onClick={onAllCategory2ClickHandler} className={!activeCategory2 ? 'active-filter' : ''}>전체</div>
+                    {selectedCategory2.map((category2) => (
+                        <div
+                            key={category2}
+                            onClick={() => onCategory2ClickHandler(category2)}
+                            className={activeCategory2 === category2 ? 'active-filter' : ''}
+                        >
+                            {category2}
+                        </div>
+                    ))}
                 </div>
-                )}
+                
+                <div className='cloth-detail-list-filter'>
+                    <div 
+                        onClick={() => onPriceAscClickHandler(clothCategory1 || '')} 
+                        className={activeFilter === 'asc' ? 'active-filter' : ''}
+                    >
+                        낮은가격
+                    </div>
+                    <div 
+                        onClick={() => onPriceDescClickHandler(clothCategory1 || '')} 
+                        className={activeFilter === 'desc' ? 'active-filter' : ''}
+                    >
+                        높은가격
+                    </div>
+                    <div>사용후기</div>
+                </div>
+            </div>
+
+            {/* Cloth Detail List */}
+            <div className='cloth-detail-list-wrap'>
+                {currentItems1.map(item => (
+                    <ListItem key={item.clothDetailName} {...item} />
+                ))}
+            </div>
+
+            {/* Load More Button */}
+            <div className='load-more-button'>
+                <button onClick={handleLoadMore}>더보기</button>
             </div>
         </div>
+    </div>
     )
 }
