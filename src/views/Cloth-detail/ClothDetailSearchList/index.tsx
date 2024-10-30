@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router';
 import { GetClothDetailListResponseDto } from 'src/apis/clothDetail/dto/response';
 import ResponseDto from 'src/apis/response.dto';
 import { ClothDetailListItem } from 'src/types';
-import './style.css';
 import { MAIN_PATH } from 'src/constant';
 import useClothSearchStore from 'src/stores/cloth-search.store';
 import { getClothDetailSearchListRequest } from 'src/apis/clothDetail';
+import './style.css';
 
 //                    component                    //
 function ListItem (props: ClothDetailListItem) {
@@ -93,9 +93,9 @@ export default function ClothDetailSearchList() {
         <div>
             <div className='cloth-detail-list-container'>
                 <div className='cloth-search-container'>
-                    <div>
-                        <div>SEARCH</div>
-                        <div>
+                    <div className='cloth-search-top'>
+                        <div className='cloth-search-title'>SEARCH</div>
+                        <div className='cloth-search-contents'>
                             <div>"{searchWord}"</div>
                             <div>를 검색한 결과입니다.</div>
                         </div>

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import { getBestClothDetailCategory1ListRequest, getClothDetailCategory1ListRequest, getClothDetailCategory2ListRequest, getClothDetailListRequest, getPriceAscClothDetailCategory1ListRequest, getPriceDescClothDetailCategory1ListRequest } from "src/apis/clothDetail";
 import { GetClothDetailListResponseDto } from "src/apis/clothDetail/dto/response";
 import ResponseDto from "src/apis/response.dto";
-import { CLOTH_DETAIL_LIST_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH } from "src/constant";
+import { CLOTH_DETAIL_CATEGORY1_LIST_ABSOLUTE_PATH, CLOTH_DETAIL_LIST_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH } from "src/constant";
 import { ClothDetailListItem } from "src/types";
 import './style.css';
 
@@ -152,33 +152,40 @@ export default function ClothDetailList() {
     //                event handler                    //
     const onPriceAscClickHandler = (category1: string) => {
         if (!clothCategory1) return;
+        setItemsToShow(8);
         setActiveFilter('asc');
         getPriceAscClothDetailCategory1ListRequest(clothCategory1).then(getPriceAscClothDetailCategory1ListRespone);
     }
     
     const onPriceDescClickHandler = (category1: string) => {
         if (!clothCategory1) return;
+        setItemsToShow(8);
         setActiveFilter('desc');
         getPriceDescClothDetailCategory1ListRequest(clothCategory1).then(getPriceDescClothDetailCategory1ListRespone);
     }
 
     const onAllCategory2ClickHandler = () => {
         setClothCategory2('');
+        setItemsToShow(8);
         setActiveCategory2(null);
         getClothDetailCategory1ListRequest(clothCategory1!).then(clothDetailCategory1ListResponse);
     }
 
     const onCategory2ClickHandler = (selectedCategory2: string) => {
+        setItemsToShow(8);
         setClothCategory2(selectedCategory2);
         setActiveCategory2(selectedCategory2);
     };
     
     const handleLoadMore = () => {
-        const newItemsToShow = itemsToShow + 16; // 더보기 클릭 시 16개씩 추가
+        const newItemsToShow = itemsToShow + 8;
         setItemsToShow(newItemsToShow);
         setCurrentItems1(clothDetailList.slice(0, newItemsToShow)); // 새로운 아이템 설정
     };
 
+    useEffect(() => {
+        setCurrentItems1(clothDetailList.slice(0, itemsToShow));
+    }, [clothDetailList, itemsToShow]);
 
     useEffect(() => {
         if (!clothCategory1) return;
@@ -215,7 +222,7 @@ export default function ClothDetailList() {
     return (
         <div>
             <div className='page-title-outside'>
-                <div className='page-big-title'>{clothCategory1}</div>
+                <div className='page-big-title' onClick={ () => window.location.reload() }>{clothCategory1}</div>
             </div>
 
             <div className='cloth-detail-list-container'>
@@ -265,10 +272,10 @@ export default function ClothDetailList() {
                     ))}
                 </div>
 
-                {/* Load More Button */}
-                <div className='load-more-button'>
-                    <button onClick={handleLoadMore}>더보기</button>
-                </div>
+                {itemsToShow < clothDetailList.length && (
+                    <div className='board-button' onClick={handleLoadMore}>MORE+
+                    </div>
+                )}
             </div>
         </div>
     )

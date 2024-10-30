@@ -1,8 +1,16 @@
+.cloth-detail-list-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .cloth-detail-list-category2-title {
     display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+
+    width: 1060px;
     gap: 20px;
     font-size: 20px;
-    font-weight: bold;
 }
 
 .best-cloth-detail-list {
@@ -25,7 +33,10 @@
 
 .cloth-detail-list-filter {
     display: flex;
+    justify-content: end;
+
     gap: 20px;
+    width: 1060px;
 }
 
 .active-filter {

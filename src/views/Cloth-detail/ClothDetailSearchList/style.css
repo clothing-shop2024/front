@@ -1,0 +1,8 @@
+.cloth-search-title {
+    font-size: 20px;
+}
+
+.cloth-search-contents {
+    display: flex;
+    justify-content: space-between;
+}
