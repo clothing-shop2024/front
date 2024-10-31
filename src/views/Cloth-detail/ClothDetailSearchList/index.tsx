@@ -91,30 +91,25 @@ export default function ClothDetailSearchList() {
     //                  render                  //
     return (
         <div>
-            <div className='cloth-detail-list-container'>
-                <div className='cloth-search-container'>
-                    <div className='cloth-search-top'>
-                        <div className='cloth-search-title'>SEARCH</div>
-                        <div className='cloth-search-contents'>
-                            <div>"{searchWord}"</div>
-                            <div>를 검색한 결과입니다.</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className='best-cloth-detail-list-wrap'>
-                    {currentItems1.length > 0 ? (
-                        currentItems1.map(item => (
-                            <ListItem key={item.clothDetailName} {...item} />
-                        ))
-                    ) : (
-                        <div className='no-results-message'>
-                            검색어에 해당하는 리스트가 없습니다.
-                        </div>
-                    )}
-                </div>
-                <div></div>
+            <div className='page-title-outside'>
+                <div className='page-big-title'>SEARCH</div>
             </div>
+            <div className='cloth-search-contents'>
+                <div>" <strong>{searchWord}</strong> "</div>
+                <div>를 검색한 결과입니다.</div>
+            </div>
+
+            {currentItems1.length > 0 ? (
+                <div className='best-cloth-detail-list-wrap'>
+                    {currentItems1.map(item => (
+                        <ListItem key={item.clothDetailName} {...item} />
+                    ))}
+                </div>
+            ) : (
+                <div className='no-results-message'>
+                    검색 결과가 없습니다.
+                </div>
+            )}
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { getBestClothDetailCategory1ListRequest, getClothDetailCategory1ListRequest, getClothDetailCategory2ListRequest, getClothDetailListRequest, getPriceAscClothDetailCategory1ListRequest, getPriceDescClothDetailCategory1ListRequest } from "src/apis/clothDetail";
+import { getBestClothDetailCategory1ListRequest, getClothDetailCategory1ListRequest, getClothDetailCategory2ListRequest, getClothDetailListRequest, getPriceAscClothDetailCategory1ListRequest, getPriceAscClothDetailCategory2ListRequest, getPriceDescClothDetailCategory1ListRequest, getPriceDescClothDetailCategory2ListRequest } from "src/apis/clothDetail";
 import { GetClothDetailListResponseDto } from "src/apis/clothDetail/dto/response";
 import ResponseDto from "src/apis/response.dto";
 import { CLOTH_DETAIL_CATEGORY1_LIST_ABSOLUTE_PATH, CLOTH_DETAIL_LIST_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH } from "src/constant";
@@ -149,25 +149,63 @@ export default function ClothDetailList() {
         }
     };
 
+    const getPriceAscClothDetailCategory2ListRespone = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
+
+        if (!result || result.code !== 'SU') return;
+
+        const { clothDetailList } = result as GetClothDetailListResponseDto;
+
+        if (Array.isArray(clothDetailList)) {
+            setClothDetailList(clothDetailList);
+            setCurrentItems1(clothDetailList.slice(0, itemsToShow));
+        } else {
+            console.error("Fetched cloth detail list is not an array");
+        }
+    };
+
+    const getPriceDescClothDetailCategory2ListRespone = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
+
+        if (!result || result.code !== 'SU') return;
+
+        const { clothDetailList } = result as GetClothDetailListResponseDto;
+
+        if (Array.isArray(clothDetailList)) {
+            setClothDetailList(clothDetailList);
+            setCurrentItems1(clothDetailList.slice(0, itemsToShow));
+        } else {
+            console.error("Fetched cloth detail list is not an array");
+        }
+    };
+
     //                event handler                    //
     const onPriceAscClickHandler = (category1: string) => {
         if (!clothCategory1) return;
         setItemsToShow(8);
         setActiveFilter('asc');
-        getPriceAscClothDetailCategory1ListRequest(clothCategory1).then(getPriceAscClothDetailCategory1ListRespone);
+        if (!clothCategory2) {
+            getPriceAscClothDetailCategory1ListRequest(clothCategory1).then(getPriceAscClothDetailCategory1ListRespone);
+        } else {
+            getPriceAscClothDetailCategory2ListRequest(clothCategory2).then(getPriceAscClothDetailCategory2ListRespone);
+        }
     }
     
     const onPriceDescClickHandler = (category1: string) => {
         if (!clothCategory1) return;
         setItemsToShow(8);
         setActiveFilter('desc');
-        getPriceDescClothDetailCategory1ListRequest(clothCategory1).then(getPriceDescClothDetailCategory1ListRespone);
+        if (!clothCategory2) {
+            getPriceDescClothDetailCategory1ListRequest(clothCategory1).then(getPriceDescClothDetailCategory1ListRespone);
+        } else {
+            getPriceDescClothDetailCategory2ListRequest(clothCategory2).then(getPriceDescClothDetailCategory2ListRespone);
+        }
+        
     }
 
     const onAllCategory2ClickHandler = () => {
         setClothCategory2('');
         setItemsToShow(8);
         setActiveCategory2(null);
+        setActiveFilter(null);
         getClothDetailCategory1ListRequest(clothCategory1!).then(clothDetailCategory1ListResponse);
     }
 
@@ -175,6 +213,7 @@ export default function ClothDetailList() {
         setItemsToShow(8);
         setClothCategory2(selectedCategory2);
         setActiveCategory2(selectedCategory2);
+        setActiveFilter(null);
     };
     
     const handleLoadMore = () => {
