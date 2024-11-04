@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { getBestClothDetailCategory1ListRequest, getClothDetailCategory1ListRequest, getClothDetailCategory2ListRequest, getClothDetailListRequest, getPriceAscClothDetailCategory1ListRequest, getPriceAscClothDetailCategory2ListRequest, getPriceDescClothDetailCategory1ListRequest, getPriceDescClothDetailCategory2ListRequest } from "src/apis/clothDetail";
+import { getBestClothDetailCategory1ListRequest, getClothDetailCategory1ListRequest, getClothDetailCategory2ListRequest, getPriceAscClothDetailCategory1ListRequest, getPriceAscClothDetailCategory2ListRequest, getPriceDescClothDetailCategory1ListRequest, getPriceDescClothDetailCategory2ListRequest } from "src/apis/clothDetail";
 import { GetClothDetailListResponseDto } from "src/apis/clothDetail/dto/response";
 import ResponseDto from "src/apis/response.dto";
-import { CLOTH_DETAIL_CATEGORY1_LIST_ABSOLUTE_PATH, CLOTH_DETAIL_LIST_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH } from "src/constant";
+import { CLOTH_INFO_ABSOLUTE_PATH } from "src/constant";
 import { ClothDetailListItem } from "src/types";
 import './style.css';
 
@@ -222,6 +222,10 @@ export default function ClothDetailList() {
         setCurrentItems1(clothDetailList.slice(0, newItemsToShow)); // 새로운 아이템 설정
     };
 
+    const onItemClickHandler = (item: number) => navigator(CLOTH_INFO_ABSOLUTE_PATH(item));
+
+
+    // effect //
     useEffect(() => {
         setCurrentItems1(clothDetailList.slice(0, itemsToShow));
     }, [clothDetailList, itemsToShow]);
