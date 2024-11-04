@@ -45,3 +45,24 @@
     border-top: 1px solid rgba(238, 238, 238, 1);
     border-bottom: 1px solid rgba(238, 238, 238, 1);
 }
+
+.faq-list-table-number {
+    width: 100px;
+}
+
+.faq-list-table-title {
+    width: 500px;
+}
+
+.faq-list-table-category {
+    width: 200px;
+}
+
+.faq-list-table-date {
+    width: 200px;
+}
+
+.category-filter:hover {
+    cursor: pointer;
+    opacity: 0.85;
+}

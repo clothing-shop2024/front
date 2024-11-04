@@ -46,7 +46,7 @@ function ListItem({
                     />
                 )}
                 <div className='faq-list-table-number'>{index}</div> {/* index 직접 사용 */}
-                <div className='faq-list-table-question'>Q. {faqQuestion}</div>
+                <div className='faq-list-table-title'>Q. {faqQuestion}</div>
                 <div className='faq-list-table-category'>{faqCategory}</div>
                 <div className='faq-list-table-date'>{faqDate}</div>
             </div>
@@ -71,6 +71,7 @@ export default function FaqList() {
     const faqCategory1 = '주문|배송';
     const faqCategory2 = '교환|반품';
     const faqCategory3 = '상품|기타';
+    const [activeFilter, setActiveFilter] = useState<string | null>(null);
 
     const {
         viewList,
@@ -157,22 +158,30 @@ export default function FaqList() {
 
     const onListClickHandler = () => {
         setFaqCategory('');
+        setActiveFilter(null);
+        setOpenFaqNumber(null);
         navigator(FAQ_LIST_ABSOLUTE_PATH);
         getFaqListRequest().then(getFaqListResponse);
     };
 
     const onCategory1ClickHandler = () => {
         setFaqCategory(faqCategory1);
+        setActiveFilter(faqCategory1);
+        setOpenFaqNumber(null);
         getFaqCategoryListRequest(faqCategory1).then(getFaqCategoryListResponse);
         navigator(FAQ_LIST_ABSOLUTE_PATH + `?category=${faqCategory1}`);
     };
     const onCategory2ClickHandler = () => {
         setFaqCategory(faqCategory2);
+        setActiveFilter(faqCategory2);
+        setOpenFaqNumber(null);
         getFaqCategoryListRequest(faqCategory2).then(getFaqCategoryListResponse);
         navigator(FAQ_LIST_ABSOLUTE_PATH + `?category=${faqCategory2}`);
     };
     const onCategory3ClickHandler = () => {
         setFaqCategory(faqCategory3);
+        setActiveFilter(faqCategory3);
+        setOpenFaqNumber(null);
         getFaqCategoryListRequest(faqCategory3).then(getFaqCategoryListResponse);
         navigator(FAQ_LIST_ABSOLUTE_PATH + `?category=${faqCategory3}`);
     };
@@ -215,10 +224,10 @@ export default function FaqList() {
             </div>
 
             <div className='category-button'>
-                <div onClick={onListClickHandler}>전체</div>
-                <div onClick={onCategory1ClickHandler}>주문|배송</div>
-                <div onClick={onCategory2ClickHandler}>교환|반품</div>
-                <div onClick={onCategory3ClickHandler}>상품|기타</div>
+                <div className='category-filter' onClick={onListClickHandler}>전체</div>
+                <div className='category-filter' onClick={onCategory1ClickHandler} style={{ fontWeight: activeFilter === '주문|배송' ? 'bold' : 'normal' }}>주문|배송</div>
+                <div className='category-filter' onClick={onCategory2ClickHandler} style={{ fontWeight: activeFilter === '교환|반품' ? 'bold' : 'normal' }}>교환|반품</div>
+                <div className='category-filter' onClick={onCategory3ClickHandler} style={{ fontWeight: activeFilter === '상품|기타' ? 'bold' : 'normal' }}>상품|기타</div>
             </div>
 
             <div className='list-table-top'>
