@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router';
 import useUserStore from 'src/stores/user.store';
 import { COUNT_PER_PAGE, COUNT_PER_SECTION, MAIN_PATH, QNA_DETAIL_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH, QNA_REGIST_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from 'src/constant';
 import { usePagination } from 'src/hooks';
-import { GetQnaCategoryListResponseDto, GetQnaListResponseDto, GetSearchQnaListResponseDto } from 'src/apis/board/qna/dto/response';
+import { GetQnaListResponseDto } from 'src/apis/board/qna/dto/response';
 import ResponseDto from 'src/apis/response.dto';
 import { getQnaCategoryListRequest, getQnaCategorySearchListRequest, getQnaListRequest, getSearchQnaListRequest } from 'src/apis/board/qna';
 import './style.css';
@@ -83,6 +83,7 @@ export default function QnaList() {
     const qnaCategory1 = '주문|배송';
     const qnaCategory2 = '교환|반품';
     const qnaCategory3 = '상품|기타';
+    const [activeFilter, setActiveFilter] = useState<string | null>(null);
     const [isToggleOn, setToggleOn] = useState<boolean>(false);
 
     //                    function                     //
@@ -109,7 +110,7 @@ export default function QnaList() {
     };
 
 
-    const getSearchQnaListResponse = (result: GetSearchQnaListResponseDto | ResponseDto | null) => {
+    const getSearchQnaListResponse = (result: GetQnaListResponseDto | ResponseDto | null) => {
 
         const message =
             !result ? '서버에 문제가 있습니다.' :
@@ -123,7 +124,7 @@ export default function QnaList() {
             return;
         }
 
-        const { qnaList } = result as GetSearchQnaListResponseDto;
+        const { qnaList } = result as GetQnaListResponseDto;
         changeBoardList(qnaList, isToggleOn);
 
         setCurrentPage(!qnaList.length ? 0 : 1);
@@ -131,7 +132,7 @@ export default function QnaList() {
 
     };
 
-    const getQnaCategoryListResponse = (result: GetQnaCategoryListResponseDto | ResponseDto | null) => {
+    const getQnaCategoryListResponse = (result: GetQnaListResponseDto | ResponseDto | null) => {
 
         const message =
             !result ? '서버에 문제가 있습니다.' :
@@ -145,7 +146,7 @@ export default function QnaList() {
             return;
         }
 
-        const { qnaList } = result as GetQnaCategoryListResponseDto;
+        const { qnaList } = result as GetQnaListResponseDto;
         changeBoardList(qnaList, isToggleOn);
 
         setCurrentPage(!qnaList.length ? 0 : 1);
@@ -153,28 +154,37 @@ export default function QnaList() {
 
     };
 
+    const onSearchWordChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        const searchWord = event.target.value;
+        setSearchWord(searchWord);
+    };
+    
     //                event handler                    //
     const onListClickHandler = () => {
         setSearchWord('');
         setQnaCategory('');
-        getQnaListRequest().then(getQnaListResponse);
+        setActiveFilter(null);
         navigator(QNA_LIST_ABSOLUTE_PATH);
+        getQnaListRequest().then(getQnaListResponse);
         setToggleOn(false);
     }
 
     // qnaCategory 필터
     const onCategory1ClickHandler = () => {
         setQnaCategory(qnaCategory1);
+        setActiveFilter(qnaCategory1);
         getQnaCategoryListRequest(qnaCategory1).then(getQnaCategoryListResponse);
         navigator(QNA_LIST_ABSOLUTE_PATH + `?category=${qnaCategory1}`);
     };
     const onCategory2ClickHandler = () => {
         setQnaCategory(qnaCategory2);
+        setActiveFilter(qnaCategory2);
         getQnaCategoryListRequest(qnaCategory2).then(getQnaCategoryListResponse);
         navigator(QNA_LIST_ABSOLUTE_PATH + `?category=${qnaCategory2}`);
     };
     const onCategory3ClickHandler = () => {
         setQnaCategory(qnaCategory3);
+        setActiveFilter(qnaCategory3);
         getQnaCategoryListRequest(qnaCategory3).then(getQnaCategoryListResponse);
         navigator(QNA_LIST_ABSOLUTE_PATH + `?category=${qnaCategory3}`);
     };
@@ -199,11 +209,6 @@ export default function QnaList() {
         setToggleOn(!isToggleOn);
     };
 
-    const onSearchWordChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        const searchWord = event.target.value;
-        setSearchWord(searchWord);
-    };
-    
     const onSearchButtonClickHandler = () => {
         
         if (qnaCategory !== '') {
@@ -232,10 +237,10 @@ export default function QnaList() {
             </div>
             
             <div className='category-button'>
-                <div onClick={onListClickHandler}>전체</div>
-                <div onClick={onCategory1ClickHandler}>주문|배송</div>
-                <div onClick={onCategory2ClickHandler}>교환|반품</div>
-                <div onClick={onCategory3ClickHandler}>상품|기타</div>
+                <div className='category-filter' onClick={onListClickHandler}>전체</div>
+                <div className='category-filter' onClick={onCategory1ClickHandler} style={{ fontWeight: activeFilter === '주문|배송' ? 'bold' : 'normal' }}>주문|배송</div>
+                <div className='category-filter' onClick={onCategory2ClickHandler} style={{ fontWeight: activeFilter === '교환|반품' ? 'bold' : 'normal' }}>교환|반품</div>
+                <div className='category-filter' onClick={onCategory3ClickHandler} style={{ fontWeight: activeFilter === '상품|기타' ? 'bold' : 'normal' }}>상품|기타</div>
             </div>
 
             <div className='list-table-top'>
@@ -256,7 +261,7 @@ export default function QnaList() {
             <div className='list-table'>
                 <div className='list-table-th qna'>
                     <div className='qna-list-table-number'>NO</div>
-                    <div className='qna-list-table-category'>TITLE</div>
+                    <div className='qna-list-table-title'>TITLE</div>
                     <div className='qna-list-table-writer-id'>WRITER</div>
                     <div className='qna-list-table-date'>DATE</div>
                 </div>
@@ -275,8 +280,8 @@ export default function QnaList() {
                 <div className='list-table-page-box'>
                     {pageList.map(page => 
                         page === currentPage ?
-                        <div className='list-table-page-active'>{page}</div> :
-                        <div className='list-table-page' onClick={() => onPageClickHandler(page)}>{page}</div>
+                        <div className='list-table-page-active' key={page}>{page}</div> :
+                        <div className='list-table-page' onClick={() => onPageClickHandler(page)} key={page}>{page}</div>
                     )}
                 </div>
                 <div className='list-table-page-right' onClick={onNextSectionClickHandler}></div>

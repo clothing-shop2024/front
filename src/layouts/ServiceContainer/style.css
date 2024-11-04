@@ -15,24 +15,24 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(255, 254, 178, 0.8);
+    background-color: rgba(120, 117, 115, 0.8);
+    color: aliceblue;
+    font-size: 20px;
+    /* font-family: 'SDKukdetopokki'; */
     padding: 10px;
 
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
+    min-width: 1182px;
     /* 다른 요소들과 겹쳤을 때 어떤 요소가 위에 표시될지 */
     z-index: 1000; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
 }
 
 .all-category-box {
-    /* grid-area: category; */
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex: 0 0 auto;
 }
 
 .logo-container:hover{
@@ -41,8 +41,9 @@
 }
 
 .logo-button {
-    /* grid-area: logo; */
-
+    position: absolute; /* 화면 중앙에 고정 */
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,8 +51,7 @@
 }
 
 .topbar-right {
-    /* grid-area: topbar-right; */
-
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;

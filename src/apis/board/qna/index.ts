@@ -1,7 +1,7 @@
 import axios from "axios";
 import { PutQnaCommentRequestDto, PostQnaRequestDto, PutQnaRequestDto } from "./dto/request";
 import ResponseDto from "../../response.dto";
-import { GetQnaCategoryListResponseDto, GetQnaDetailResponseDto, GetQnaListResponseDto, GetSearchQnaListResponseDto } from "./dto/response";
+import { GetQnaDetailResponseDto, GetQnaListResponseDto } from "./dto/response";
 import { DELETE_QNA_URL, GET_QNA_DETAIL_URL, GET_QNA_LIST_URL, GET_SEARCH_QNA_LIST_URL, PUT_QNA_COMMENT_URL, POST_QNA_URL, PUT_QNA_URL, GET_QNA_CATEGORY_LIST_URL, GET_QNA_CATEGORY_SEARCH_LIST_URL } from "../../../constant";
 import { bearerAuthorization, requestErrorHandler, requestHandler } from "../..";
 
@@ -38,7 +38,7 @@ export const getSearchQnaListRequest = async (word: string) => {
 
     const result = await axios
         .get(GET_SEARCH_QNA_LIST_URL, config)
-        .then(requestHandler<GetSearchQnaListResponseDto>) 
+        .then(requestHandler<GetQnaListResponseDto>) 
         .catch(requestErrorHandler);
     return result;
 };
@@ -47,7 +47,7 @@ export const getSearchQnaListRequest = async (word: string) => {
 export const getQnaCategoryListRequest = async(qnaCategory: string) => {
     const result = await axios
         .get(GET_QNA_CATEGORY_LIST_URL(qnaCategory))
-        .then(requestHandler<GetQnaCategoryListResponseDto>) 
+        .then(requestHandler<GetQnaListResponseDto>) 
         .catch(requestErrorHandler);
     return result;
 };
@@ -58,7 +58,7 @@ export const getQnaCategorySearchListRequest = async(qnaCategory: string, word: 
 
     const result = await axios
         .get(GET_QNA_CATEGORY_SEARCH_LIST_URL(qnaCategory), config)
-        .then(requestHandler<GetSearchQnaListResponseDto>) 
+        .then(requestHandler<GetQnaListResponseDto>) 
         .catch(requestErrorHandler);
     return result;
 }

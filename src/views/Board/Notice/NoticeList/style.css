@@ -1,23 +1,22 @@
 /* 순번 */
 .notice-list-table-number {
-    width: 30px;
+    width: 100px;
 }
 
 /* 제목 */
 .notice-list-table-title {
-    width: 345px;
+    width: 500px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-
-/* 작성일 */
+/* 조회수 */
 .notice-list-table-view-count {
-    width: 54px;
+    width: 200px;
 }
 
 /* 작성일 */
 .notice-list-table-date {
-    width: 54px;
+    width: 200px;
 }

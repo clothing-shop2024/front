@@ -15,23 +15,14 @@
     gap: 10px;
 }
 
-.list-table-th.qna{
-    gap: 65px;
-}
-
-.list-table-tr.qna{
-    gap: 65px;
-}
-
 /* 순번 */
 .qna-list-table-number {
-    width: 30px;
-
+    width: 100px;
 }
 
 /* 유형, 제목 */
 .qna-list-table-title {
-    width: 300px;
+    width: 500px;
     
     display: flex;
     justify-content: center;
@@ -44,6 +35,19 @@
 
 .qna-list-table-category {
     padding: 0 5px;
+}
+
+/* 작성자 */
+.qna-list-table-writer-id {
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 작성일 */
+.qna-list-table-date {
+    width: 200px;
 }
 
 .primary-bedge {
@@ -81,17 +85,4 @@
     font-weight: 400;
     line-height: 150%;
     color: rgba(138, 146, 166, 1);
-}
-
-/* 작성자 */
-.qna-list-table-writer-id {
-    width: 80px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* 작성일 */
-.qna-list-table-date {
-    width: 100px;
 }
