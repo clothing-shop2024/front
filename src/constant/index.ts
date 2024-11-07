@@ -200,6 +200,11 @@ export const PUT_MY_INFO_PASSWORD_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_URL
 export const PUT_MY_INFO_EMAIL_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info/email-modify`;
 export const POST_MY_INFO_DELETE_REQUEST_URL = (userId: string) => `${SERVER_USER_MODULE_URL}/info-delete/${userId}`;
 
+// description : 옷 주문 상세페이지 모듈 내의 기능 URL
+export const SERVER_CLOTH_INFO_MODULE_URL = `${SERVER_API_URL}/cloth-info`;
+export const GET_CLOTH_INFO_URL = (clothNumber : string | number) => `${SERVER_CLOTH_INFO_MODULE_URL}/${clothNumber}`;
+export const POST_CLOTH_INFO_URL = `{SERVER_CLOTH_INFO_MODULE_URL}/order`;
+
 // description : 옷 상세 전체 리스트 URL
 export const SERVER_CLOTH_MODULE_URL = `${SERVER_API_URL}/cloth-detail`;
 export const GET_CLOTH_DETAIL_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/list`;
@@ -212,6 +217,17 @@ export const GET_CLOTH_DETAIL_SEARCH_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/list
 export const GET_CLOTH_DETAIL_CATEGORY2_LIST_URL = (clothCategory2: string) => `${SERVER_CLOTH_MODULE_URL}/list/category2/${clothCategory2}`;
 export const GET_PRICE_ASC_CLOTH_DETAIL_CATEGORY2_LIST_URL = (clothCategory2: string) => `${SERVER_CLOTH_MODULE_URL}/list/category2/${clothCategory2}/price-asc`;
 export const GET_PRICE_DESC_CLOTH_DETAIL_CATEGORY2_LIST_URL = (clothCategory2: string) => `${SERVER_CLOTH_MODULE_URL}/list/category2/${clothCategory2}/price-desc`;
+
+// description: FAVORITE 모듈 내의 기능 URL
+export const SERVER_FAVORITE_MODULE_URL = `${SERVER_CLOTH_INFO_MODULE_URL}/favorite`;
+export const GET_FAVORITE_LIST_URL = `${SERVER_FAVORITE_MODULE_URL}/list`;
+export const POST_FAVORITE_REQUEST_URL = (clothNumber: number | string) => `${SERVER_FAVORITE_MODULE_URL}/${clothNumber}`;
+export const DELETE_FAVORITE_REQUEST_URL = (clothNumber: number | string) => `${SERVER_FAVORITE_MODULE_URL}/${clothNumber}`;
+export const GET_FAVORITE_CHECK_REQUEST_URL = (clothNumber: number | string) => `${SERVER_FAVORITE_MODULE_URL}/${clothNumber}`;
+
+// description: order 모듈 내의 기능 URL
+export const SERVER_ORDER_MODULE_URL = `${SERVER_CLOTH_INFO_MODULE_URL}/order`;
+export const POST_ORDER_REQUEST_URL = (clothNumber: number | string) => `${SERVER_ORDER_MODULE_URL}/${clothNumber}`;
 
 // description : 공지사항 모듈 내의 기능 URL
 export const SERVER_NOTICE_MODULE_URL = `${SERVER_API_URL}/notice`;
