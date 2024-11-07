@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { getNoticeListRequest } from "src/apis/board/notice";
 import { GetNoticeListResponseDto } from "src/apis/board/notice/dto/response";
 import ResponseDto from "src/apis/response.dto";
-import { ADMIN_NOTICE_REGIST_ABSOLUTE_PATH, COUNT_PER_PAGE, COUNT_PER_SECTION, MAIN_PATH, NOTICE_DETAIL_ABSOLUTE_PATH } from "src/constant";
+import { ADMIN_NOTICE_REGIST_ABSOLUTE_PATH, COUNT_PER_PAGE, COUNT_PER_SECTION, FAQ_LIST_ABSOLUTE_PATH, MAIN_PATH, NOTICE_DETAIL_ABSOLUTE_PATH, NOTICE_LIST_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH } from "src/constant";
 import { usePagination } from "src/hooks";
 import useUserStore from "src/stores/user.store";
 import { NoticeListItem } from "src/types";
@@ -98,6 +98,15 @@ export default function NoticeList() {
                 <div className='page-big-title'>NOTICE</div>
             </div>
 
+            <div className='board-section'>
+                <div className='board-container'>
+                    <div className='board-container-selected'>NOTICE</div>
+                    <div className='board-container-unselected' onClick={() => navigator(QNA_LIST_ABSOLUTE_PATH)}>QNA</div>
+                    <div className='board-container-unselected' onClick={() => navigator(FAQ_LIST_ABSOLUTE_PATH)}>FAQ(자주하는질문)</div>
+                    <div className='board-container-unselected'>REVIEW</div>
+                </div> 
+            </div>
+            
             <div className='list-table-top'>
                 <div className='list-table-total-board'>전체<span className='emphasis'> {totalLength}건</span> | 페이지<span className='emphasis'> {currentPage} / {totalPage}</span>
                 </div>

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Route, Routes, useNavigate } from "react-router-dom";
 import './App.css';
 
-import { ADMIN_FAQ_UPDATE_PATH, ADMIN_NOTICE_UPDATE_PATH, ADMIN_PATH, AUTH_PATH, CLOTH_CATEGORY1_PATH, CLOTH_INFO_PATH, CLOTH_LIST_PATH, CLOTH_PATH, CLOTH_SEARCH_PATH, FAQ_LIST_PATH, FAQ_PATH, FIND_ID_PATH, FIND_PASSWORD_PATH, FIND_PASSWORD_RESET_PATH, MAIN_ABSOLUTE_PATH, MAIN_PATH, MY_PAGE_COUPON_PATH, MY_PAGE_INFO_DELETE_PATH, MY_PAGE_INFO_PATH, MY_PAGE_INFO_UPDATE_PATH, MY_PAGE_PATH, NOTICE_DETAIL_PATH, NOTICE_LIST_PATH, NOTICE_PATH, QNA_DETAIL_PATH, QNA_LIST_PATH, QNA_PATH, QNA_UPDATE_PATH, REGIST_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH, USER_EMAIL_UPDATE_PATH, USER_PASSWORD_UPDATE_PATH } from './constant';
+import { ADMIN_FAQ_UPDATE_PATH, ADMIN_NOTICE_UPDATE_PATH, ADMIN_PATH, ADMIN_USER_LIST_PATH, ADMIN_USER_PATH, AUTH_PATH, CLOTH_CATEGORY1_PATH, CLOTH_INFO_PATH, CLOTH_LIST_PATH, CLOTH_PATH, CLOTH_SEARCH_PATH, FAQ_LIST_PATH, FAQ_PATH, FIND_ID_PATH, FIND_PASSWORD_PATH, FIND_PASSWORD_RESET_PATH, MAIN_ABSOLUTE_PATH, MAIN_PATH, MY_PAGE_COUPON_PATH, MY_PAGE_INFO_DELETE_PATH, MY_PAGE_INFO_PATH, MY_PAGE_INFO_UPDATE_PATH, MY_PAGE_PATH, NOTICE_DETAIL_PATH, NOTICE_LIST_PATH, NOTICE_PATH, QNA_DETAIL_PATH, QNA_LIST_PATH, QNA_PATH, QNA_UPDATE_PATH, REGIST_PATH, SIGN_IN_PATH, SIGN_UP_PATH, SNS_PATH, USER_EMAIL_UPDATE_PATH, USER_PASSWORD_UPDATE_PATH } from './constant';
 import ServiceContainer from './layouts/ServiceContainer';
 import FindId from './views/Authentication/FindId';
 import FindPassword from './views/Authentication/FindPassword';
@@ -30,6 +30,8 @@ import MyPageInfoDelete from './views/MyPage/MyPageInfoDelete';
 import MyPageInfoUpdate from './views/MyPage/MyPageInfoUpdate';
 import PasswordModify from './views/MyPage/PasswordModify';
 import ClothInfo from './views/cloth/ClothInfo/index';
+import UserManageList from './views/Admin/UserManage/List';
+import AdminContainer from './layouts/AdminContainer';
 
 // component: root 경로 컴포넌트
 function Index() {
@@ -105,7 +107,11 @@ function App() {
                 </Route>
 
                 {/* // route : 관리자 페이지 */}
-                <Route path={ADMIN_PATH}>
+                <Route path={ADMIN_PATH} element={<AdminContainer />}>
+
+                    <Route path={ADMIN_USER_PATH}>
+                        <Route path={ADMIN_USER_LIST_PATH} element={<UserManageList />} />
+                    </Route>
                     
                     {/* // route : 관리자 - 게시물 (공지사항) 관리 페이지 */}
                     <Route path={NOTICE_PATH}>
