@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { QnaListItem } from 'src/types';
 import { useLocation, useNavigate } from 'react-router';
 import useUserStore from 'src/stores/user.store';
-import { COUNT_PER_PAGE, COUNT_PER_SECTION, MAIN_PATH, QNA_DETAIL_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH, QNA_REGIST_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from 'src/constant';
+import { COUNT_PER_PAGE, COUNT_PER_SECTION, FAQ_LIST_ABSOLUTE_PATH, MAIN_PATH, NOTICE_LIST_ABSOLUTE_PATH, QNA_DETAIL_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH, QNA_REGIST_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from 'src/constant';
 import { usePagination } from 'src/hooks';
 import { GetQnaListResponseDto } from 'src/apis/board/qna/dto/response';
 import ResponseDto from 'src/apis/response.dto';
@@ -231,9 +231,18 @@ export default function QnaList() {
     const searchButtonClass = searchWord ? 'primary-button' : 'disable-button';
 
     return (
-        <div>
+        <div className='qna-list-container'>
             <div className='page-title-outside'>
                 <div className='page-big-title' onClick={onListClickHandler}>Q&A</div>
+            </div>
+
+            <div className='board-section'>
+                <div className='board-container'>
+                    <div className='board-container-unselected' onClick={() => navigator(NOTICE_LIST_ABSOLUTE_PATH)}>NOTICE</div>
+                    <div className='board-container-selected'>QNA</div>
+                    <div className='board-container-unselected' onClick={() => navigator(FAQ_LIST_ABSOLUTE_PATH)}>FAQ(자주하는질문)</div>
+                    <div className='board-container-unselected'>REVIEW</div>
+                </div> 
             </div>
             
             <div className='category-button'>

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import { deleteFaqRequest, getFaqCategoryListRequest, getFaqListRequest } from "src/apis/board/faq";
 import { GetFaqListResponseDto } from "src/apis/board/faq/dto/response";
 import ResponseDto from "src/apis/response.dto";
-import { ADMIN_FAQ_REGIST_ABSOLUTE_PATH, ADMIN_FAQ_UPDATE_ABSOLUTE_PATH, COUNT_PER_PAGE,  FAQ_LIST_ABSOLUTE_PATH, MAIN_PATH } from "src/constant";
+import { ADMIN_FAQ_REGIST_ABSOLUTE_PATH, ADMIN_FAQ_UPDATE_ABSOLUTE_PATH, COUNT_PER_PAGE,  FAQ_LIST_ABSOLUTE_PATH, MAIN_PATH, NOTICE_LIST_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH } from "src/constant";
 import { usePagination } from "src/hooks";
 import useUserStore from "src/stores/user.store";
 import { FaqListItem } from "src/types";
@@ -223,6 +223,15 @@ export default function FaqList() {
                 <div className='faq-title-explanation'>자주하는 질문 안내드립니다.</div>
             </div>
 
+            <div className='board-section'>
+                <div className='board-container'>
+                    <div className='board-container-unselected' onClick={() => navigator(NOTICE_LIST_ABSOLUTE_PATH)}>NOTICE</div>
+                    <div className='board-container-unselected' onClick={() => navigator(QNA_LIST_ABSOLUTE_PATH)}>QNA</div>
+                    <div className='board-container-selected'>FAQ(자주하는질문)</div>
+                    <div className='board-container-unselected'>REVIEW</div>
+                </div> 
+            </div>
+            
             <div className='category-button'>
                 <div className='category-filter' onClick={onListClickHandler}>전체</div>
                 <div className='category-filter' onClick={onCategory1ClickHandler} style={{ fontWeight: activeFilter === '주문|배송' ? 'bold' : 'normal' }}>주문|배송</div>

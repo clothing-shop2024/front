@@ -20,3 +20,33 @@
 .notice-list-table-date {
     width: 200px;
 }
+
+/* board-container */
+.board-section {
+    display: flex;
+    justify-content: center;
+
+    margin-bottom: 50px;
+}
+
+.board-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+
+    border-top: 2px solid rgb(155, 155, 155);
+    border-bottom: 2px solid rgb(155, 155, 155);
+
+    width: 400px;
+    height: 60px;
+}
+
+.board-container-selected {
+    font-weight: bold;
+}
+
+.board-container-selected:hover, .board-container-unselected:hover {
+    cursor: pointer;
+    opacity: 0.85;
+}

@@ -120,7 +120,7 @@ export default function NoticeDetail () {
     return (
         <div>
             <div className='page-title-outside'>
-                <div className='page-big-title' onClick={onListClickHandler}>Notice</div>
+                <div className='page-big-title' onClick={onListClickHandler}>NOTICE</div>
             </div>
             <div>
                 <div className='board-page-detail'>

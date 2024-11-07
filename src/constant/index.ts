@@ -88,9 +88,13 @@ export const ADMIN_PATH = 'admin';
 
 // description : 관리자 - 회원관리
 export const ADMIN_USER_PATH = 'user';
+export const ADMIN_USER_LIST_PATH = 'list';
 export const ADMIN_USER_DATAIL_PATH = ':userId';
 export const ADMIN_PRODUCT_PATH = 'product';
+export const ADMIN_PRODUCT_LIST_PATH = 'list';
 export const ADMIN_ORDER_PATH = 'order';
+export const ADMIN_ORDER_LIST_PATH = 'list';
+export const ADMIN_COUPON_PATH = 'coupon';
 
 // description : 관리자 - 공지사항
 export const ADMIN_BOARD_NOTICE_PATH = 'notice';
@@ -160,6 +164,12 @@ export const QNA_COMMENT_ABSOLUTE_PATH = (qnaNumber : number) => `${MAIN_PATH}/$
 export const ADMIN_FAQ_REGIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${FAQ_PATH}/${REGIST_PATH}`;
 export const ADMIN_FAQ_UPDATE_ABSOLUTE_PATH = (faqNumber : number | string) => `${MAIN_PATH}/${ADMIN_PATH}/${FAQ_PATH}/update/${faqNumber}`;
 export const ADMIN_FAQ_DELETE_ABSOLUTE_PATH = (faqNumber : number | string) => `${MAIN_PATH}/${FAQ_PATH}/delete/${faqNumber}`;
+
+// description : 관리자페이지 절대 URL PATH
+export const ADMIN_USER_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_USER_PATH}/list`;
+export const ADMIN_PRODUCT_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_PRODUCT_PATH}/list`;
+export const ADMIN_ORDER_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_ORDER_PATH}/list`;
+export const ADMIN_COUPON_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_COUPON_PATH}/list`;
 
 // description: API URL PATH
 export const SERVER_DOMAIN_URL ='http://localhost:4000';
