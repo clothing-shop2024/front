@@ -10,6 +10,15 @@ export interface ClothDetailListItem {
     clothImage1: string;
 }
 
+// description : 옷 정보 리스트
+export interface ClothListItem {
+    clothNumber : string;
+    clothName : string;
+    clothImage : string;
+    clothCategory1: string;
+    clothCategory2: string;
+}
+
 // description : 공지사항 리스트
 export interface NoticeListItem {
     noticeNumber: number;
