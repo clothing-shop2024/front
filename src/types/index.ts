@@ -8,11 +8,13 @@ export interface ClothDetailListItem {
     discountPrice: number;
     ratingAvg: number;
     clothImage1: string;
+    // clothNumber형식이 number이고 string형식은 받을 수 없음
+    clothNumber : number;
 }
 
 // description : 옷 정보 리스트
 export interface ClothListItem {
-    clothNumber : string;
+    clothNumber : number | string;
     clothName : string;
     clothImage : string;
     clothCategory1: string;

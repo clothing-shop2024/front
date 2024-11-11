@@ -10,7 +10,7 @@ import './style.css';
 //                    component                    //
 function ListItem (props: ClothDetailListItem) {
 
-    //                   function                 //
+    //                   state                //
     const {
         clothDetailName,
         clothImage1,
@@ -26,6 +26,7 @@ function ListItem (props: ClothDetailListItem) {
                 <div className='cloth-detail-image'>
                     <img style={{ width: '230px', height: '180px'}} src={clothImage1} />
                 </div>
+                
                 <div className='cloth-detail-bottom'>
                     <div className='cloth-detail-name'>{clothDetailName}</div>
                     <div className='cloth-detail-all-price'>
@@ -177,6 +178,8 @@ export default function ClothDetailList() {
         }
     };
 
+    const onItemClickHandler = (item : number) => navigator(CLOTH_INFO_ABSOLUTE_PATH(item));
+
     //                event handler                    //
     const onPriceAscClickHandler = (category1: string) => {
         if (!clothCategory1) return;
@@ -221,9 +224,6 @@ export default function ClothDetailList() {
         setItemsToShow(newItemsToShow);
         setCurrentItems1(clothDetailList.slice(0, newItemsToShow)); // 새로운 아이템 설정
     };
-
-    const onItemClickHandler = (item: number) => navigator(CLOTH_INFO_ABSOLUTE_PATH(item));
-
 
     // effect //
     useEffect(() => {
@@ -309,9 +309,21 @@ export default function ClothDetailList() {
                     </div>
                 </div>
 
-                <div className='cloth-detail-list-wrap'>
+                {/* <div className='cloth-detail-list-wrap'>
                     {currentItems1.map(item => (
                         <ListItem key={item.clothDetailName} {...item} />
+                    ))}
+                </div> */}
+
+               <div className='cloth-detail-list-wrap'>
+                    {currentItems1.map(item => (
+                        <div
+                            key={item.clothDetailName}
+                            className="cloth-item"
+                            onClick={() => onItemClickHandler(item.clothNumber)}  // 클릭 시 이동
+                        >
+                            <ListItem {...item} />
+                        </div>
                     ))}
                 </div>
 
