@@ -1,7 +1,7 @@
 import ResponseDto from "src/apis/response.dto";
 
 export interface GetClothInfoResponseDto extends ResponseDto {
-    clothNumber: string;  // 상품ID (고유식별코드)
+    clothNumber: number | string;  // 상품ID (고유식별코드)
     clothName : string // 상품 이름
     stock: number;  // 재고 수량
     sizeNumber: number;  // 사이즈 번호

@@ -1,5 +1,5 @@
-import { QnaListItem } from "src/types";
 import ResponseDto from "src/apis/response.dto";
+import { QnaListItem } from "src/types";
 
 
 // description : 문의사항 전체 리스트 불러오기 Response Body DTO //

@@ -29,7 +29,7 @@ export const GetFavoriteRestaurantListRequest = async (accessToken: string) => {
 } 
 
 // function : 찜 상태 확인 API 함수
-export const GetFavoriteCheckStatusRequest = async (clothNumber: string | number, accessToken: string) => {
+export const GetFavoriteCheckStatusRequest = async (clothNumber: number | string, accessToken: string) => {
     const result = await axios.get(GET_FAVORITE_CHECK_REQUEST_URL(clothNumber), bearerAuthorization(accessToken))
         .then(requestHandler<GetFavoriteCheckResponseDto>)
         .catch(requestErrorHandler);

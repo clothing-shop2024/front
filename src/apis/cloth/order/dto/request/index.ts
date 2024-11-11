@@ -1,6 +1,6 @@
 // description: 주문 요청 Request Body DTO
 export interface PostClothRequestDto {
-    clothNumber: string | number;
+    clothNumber: number | string;
     sizeNumber: number;  // 사이즈 번호
     sizeName: string;  // 사이즈 이름
     colorNumber: number;  // 색상 번호
