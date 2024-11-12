@@ -46,3 +46,14 @@ export interface FaqListItem {
     faqCategory: string;
     faqDate: string;
 }
+
+// 관리자페이지 - 회원리스트
+export interface UserListItem {
+    userId: string;
+    userName: string;
+    nickname: string;
+    userEmail: string;
+    joinDate: string;
+    grade: string;
+    points: number;
+}

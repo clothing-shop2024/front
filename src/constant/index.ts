@@ -260,6 +260,11 @@ export const POST_FAQ_URL = `${SERVER_FAQ_MODULE_URL}/regist`;
 export const PUT_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODULE_URL}/${faqNumber}/modify`;
 export const DELETE_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODULE_URL}/${faqNumber}/delete`;
 
+// description : 관리자페이지 회원관리
+export const SERVER_ADMIN_MODULE_URL = `${SERVER_API_URL}/admin`;
+export const SERVER_USER_MANAGE_MODULE_URL = `${SERVER_ADMIN_MODULE_URL}/user`;
+export const GET_ADMIN_USER_LIST_URL = `${SERVER_USER_MANAGE_MODULE_URL}/list/desc`;
+
 // description: PAGE
 export const COUNT_PER_PAGE = 10;
 export const COUNT_PER_SECTION = 10;

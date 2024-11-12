@@ -1,9 +1,9 @@
 import axios from "axios";
 import { bearerAuthorization, requestErrorHandler, requestHandler } from "..";
-import { GET_MY_INFO_REQUEST_URL, GET_USER_INFO_REQUEST_URL, PATCH_MY_INFO_UPDATE_REQUEST_URL, POST_EMAIL_AUTH_REQUEST_URL, POST_MY_INFO_DELETE_REQUEST_URL, PUT_MY_INFO_EMAIL_MODIFY_REQUEST_URL, PUT_MY_INFO_PASSWORD_MODIFY_REQUEST_URL } from "../../constant";
+import { GET_ADMIN_USER_LIST_URL, GET_MY_INFO_REQUEST_URL, GET_USER_INFO_REQUEST_URL, PATCH_MY_INFO_UPDATE_REQUEST_URL, POST_EMAIL_AUTH_REQUEST_URL, POST_MY_INFO_DELETE_REQUEST_URL, PUT_MY_INFO_EMAIL_MODIFY_REQUEST_URL, PUT_MY_INFO_PASSWORD_MODIFY_REQUEST_URL } from "../../constant";
 import ResponseDto from "../response.dto";
 import { DeleteUserRequestDto, EmailAuthRequestDto, PatchUserInfoRequestDto, PutMyInfoEmailRequestDto, PutMyInfoPasswordRequestDto } from "./dto/request";
-import { GetMyInfoResponseDto, GetSignInUserResponseDto, } from "./dto/response";
+import { GetAdminUserListResponseDto, GetMyInfoResponseDto, GetSignInUserResponseDto, } from "./dto/response";
 
 // function: 로그인 유저 정보 불러오기 API 함수
 export const getSignInUserRequest = async (accessToken: string) => {
@@ -75,3 +75,12 @@ return result;
 //         .catch(requestErrorHandler);
 //     return result;
 // }
+
+// function: 관리자페이지 회원 리스트 불러오기 API 함수
+export const getUserListRequest = async(accessToken: string) => {
+    const result = await axios
+        .get(GET_ADMIN_USER_LIST_URL, bearerAuthorization(accessToken))
+        .then(requestHandler<GetAdminUserListResponseDto>)
+        .catch(requestErrorHandler);
+    return result;
+};
