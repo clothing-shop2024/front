@@ -64,9 +64,9 @@ export const getQnaCategorySearchListRequest = async(qnaCategory: string, word: 
 }
 
 // function : 문의사항 게시물 불러오기 API 함수
-export const getQnaDetailRequest = async(qnaNumber: number | string) => {
+export const getQnaDetailRequest = async(qnaNumber: number | string, accessToken: string) => {
     const result = await axios
-        .get(GET_QNA_DETAIL_URL(qnaNumber))
+        .get(GET_QNA_DETAIL_URL(qnaNumber), bearerAuthorization(accessToken))
         .then(requestHandler<GetQnaDetailResponseDto>)
         .catch(requestErrorHandler);
     return result;
