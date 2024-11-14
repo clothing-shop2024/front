@@ -5,7 +5,7 @@ import ResponseDto from "src/apis/response.dto";
 import { getMyInfoRequest } from "src/apis/user";
 import { GetMyInfoResponseDto } from "src/apis/user/dto/response";
 import profileDefault from 'src/assets/image/profile-default.png';
-import { MAIN_ABSOLUTE_PATH, MY_PAGE_COUPON_ABSOLUTE_PATH, MY_PAGE_INFO_ABSOLUTE_PATH, MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH } from "src/constant";
+import { MAIN_ABSOLUTE_PATH, MY_PAGE_COUPON_ABSOLUTE_PATH, MY_PAGE_INFO_ABSOLUTE_PATH, MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH, MY_PAGE_QNA_LIST_ABSOLUTE_PATH } from "src/constant";
 import useUserStore from "src/stores/user.store";
 import "./style.css";
 
@@ -119,7 +119,7 @@ export default function MyPageInfo() {
           <div className="order-detail">주문내역</div>
           <div className="order-detail">환불페이지</div>
           <div className="order-detail">나의 리뷰</div>
-          <div className="order-detail">나의 문의 내역</div>
+          <div className="order-detail" onClick={() => navigator(MY_PAGE_QNA_LIST_ABSOLUTE_PATH)}>나의 문의 내역</div>
           <div className="order-detail">찜 목록</div>
         </div>
 

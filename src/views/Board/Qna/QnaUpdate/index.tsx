@@ -123,7 +123,7 @@ export default function QnaUpdate() {
     //                    effect                       //
     useEffect(() => {
         if (!qnaNumber) return;
-        getQnaDetailRequest(qnaNumber).then(getQnaResponse);
+        getQnaDetailRequest(qnaNumber, cookies.accessToken).then(getQnaResponse);
     }, [qnaNumber]);
 
     //                      render                      //

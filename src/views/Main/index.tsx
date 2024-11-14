@@ -112,9 +112,6 @@ export default function Main() {
 
         if (Array.isArray(clothDetailList)) {
             setBestItems(clothDetailList.slice(0, bestItemsToShow));
-            console.log(bestItems.length);
-            console.log(clothDetailList.length);
-            console.log(bestItemsToShow);
         } else {
             console.error("Fetched cloth detail list is not an array");
         }

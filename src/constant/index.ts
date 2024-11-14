@@ -75,6 +75,7 @@ export const USER_PASSWORD_UPDATE_PATH = 'password-update';
 export const USER_EMAIL_UPDATE_PATH = 'email-update';
 export const MY_PAGE_INFO_UPDATE_PATH = 'update/:userId';
 export const MY_PAGE_INFO_DELETE_PATH = 'delete/:userId';
+export const MY_PAGE_QNA_LIST_PATH = 'qna/list';
 
 // description : 쿠폰 
 export const MY_PAGE_COUPON_PATH = 'coupon';
@@ -120,15 +121,16 @@ export const FIND_PASSWORD_ABSOLUTE_PATH = `${MAIN_PATH}/${AUTH_PATH}/${FIND_PAS
 // export const FIND_PASSWORD_RESET_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/${AUTH_PATH}/${FIND_PASSWORD_PATH}/${userId}`;
 export const FIND_PASSWORD_RESET_ABSOLUTE_PATH = `${MAIN_PATH}/${AUTH_PATH}/${FIND_PASSWORD_RESET_PATH}`;
 
-// description: 마이페이지 URL PATH 
+// description: 마이페이지 절대 URL PATH 
 export const MY_PAGE_INFO_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${MY_PAGE_INFO_PATH}`;
 export const MY_PAGE_INFO_UPDATE_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/${MY_PAGE_PATH}/update/${userId}`;
 export const USER_PASSWORD_UPDATE_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${USER_PASSWORD_UPDATE_PATH}`;
 export const USER_EMAIL_UPDATE_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${USER_EMAIL_UPDATE_PATH}`;
 export const MY_PAGE_INFO_DELETE_ABSOLUTE_PATH = (userId : string) => `${MAIN_PATH}/${MY_PAGE_PATH}/delete/${userId}`;
 export const MY_PAGE_COUPON_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${MY_PAGE_COUPON_PATH}`;
+export const MY_PAGE_QNA_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${QNA_PATH}/${QNA_LIST_PATH}`;
 
-// description: 옷 상세 리스트 URL PATH
+// description: 옷 상세 리스트 절대 URL PATH
 export const CLOTH_DETAIL_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${CLOTH_PATH}/list`;
 export const CLOTH_DETAIL_CATEGORY1_LIST_ABSOLUTE_PATH = (clothCategory1: string) => `${MAIN_PATH}/${CLOTH_PATH}/list/${clothCategory1}`;
 export const CLOTH_DETAIL_SEARCH_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${CLOTH_PATH}/list/search`;
@@ -199,6 +201,7 @@ export const PATCH_MY_INFO_UPDATE_REQUEST_URL = (userId: string) => `${SERVER_US
 export const PUT_MY_INFO_PASSWORD_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info/password-modify`;
 export const PUT_MY_INFO_EMAIL_MODIFY_REQUEST_URL = `${SERVER_USER_MODULE_URL}/info/email-modify`;
 export const POST_MY_INFO_DELETE_REQUEST_URL = (userId: string) => `${SERVER_USER_MODULE_URL}/info-delete/${userId}`;
+export const GET_MY_QNA_LIST_URL = `${SERVER_USER_MODULE_URL}/qna/list`;
 
 // description : 옷 주문 상세페이지 모듈 내의 기능 URL
 export const SERVER_CLOTH_INFO_MODULE_URL = `${SERVER_API_URL}/cloth-info`;
@@ -245,7 +248,6 @@ export const GET_SEARCH_QNA_LIST_URL = `${GET_QNA_LIST_URL}/search`;
 export const GET_QNA_CATEGORY_LIST_URL = (qnaCategory: string) => `${GET_QNA_LIST_URL}/category/${qnaCategory}`;
 export const GET_QNA_CATEGORY_SEARCH_LIST_URL= (qnaCategory: string) => `${GET_QNA_LIST_URL}/category/${qnaCategory}/search`;
 export const GET_QNA_DETAIL_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/list/${qnaNumber}`;
-export const GET_MY_QNA_DETAIL_URL = `${SERVER_QNA_MODULE_URL}/mylist`;
 export const POST_QNA_URL = `${SERVER_QNA_MODULE_URL}/regist`;
 export const PUT_QNA_COMMENT_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/comment`;
 export const PUT_QNA_URL = (qnaNumber: number | string) => `${SERVER_QNA_MODULE_URL}/${qnaNumber}/modify`;

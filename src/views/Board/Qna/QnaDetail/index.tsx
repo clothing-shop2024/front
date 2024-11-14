@@ -74,7 +74,7 @@ export default function QnaDetail() {
         }
 
         if (!qnaNumber) return;
-        getQnaDetailRequest(qnaNumber).then(getQnaResponse);
+        getQnaDetailRequest(qnaNumber, cookies.accessToken).then(getQnaResponse);
     };
 
     const deleteQnaDetailRequest = (result: ResponseDto | null) => {
@@ -134,7 +134,7 @@ export default function QnaDetail() {
     //                    effect                       //
     useEffect(() => {
         if (!qnaNumber) return;
-        getQnaDetailRequest(qnaNumber).then(getQnaResponse);
+        getQnaDetailRequest(qnaNumber, cookies.accessToken).then(getQnaResponse);
     }, []);
 
     //                      render                      //
