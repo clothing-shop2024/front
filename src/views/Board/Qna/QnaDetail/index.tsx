@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useParams } from "react-router";
 import { deleteQnaRequest, getQnaDetailRequest, putQnaCommentRequest } from "src/apis/board/qna";
 import { GetQnaDetailResponseDto, GetQnaListResponseDto } from "src/apis/board/qna/dto/response";
 import ResponseDto from "src/apis/response.dto";
-import { MAIN_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH, QNA_UPDATE_ABSOLUTE_PATH } from "src/constant";
+import { MAIN_ABSOLUTE_PATH, MY_PAGE_QNA_LIST_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH, QNA_UPDATE_ABSOLUTE_PATH } from "src/constant";
 import useUserStore from "src/stores/user.store"
 import './style.css';
 import { PutQnaCommentRequestDto } from "src/apis/board/qna/dto/request";
@@ -89,6 +89,13 @@ export default function QnaDetail() {
             alert(message);
             return;
         }
+
+        const previousPage = location.state?.previousPage;
+        if (previousPage === 'MY_QNA_LIST') {
+            navigator(MY_PAGE_QNA_LIST_ABSOLUTE_PATH);
+        } else {
+            navigator(QNA_LIST_ABSOLUTE_PATH);
+        }
     };
 
     //                  event handler                   //
@@ -115,8 +122,8 @@ export default function QnaDetail() {
         if (!qnaNumber) return;
         navigator(QNA_UPDATE_ABSOLUTE_PATH(qnaNumber));
 
-        // const previousPage = location.state?.previousPage;
-        // navigator(`/shop/qna/update/${qnaNumber}`, { state: { previousPage }});
+        const previousPage = location.state?.previousPage;
+        navigator(`/shop/qna/update/${qnaNumber}`, { state: { previousPage }});
     };
 
     const onDeleteClickHanler = () => {
@@ -126,10 +133,16 @@ export default function QnaDetail() {
 
         deleteQnaRequest(qnaNumber, cookies.accessToken).then(deleteQnaDetailRequest);
         
-        navigator(QNA_LIST_ABSOLUTE_PATH);
     };
 
-    const onListClickHandler = () => navigator(QNA_LIST_ABSOLUTE_PATH);
+    const onListClickHandler = () => {
+        const previousPage = location.state?.previousPage;
+        if (previousPage === 'MY_QNA_LIST') {
+            navigator(MY_PAGE_QNA_LIST_ABSOLUTE_PATH);
+        } else {
+            navigator(QNA_LIST_ABSOLUTE_PATH);
+        }
+    }
 
     //                    effect                       //
     useEffect(() => {

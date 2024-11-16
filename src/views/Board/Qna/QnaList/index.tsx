@@ -225,7 +225,6 @@ export default function QnaList() {
         getQnaListRequest().then(getQnaListResponse);
     }, [isToggleOn]);
 
-
     //                  render                  //
     const toggleClass = isToggleOn ? 'toggle-active' : 'toggle';
     const searchButtonClass = searchWord ? 'primary-button' : 'disable-button';
