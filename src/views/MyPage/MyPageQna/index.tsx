@@ -35,7 +35,7 @@ function ListItem ({
             alert("이 글은 비공개글입니다.");
             return;
         }
-        navigator(QNA_DETAIL_ABSOLUTE_PATH(qnaNumber), { state: {previousPage: 'ALL_QNA_LIST'} });
+        navigator(QNA_DETAIL_ABSOLUTE_PATH(qnaNumber), { state: {previousPage: 'MY_QNA_LIST'} });
     };
 
     const coverdWriterId = qnaWriterId !== '' && (qnaWriterId[0] + '*'.repeat(qnaWriterId.length - 1));
