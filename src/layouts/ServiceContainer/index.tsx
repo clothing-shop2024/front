@@ -5,7 +5,7 @@ import ResponseDto from "src/apis/response.dto";
 import { getMyInfoRequest, getSignInUserRequest } from "src/apis/user";
 import { GetMyInfoResponseDto, GetSignInUserResponseDto } from "src/apis/user/dto/response";
 import AllCategoryPopup from "src/components/AllCategoryPopup";
-import { CLOTH_DETAIL_SEARCH_LIST_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from "src/constant";
+import { ADMIN_USER_LIST_ABSOLUTE_PATH, CLOTH_DETAIL_SEARCH_LIST_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from "src/constant";
 import useClothSearchStore from "src/stores/cloth-search.store";
 import useUserStore from "src/stores/user.store";
 import { MY_PAGE_INFO_ABSOLUTE_PATH } from '../../constant/index';
@@ -70,7 +70,8 @@ function TopBar() {
     };
 
     const onSignInClickHandler = () => navigator(SIGN_IN_ABSOLUTE_PATH);
-    const onMyPageClickHandler = () => navigator(MY_PAGE_INFO_ABSOLUTE_PATH)
+    const onMyPageClickHandler = () => navigator(MY_PAGE_INFO_ABSOLUTE_PATH);
+    const onAdminPageClickHandler = () => navigator(ADMIN_USER_LIST_ABSOLUTE_PATH);
 
     const onLogOutClickHandler = () => {
         removeCookie('accessToken', { path: '/' });
@@ -120,7 +121,7 @@ function TopBar() {
                     <div className="top-bar-role">
                         <div className="sign-in-wrapper">
                             <div className="user-mypage-button person"></div>
-                            <div className="user-button">관리자님</div>
+                            <div className="user-button" onClick={onAdminPageClickHandler}>관리자님</div>
                         </div>
                         <div className="logout-button" onClick={onLogOutClickHandler}>로그아웃</div>
                     </div>

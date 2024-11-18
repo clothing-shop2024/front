@@ -169,6 +169,7 @@ export const ADMIN_FAQ_DELETE_ABSOLUTE_PATH = (faqNumber : number | string) => `
 
 // description : 관리자페이지 절대 URL PATH
 export const ADMIN_USER_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_USER_PATH}/list`;
+export const ADMIN_USER_ASC_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_USER_PATH}/list/asc`;
 export const ADMIN_PRODUCT_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_PRODUCT_PATH}/list`;
 export const ADMIN_ORDER_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_ORDER_PATH}/list`;
 export const ADMIN_COUPON_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_COUPON_PATH}/list`;
@@ -266,6 +267,10 @@ export const DELETE_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODU
 export const SERVER_ADMIN_MODULE_URL = `${SERVER_API_URL}/admin`;
 export const SERVER_USER_MANAGE_MODULE_URL = `${SERVER_ADMIN_MODULE_URL}/user`;
 export const GET_ADMIN_USER_LIST_URL = `${SERVER_USER_MANAGE_MODULE_URL}/list/desc`;
+export const GET_ADMIN_USER_ASC_LIST_URL = `${SERVER_USER_MANAGE_MODULE_URL}/list/asc`;
+export const GET_ADMIN_USER_ID_SEARCH_LIST_URL = `${SERVER_USER_MANAGE_MODULE_URL}/list/userId/search`;
+export const GET_ADMIN_USER_NAME_SEARCH_LIST_URL = `${SERVER_USER_MANAGE_MODULE_URL}/list/userName/search`;
+export const GET_ADMIN_USER_GRADE_SEARCH_LIST_URL = `${SERVER_USER_MANAGE_MODULE_URL}/list/grade/search`;
 
 // description: PAGE
 export const COUNT_PER_PAGE = 10;

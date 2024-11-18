@@ -1,0 +1,54 @@
+
+
+.user-list-table-number {
+    width: 100px;
+}
+
+.user-list-table-user-id {
+    width: 200px;
+}
+
+.user-list-table-user-name {
+    width: 200px;
+}
+
+.user-list-table-nickname {
+    width: 200px;
+}
+
+.user-list-table-email {
+    width: 400px;
+}
+
+.user-list-table-grade {
+    width: 150px;
+}
+
+.user-list-table-points {
+    width: 200px;
+}
+
+.user-list-table-joindate {
+    width: 400px;
+}
+
+.user-list-table-search-box {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 12px;
+    padding: 5px 100px 50px 0px;
+}
+
+.user-list-filter {
+    display: flex;
+    align-items: center;
+
+    gap: 30px;
+    margin-right: 100px;
+}
+
+.user-list-table-top {
+    display: flex;
+    justify-content: space-between;
+}
