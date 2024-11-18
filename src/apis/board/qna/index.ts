@@ -33,7 +33,7 @@ export const getQnaListRequest = async() => {
 };
 
 // function : 문의사항 검색 리스트 불러오기 API 함수
-export const getSearchQnaListRequest = async (word: string) => {
+export const getSearchQnaListRequest = async(word: string) => {
     const config = { params: { word } }
 
     const result = await axios
