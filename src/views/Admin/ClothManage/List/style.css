@@ -1,0 +1,29 @@
+
+.cloth-list-category1-filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0px 300px 50px 0px;
+
+    gap: 20px;
+}
+
+.cloth-list-table-search-box {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 12px;
+    padding: 5px 100px 50px 0px;
+}
+
+.cloth-list-table-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cloth-list-filter {
+    display: flex;
+    gap: 12px;
+    padding: 5px 100px 50px 0px;
+}

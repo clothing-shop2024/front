@@ -1,5 +1,3 @@
-
-
 import { UserListItem } from 'src/types';
 import './style.css';
 import { useLocation, useNavigate } from 'react-router';
@@ -44,6 +42,7 @@ function ListItem ({
     );
 };
 
+//                    component                    //
 export default function UserManageList() {
 
     //                      state                      //
@@ -157,11 +156,12 @@ export default function UserManageList() {
                     <option value="GRADE">GRADE</option>
                 </select>
                 <div className='list-table-search-input-box'>
-                        <input className='list-table-search-input'
-                        placeholder='검색어를 입력하세요.'
-                        value={searchWord}
-                        onChange={(e) => setSearchWord(e.target.value)}
-                    />
+                        <input 
+                            className='list-table-search-input'
+                            placeholder='검색어를 입력하세요.'
+                            value={searchWord}
+                            onChange={(e) => setSearchWord(e.target.value)}
+                        />
                 </div>
                 <div className={searchButtonClass} onClick={onSearchClickHandler}>검색</div>
             </div>

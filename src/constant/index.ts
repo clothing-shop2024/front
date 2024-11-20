@@ -86,16 +86,17 @@ export const MY_ORDER_DATAIL_PATH = 'detail';
 
 // description : 관리자 페이지 URL
 export const ADMIN_PATH = 'admin';
+export const ADMIN_LIST_PATH = 'list';
 
 // description : 관리자 - 회원관리
 export const ADMIN_USER_PATH = 'user';
-export const ADMIN_USER_LIST_PATH = 'list';
 export const ADMIN_USER_DATAIL_PATH = ':userId';
-export const ADMIN_PRODUCT_PATH = 'product';
-export const ADMIN_PRODUCT_LIST_PATH = 'list';
 export const ADMIN_ORDER_PATH = 'order';
-export const ADMIN_ORDER_LIST_PATH = 'list';
 export const ADMIN_COUPON_PATH = 'coupon';
+
+// description : 관리자 - 상품관리
+export const ADMIN_CLOTH_PATH = 'cloth';
+
 
 // description : 관리자 - 공지사항
 export const ADMIN_BOARD_NOTICE_PATH = 'notice';
@@ -170,7 +171,7 @@ export const ADMIN_FAQ_DELETE_ABSOLUTE_PATH = (faqNumber : number | string) => `
 // description : 관리자페이지 절대 URL PATH
 export const ADMIN_USER_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_USER_PATH}/list`;
 export const ADMIN_USER_ASC_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_USER_PATH}/list/asc`;
-export const ADMIN_PRODUCT_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_PRODUCT_PATH}/list`;
+export const ADMIN_CLOTH_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_CLOTH_PATH}/list`;
 export const ADMIN_ORDER_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_ORDER_PATH}/list`;
 export const ADMIN_COUPON_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_COUPON_PATH}/list`;
 
