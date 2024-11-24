@@ -1,4 +1,5 @@
 export interface PostClothInfoRequestDto {
+    clothId : number
     clothNumber: number | string;  // 상품ID (고유식별코드)
     clothName : string // 상품 이름
     stock: number;  // 재고 수량
