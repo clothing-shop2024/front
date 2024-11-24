@@ -137,8 +137,8 @@ export const CLOTH_DETAIL_CATEGORY1_LIST_ABSOLUTE_PATH = (clothCategory1: string
 export const CLOTH_DETAIL_SEARCH_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${CLOTH_PATH}/list/search`;
 
 // description: 옷 주문 페이지 URL PATH
-export const CLOTH_INFO_ABSOLUTE_PATH = (clothNumber: string | number) => `${MAIN_PATH}/${CLOTH_PATH}/${CLOTH_LIST_PATH}/info/${clothNumber}`;
-export const CLOTH_INFO_UPDATE_ABSOLUTE_PATH = (clothNumber: string | number) => `${MAIN_PATH}/${CLOTH_PATH}/${CLOTH_LIST_PATH}/update/${clothNumber}`;
+export const CLOTH_INFO_ABSOLUTE_PATH = (clothId: number) => `${MAIN_PATH}/${CLOTH_PATH}/${CLOTH_LIST_PATH}/info/${clothId}`;
+export const CLOTH_INFO_UPDATE_ABSOLUTE_PATH = (clothId: number) => `${MAIN_PATH}/${CLOTH_PATH}/${CLOTH_LIST_PATH}/update/${clothId}`;
 
 // description: 공지사항 절대 URL PATH 
 // ???? NOTICE_LIST 뺌
@@ -207,7 +207,7 @@ export const GET_MY_QNA_LIST_URL = `${SERVER_USER_MODULE_URL}/qna/list`;
 
 // description : 옷 주문 상세페이지 모듈 내의 기능 URL
 export const SERVER_CLOTH_INFO_MODULE_URL = `${SERVER_API_URL}/cloth-info`;
-export const GET_CLOTH_INFO_URL = (clothNumber : string | number) => `${SERVER_CLOTH_INFO_MODULE_URL}/${clothNumber}`;
+export const GET_CLOTH_INFO_URL = (clothId : string | number) => `${SERVER_CLOTH_INFO_MODULE_URL}/${clothId}`;
 export const POST_CLOTH_INFO_URL = `{SERVER_CLOTH_INFO_MODULE_URL}/order`;
 
 // description : 옷 상세 전체 리스트 URL
@@ -226,9 +226,9 @@ export const GET_PRICE_DESC_CLOTH_DETAIL_CATEGORY2_LIST_URL = (clothCategory2: s
 // description: FAVORITE 모듈 내의 기능 URL
 export const SERVER_FAVORITE_MODULE_URL = `${SERVER_CLOTH_INFO_MODULE_URL}/favorite`;
 export const GET_FAVORITE_LIST_URL = `${SERVER_FAVORITE_MODULE_URL}/list`;
-export const POST_FAVORITE_REQUEST_URL = (clothNumber: number | string) => `${SERVER_FAVORITE_MODULE_URL}/${clothNumber}`;
-export const DELETE_FAVORITE_REQUEST_URL = (clothNumber: number | string) => `${SERVER_FAVORITE_MODULE_URL}/${clothNumber}`;
-export const GET_FAVORITE_CHECK_REQUEST_URL = (clothNumber: number | string) => `${SERVER_FAVORITE_MODULE_URL}/${clothNumber}`;
+export const POST_FAVORITE_REQUEST_URL = (clothId: number | string) => `${SERVER_FAVORITE_MODULE_URL}/${clothId}`;
+export const DELETE_FAVORITE_REQUEST_URL = (clothId: number | string) => `${SERVER_FAVORITE_MODULE_URL}/${clothId}`;
+export const GET_FAVORITE_CHECK_REQUEST_URL = (clothId: number | string) => `${SERVER_FAVORITE_MODULE_URL}/${clothId}`;
 
 // description: order 모듈 내의 기능 URL
 export const SERVER_ORDER_MODULE_URL = `${SERVER_CLOTH_INFO_MODULE_URL}/order`;
