@@ -15,6 +15,9 @@ interface AuthStore {
     setAuthNumber: (authNumber: string) => void;
     joinPath: string;
     setJoinPath: (joinPath: string) => void;
+
+    birthday: string | null;
+    setUserBirthDay: (birthday: string | null) => void;
 }
 
 const useAuthStore = create<AuthStore>(set => ({
@@ -38,6 +41,9 @@ const useAuthStore = create<AuthStore>(set => ({
 
     joinPath: 'HOME',
     setJoinPath: (joinPath: string) => set(state => ({...state, joinPath})),
+
+    birthday: null,
+    setUserBirthDay: (birthday) => set({ birthday }),
 
 }))
 
