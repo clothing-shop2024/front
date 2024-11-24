@@ -1,0 +1,63 @@
+/* modal-overlay: 배경 어둡게 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* 다른 콘텐츠보다 위에 오게 */
+}
+
+/* 팝업창 스타일 */
+.date-popup-wrapper {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+}
+
+.date-popup-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.date-popup-top {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.date-popup-contents {
+    margin-top: 20px;
+}
+
+.date-popup-button {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.primary-button, .error-button {
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* .primary-button {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+}
+
+.error-button {
+    background-color: #f44336;
+    color: white;
+    border-radius: 5px;
+} */
+
+.date-calender {
+    width: 100%;
+}

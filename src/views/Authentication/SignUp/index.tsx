@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import { emailAuthCheckRequest, emailAuthRequest, IdCheckRequest, NicknameCheckRequest, signUpRequest } from "../../../apis/auth";
@@ -7,6 +7,8 @@ import ResponseDto from "../../../apis/response.dto";
 import InputBox from "../../../components/InputBox";
 import { SIGN_IN_ABSOLUTE_PATH } from "../../../constant";
 import "./style.css";
+import DatePickerPopup from "src/components/DatePickerPopup";
+import useAuthStore from "src/stores/auth.store";
 
 //                    component : 회원가입               //
 export default function SignUp() {
@@ -21,7 +23,6 @@ export default function SignUp() {
     const [nickname, setNickname] = useState<string>('');
     const [userEmail, setUserEmail] = useState<string>('');
     const [authNumber, setAuthNumber] = useState<string>('');
-    const [userBirthDay, setUserBirthDay] = useState<string>('');
 
     const [idButtonStatus, setIdButtonStatus] = useState<boolean>(false);
     const [NicknameButtonStatus, setNicknameButtonStatus] = useState<boolean>(false);
@@ -51,6 +52,13 @@ export default function SignUp() {
 
     const isSignUpActive = isIdCheck && isEqualPassword && isPasswordPattern && isNicknameCheck && isEmailCheck && isEmailPattern && isAuthNumberCheck;
     const signUpButtonClass = `${isSignUpActive ? 'primary' : 'disable'}-button full-width`;
+
+    // 생년월일 캘린더 팝업
+    const [userBirthDay] = useState<string>('');
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [selectedDate, setSelectedDate] = useState("");
+    const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+    const { setUserBirthDay } = useAuthStore();
 
     //                    function                    //
     const navigator = useNavigate();
@@ -212,11 +220,6 @@ export default function SignUp() {
         setAuthNumberMessage('');
     };
 
-    const onUserBirthDayChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        const { value } = event.target;
-        setUserBirthDay(value);
-    }
-
     const onIdButtonClickHandler = () => {
         if(!idButtonStatus || !id || !id.trim()) return;
 
@@ -283,18 +286,37 @@ export default function SignUp() {
             nickname: nickname,
             userEmail: userEmail,
             authNumber: authNumber,
-            userBirthDay: userBirthDay,
+            userBirthDay: selectedDate,
             joinPath,
             joinDate
         };
         
         signUpRequest(requestBody).then(signUpResponse);
+        console.log(requestBody);
 
         navigator(SIGN_IN_ABSOLUTE_PATH);
     };
 
+    const togglePopup = () => {
+        setIsPopupOpen(!isPopupOpen);
+    };
+
+    const handleDateSelect = (date: string) => {
+        setSelectedDate(date);
+        setUserBirthDay(date);
+    };
+
+    const openDatePicker = () => {
+        setIsDatePickerOpen(true);
+    };
+
+    const closeDatePicker = () => {
+        setIsDatePickerOpen(false);
+    };
+
     //                    render                       //
-    
+    const birthDayDisplay = selectedDate ? selectedDate : "날짜를 입력해주세요";
+
     return (
         <div id="authentication-wrapper">
             <div className="title-text">회원가입</div>
@@ -377,14 +399,16 @@ export default function SignUp() {
                             error={isAuthNumberError} 
                             />
                         }
-                        <InputBox 
-                        label="생년월일 (필수X)"
-                        type="text" 
-                        value={userBirthDay} 
-                        placeholder="생년월일을 입력해주세요" 
-                        onChangeHandler={ onUserBirthDayChangeHandler }
-                        error 
-                        />
+                        <div className='authentication-birthday'onClick={togglePopup}>
+                            <div className='authentication-birthday-title'>생년월일</div>
+                            <div className='authentication-birthday-input'>{birthDayDisplay}</div>
+                        </div>
+                            {isPopupOpen && (
+                                <DatePickerPopup
+                                    onClose={togglePopup}
+                                    onSelectDate={handleDateSelect}
+                                />
+                        )}
                     </div>
                     <div className="authentication-button-container">
                         <div className={signUpButtonClass} onClick={ onSignUpButtonClickHandler }>가입하기</div>
