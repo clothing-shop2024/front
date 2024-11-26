@@ -18,6 +18,8 @@ interface AuthStore {
 
     birthday: string | null;
     setUserBirthDay: (birthday: string | null) => void;
+    solarLunar: boolean | null;
+    setSolarLunarCalendar: (solarLunar: boolean | null) => void;
 }
 
 const useAuthStore = create<AuthStore>(set => ({
@@ -44,6 +46,9 @@ const useAuthStore = create<AuthStore>(set => ({
 
     birthday: null,
     setUserBirthDay: (birthday) => set({ birthday }),
+
+    solarLunar: null,
+    setSolarLunarCalendar: (solarLunar) => set({ solarLunar }),
 
 }))
 

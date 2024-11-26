@@ -17,6 +17,7 @@ export interface GetMyInfoResponseDto extends ResponseDto {
     nickname: string;
     userEmail: string;
     userBirthDay: string;
+    solarLunarCalendar: boolean;
     userRole: string;
     joinPath: String;
     joinDate: String;
@@ -34,6 +35,7 @@ export interface PatchUserInfoResponseDto extends ResponseDto {
     userName: string;
     nickname: string;
     userBirthDay: string;
+    solarLunarCalendar: boolean;
     userRole: string;
     joinPath: String;
 }

@@ -23,6 +23,7 @@ export default function SignUp() {
     const [nickname, setNickname] = useState<string>('');
     const [userEmail, setUserEmail] = useState<string>('');
     const [authNumber, setAuthNumber] = useState<string>('');
+    const [isSolarCalendar, setIsSolarCalendar] = useState<boolean>(true);
 
     const [idButtonStatus, setIdButtonStatus] = useState<boolean>(false);
     const [NicknameButtonStatus, setNicknameButtonStatus] = useState<boolean>(false);
@@ -59,6 +60,9 @@ export default function SignUp() {
     const [selectedDate, setSelectedDate] = useState("");
     const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
     const { setUserBirthDay } = useAuthStore();
+
+    // 생년월일 체크박스
+    const [isBirthdayChecked, setIsBirthdayChecked] = useState(false);
 
     //                    function                    //
     const navigator = useNavigate();
@@ -287,6 +291,7 @@ export default function SignUp() {
             userEmail: userEmail,
             authNumber: authNumber,
             userBirthDay: selectedDate,
+            solarLunarCalendar: isSolarCalendar,
             joinPath,
             joinDate
         };
@@ -314,12 +319,22 @@ export default function SignUp() {
         setIsDatePickerOpen(false);
     };
 
+    const onBirthdayCheckChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setIsBirthdayChecked(event.target.checked);
+    };
+
+    const handleSolarLunarChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+        setIsSolarCalendar(value === "solar");
+    };
+
+    // 수정전
     //                    render                       //
     const birthDayDisplay = selectedDate ? selectedDate : "날짜를 입력해주세요";
 
     return (
         <div id="authentication-wrapper">
-            <div className="title-text">회원가입</div>
+            <div className="authentication-title">회원가입</div>
             <div className="authentication-sign-up">
                 <div className="authentication-contents">
                     <div className="authentication-input-container">
@@ -399,9 +414,41 @@ export default function SignUp() {
                             error={isAuthNumberError} 
                             />
                         }
-                        <div className='authentication-birthday'onClick={togglePopup}>
-                            <div className='authentication-birthday-title'>생년월일</div>
-                            <div className='authentication-birthday-input'>{birthDayDisplay}</div>
+                        <div className='authentication-birthday'>
+                            <div className="authentication-birthday-check-box">
+                                <div className='authentication-birthday-title'>생년월일</div>
+                                <input
+                                    type="checkbox"
+                                    checked={isBirthdayChecked}
+                                    onChange={onBirthdayCheckChangeHandler}
+                                />
+                            </div>
+                            {isBirthdayChecked && (
+                            <div className="authentication-birthday-solar">
+                                <div className='authentication-birthday-input' onClick={togglePopup}>{birthDayDisplay}</div>
+                                <div className="authentication-solar-lunar-select">
+                                    <label>
+                                        <input 
+                                        type='radio'
+                                        name='solarLunar'
+                                        value='true'
+                                        checked={isSolarCalendar}
+                                        onChange={handleSolarLunarChange}
+                                         /> 양력
+                                    </label>
+                                    <label>
+                                        <input 
+                                        type='radio'
+                                        name='solarLunar'
+                                        value='false'
+                                        checked={!isSolarCalendar}
+                                        onChange={handleSolarLunarChange}
+                                         /> 음력
+                                    </label>
+                                </div>
+                            </div>
+                        )}
+                            
                         </div>
                             {isPopupOpen && (
                                 <DatePickerPopup
@@ -409,6 +456,7 @@ export default function SignUp() {
                                     onSelectDate={handleDateSelect}
                                 />
                         )}
+                        
                     </div>
                     <div className="authentication-button-container">
                         <div className={signUpButtonClass} onClick={ onSignUpButtonClickHandler }>가입하기</div>
