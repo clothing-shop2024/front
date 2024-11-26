@@ -7,6 +7,7 @@ import ResponseDto from "../../../apis/response.dto";
 import { SignInRequestDto } from "../../../apis/auth/dto/request";
 import { signInRequest } from "../../../apis/auth";
 import InputBox from "../../../components/InputBox";
+import "./style.css";
 
 // component: Sns 로그인 //
 export function Sns() {
@@ -67,6 +68,10 @@ export default function SignIn() {
     const [Id, setId] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
+    const [isIdCheck, setIdCheck] = useState<boolean>(false);
+    // const isSignInActive = is
+    // const signInButtonClass = `${isSignUpActive ? 'primary' : 'disable'}-button full-width`;
+
     // function //
     const navigator = useNavigate();
 
@@ -126,10 +131,9 @@ export default function SignIn() {
 
     return (
         <div id="authentication-wrapper">
-        <div className="authentication-contents">
-            <div className="authentication-sign-title">로그인</div>
-            <div className="authentication-sign-container">
-                <div className="authentication-contents-box">
+            <div className="authentication-title">로그인</div>
+            <div className="authentication-sign-in">
+                <div className="authentication-contents">
                     <div className="authentication-input-container">
                         <InputBox type="text" value={Id} placeholder="아이디를 입력해주세요" onChangeHandler={onIdChangeHandler} />
                         <InputBox type="password" value={password} placeholder="비밀번호를 입력해주세요" onChangeHandler={onPasswordChangeHandler} onkeydownhandler={onPasswordKeydownHandler} message={message} error />
@@ -137,23 +141,34 @@ export default function SignIn() {
                     <div className="authentication-button-container">
                         <div className="primary-button full-width" onClick={onSignInButtonClickHandler}>로그인</div>
                     </div>
-                </div>
-                <div className="find-container">
-                    <div className="find-email">
+
+                    <div className="find-container">
                         <div className="text-link" onClick={onFindIdInputClickHandler}>아이디 찾기</div>
-                    </div>
-                    <div className="find-divider">{'\|'}</div>
-                    <div className="find-password">
+                        <div className="find-divider">{'\|'}</div>
                         <div className="text-link" onClick={onFindPasswordClickHandler}>비밀번호 찾기</div>
                     </div>
-                    <div className="find-divider">{'\|'}</div>
-                    <div className="user-sign-up">
-                        <div className="text-link" onClick={onSignUpClickHandler}>회원가입</div>
+
+                    <div className="text-link">또는</div>
+                    <SnsContainer title="SNS 로그인" />
+
+                    <div className="sns-login">
+                        <div className="kakao-login">
+                            <div className="sns-icon kakao"></div>
+                            <div>카카오 로그인</div>
+                        </div>
+                        <div className="naver-login">
+                            <div className="sns-icon naver"></div>
+                            <div>네이버 로그인</div>
+                        </div>
+                    </div>
+
+                    <div className="user-sign-up" onClick={onSignUpClickHandler}>
+                        <div className="text-link bold" >회원가입</div>
+                        <div className="text-link">으로 이동&nbsp;</div>
+                        <div className="right-pointer-img"></div>
                     </div>
                 </div>
-                <SnsContainer title="SNS 로그인" />
             </div>
         </div>
-    </div>
     );
 }

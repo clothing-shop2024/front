@@ -1,0 +1,63 @@
+.authentication-sign-in {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.find-container {
+    display: flex;
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+.user-sign-up {
+    display: flex;
+    justify-content: right;
+}
+
+.text-link.bold {
+    font-weight: bold;
+}
+
+.right-pointer-img {
+    width: 20px;
+    height: 20px;
+    background-size: 100%;
+    background-image: url('../../../assets/image/right-pointer.png');
+}
+
+.sns-login {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+
+    margin-bottom: 100px;
+}
+
+.kakao-login, .naver-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.sns-icon.kakao {
+    width: 50px;
+    height: 50px;
+    background-size: 100%;
+    background-image: url('../../../assets/image/kakao-icon.png');
+}
+
+.sns-icon.naver {
+    width: 50px;
+    height: 50px;
+    background-size: 100%;
+    background-image: url('../../../assets/image/naver-icon.png');
+}

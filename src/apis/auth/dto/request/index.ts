@@ -33,7 +33,8 @@ export interface SignUpRequestDto {
     nickname : string;
     userEmail : string;
     authNumber : string;
-    userBirthDay : string;
+    userBirthDay : string | null;
+    solarLunarCalendar: boolean | null;
     joinPath : string;
     joinDate : string | null;
 }
