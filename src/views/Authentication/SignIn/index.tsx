@@ -65,12 +65,10 @@ export default function SignIn() {
     // state //
     const [cookie, setCookie] = useCookies(); 
     const [message, setMessage] = useState<string>('');
-    const [Id, setId] = useState<string>('');
+    const [id, setId] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-
-    const [isIdCheck, setIdCheck] = useState<boolean>(false);
-    // const isSignInActive = is
-    // const signInButtonClass = `${isSignUpActive ? 'primary' : 'disable'}-button full-width`;
+    const isSignInActive = id && password;
+    const signInButtonClass = `${isSignInActive ? 'primary' : 'disable'}-button full-width`;
 
     // function //
     const navigator = useNavigate();
@@ -113,13 +111,15 @@ export default function SignIn() {
     };
 
     const onSignInButtonClickHandler = () => {
-        if (!Id || !password) {
+        if (!isSignInActive) return;
+
+        if (!id || !password) {
             setMessage('아이디와 비밀번호를 모두 입력하세요.');
             return;
         }
 
         const requestBody: SignInRequestDto = {
-            userId: Id,
+            userId: id,
             password: password
         }
         signInRequest(requestBody).then(signInResponse);
@@ -135,11 +135,11 @@ export default function SignIn() {
             <div className="authentication-sign-in">
                 <div className="authentication-contents">
                     <div className="authentication-input-container">
-                        <InputBox type="text" value={Id} placeholder="아이디를 입력해주세요" onChangeHandler={onIdChangeHandler} />
+                        <InputBox type="text" value={id} placeholder="아이디를 입력해주세요" onChangeHandler={onIdChangeHandler} />
                         <InputBox type="password" value={password} placeholder="비밀번호를 입력해주세요" onChangeHandler={onPasswordChangeHandler} onkeydownhandler={onPasswordKeydownHandler} message={message} error />
                     </div>
                     <div className="authentication-button-container">
-                        <div className="primary-button full-width" onClick={onSignInButtonClickHandler}>로그인</div>
+                        <div className={signInButtonClass} onClick={onSignInButtonClickHandler}>로그인</div>
                     </div>
 
                     <div className="find-container">

@@ -18,9 +18,7 @@ export default function QnaRegist() {
     const [cookies] = useCookies();
 
     const [qnaContents, setQnaContents] = useState<string>('');
-    const [qnaDate, setQnaDate] = useState<string>('');
     const [qnaCategory, setQnaCategory] = useState<string>('');
-    const [qnaWriterId, setQnaWriterId] = useState<string>('');
     const [qnaImageUrl, setQnaImageUrl] = useState<string>('');
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [selectedCategory, setSelectedCategory] = useState<string>("");

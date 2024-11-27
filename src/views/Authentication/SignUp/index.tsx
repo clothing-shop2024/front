@@ -6,8 +6,8 @@ import { EmailAuthCheckRequestDto, EmailAuthRequestDto, IdCheckRequestDto, Nickn
 import ResponseDto from "../../../apis/response.dto";
 import InputBox from "../../../components/InputBox";
 import { SIGN_IN_ABSOLUTE_PATH } from "../../../constant";
+import { getYYYYMMDD } from "src/utils";
 import "./style.css";
-import DatePickerPopup from "src/components/DatePickerPopup";
 import useAuthStore from "src/stores/auth.store";
 
 //                    component : 회원가입               //
@@ -23,6 +23,12 @@ export default function SignUp() {
     const [nickname, setNickname] = useState<string>('');
     const [userEmail, setUserEmail] = useState<string>('');
     const [authNumber, setAuthNumber] = useState<string>('');
+
+    const today = new Date();
+    const [isBirthdayChecked, setIsBirthdayChecked] = useState(false);
+    const [birthDay, setBirthDay] = useState<string | null>(null);
+    const { setUserBirthDay } = useAuthStore();
+    const dateInputRef = useRef<HTMLInputElement>(null);
     const [isSolarCalendar, setIsSolarCalendar] = useState<boolean>(true);
 
     const [idButtonStatus, setIdButtonStatus] = useState<boolean>(false);
@@ -51,18 +57,9 @@ export default function SignUp() {
     const [isEmailError, setEmailError] = useState<boolean>(false);
     const [isAuthNumberError, setAuthNumberError] = useState<boolean>(false);
 
-    const isSignUpActive = isIdCheck && isEqualPassword && isPasswordPattern && isNicknameCheck && isEmailCheck && isEmailPattern && isAuthNumberCheck;
+    const isSignUpActive = isIdCheck && isEqualPassword && isPasswordPattern && isNicknameCheck && isEmailCheck && isEmailPattern && isAuthNumberCheck &&
+    (!isBirthdayChecked || !!birthDay);
     const signUpButtonClass = `${isSignUpActive ? 'primary' : 'disable'}-button full-width`;
-
-    // 생년월일 캘린더 팝업
-    const [userBirthDay] = useState<string>('');
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const [selectedDate, setSelectedDate] = useState("");
-    const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
-    const { setUserBirthDay } = useAuthStore();
-
-    // 생년월일 체크박스
-    const [isBirthdayChecked, setIsBirthdayChecked] = useState(false);
 
     //                    function                    //
     const navigator = useNavigate();
@@ -267,13 +264,48 @@ export default function SignUp() {
         emailAuthCheckRequest(requestBody).then(emailAuthCheckResponse);
     };
     
-    const onSignUpButtonClickHandler = () => {
-        if(!isSignUpActive) return;
+    const onBirthdayCheckChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        const { checked } = event.target;
+        setIsBirthdayChecked(checked);
 
-        if(!id || !password || !passwordCheck || !userName || !nickname || !userEmail || !authNumber ) {
+        if (!checked) {
+            setBirthDay(null);
+            setUserBirthDay(null);
+            setIsSolarCalendar(true);
+        }
+    };
+
+    const onBirthdayChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+
+        if (isBirthdayChecked) {
+            setBirthDay(value);
+            setUserBirthDay(value);
+        }
+    };
+
+    const handleSolarLunarChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+
+        if (isBirthdayChecked) {
+            setIsSolarCalendar(value === "solar");
+        }
+    };
+
+    const onSignUpButtonClickHandler = () => {
+        if (!isSignUpActive) return;
+
+        if (!id || !password || !passwordCheck || !userName || !nickname || !userEmail || !authNumber ) {
             alert('모든 내용을 입력해주세요.');
             return;
-        };
+        } else {
+            if (isBirthdayChecked == true) {
+                if (!birthDay) {
+                    alert('모든 내용을 입력해주세요.');
+                    return;
+                }
+            }
+        }
 
         alert('회원가입에 성공하였습니다.')
     
@@ -290,8 +322,8 @@ export default function SignUp() {
             nickname: nickname,
             userEmail: userEmail,
             authNumber: authNumber,
-            userBirthDay: selectedDate,
-            solarLunarCalendar: isSolarCalendar,
+            userBirthDay: isBirthdayChecked ? birthDay : null,
+            solarLunarCalendar: isBirthdayChecked ? isSolarCalendar : null,
             joinPath,
             joinDate
         };
@@ -302,35 +334,7 @@ export default function SignUp() {
         navigator(SIGN_IN_ABSOLUTE_PATH);
     };
 
-    const togglePopup = () => {
-        setIsPopupOpen(!isPopupOpen);
-    };
-
-    const handleDateSelect = (date: string) => {
-        setSelectedDate(date);
-        setUserBirthDay(date);
-    };
-
-    const openDatePicker = () => {
-        setIsDatePickerOpen(true);
-    };
-
-    const closeDatePicker = () => {
-        setIsDatePickerOpen(false);
-    };
-
-    const onBirthdayCheckChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setIsBirthdayChecked(event.target.checked);
-    };
-
-    const handleSolarLunarChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const { value } = event.target;
-        setIsSolarCalendar(value === "solar");
-    };
-
-    // 수정전
     //                    render                       //
-    const birthDayDisplay = selectedDate ? selectedDate : "날짜를 입력해주세요";
 
     return (
         <div id="authentication-wrapper">
@@ -414,9 +418,9 @@ export default function SignUp() {
                             error={isAuthNumberError} 
                             />
                         }
-                        <div className='authentication-birthday'>
+                        <div className="authentication-birthday">
                             <div className="authentication-birthday-check-box">
-                                <div className='authentication-birthday-title'>생년월일</div>
+                                <div className="authentication-birthday-title">생년월일</div>
                                 <input
                                     type="checkbox"
                                     checked={isBirthdayChecked}
@@ -425,22 +429,28 @@ export default function SignUp() {
                             </div>
                             {isBirthdayChecked && (
                             <div className="authentication-birthday-solar">
-                                <div className='authentication-birthday-input' onClick={togglePopup}>{birthDayDisplay}</div>
+                                <input
+                                    className="date-calender"
+                                    ref={dateInputRef}
+                                    type="date"
+                                    max={getYYYYMMDD(today)}
+                                    onChange={onBirthdayChangeHandler}
+                                />
                                 <div className="authentication-solar-lunar-select">
                                     <label>
                                         <input 
-                                        type='radio'
-                                        name='solarLunar'
-                                        value='true'
-                                        checked={isSolarCalendar}
+                                        type="radio"
+                                        name="solarLunar"
+                                        value="true"
+                                        checked={isSolarCalendar !== null ? isSolarCalendar : undefined}
                                         onChange={handleSolarLunarChange}
                                          /> 양력
                                     </label>
                                     <label>
                                         <input 
-                                        type='radio'
-                                        name='solarLunar'
-                                        value='false'
+                                        type="radio"
+                                        name="solarLunar"
+                                        value="false"
                                         checked={!isSolarCalendar}
                                         onChange={handleSolarLunarChange}
                                          /> 음력
@@ -450,12 +460,6 @@ export default function SignUp() {
                         )}
                             
                         </div>
-                            {isPopupOpen && (
-                                <DatePickerPopup
-                                    onClose={togglePopup}
-                                    onSelectDate={handleDateSelect}
-                                />
-                        )}
                         
                     </div>
                     <div className="authentication-button-container">

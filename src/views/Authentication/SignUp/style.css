@@ -20,7 +20,6 @@
 }
 
 .authentication-contents {
-    
     width: 600px;
 }
 
@@ -33,6 +32,8 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    margin-bottom: 30px;
 }
 
 .authentication-birthday-title {
@@ -53,6 +54,24 @@
     outline: none;
     padding: 8px 16px;
 
+    width: 300px;
+
+    background-color: rgba(255, 255, 255, 1);
+
+    font-style: normal;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 175%;
+    color: rgba(138, 146, 166, 1);
+}
+
+.date-calender {
+    flex-grow: 1;
+    border: 1px solid rgba(238, 238, 238, 1);
+    border-radius: 6px;
+    outline: none;
+    padding: 8px 16px;
+
     /* margin-bottom: 30px; */
     width: 300px;
 
@@ -63,12 +82,10 @@
     font-weight: 400;
     line-height: 175%;
     color: rgba(138, 146, 166, 1);
-    /* color: rgba(35, 45, 66, 1); */
 }
 
 .authentication-solar-lunar-select {
     display: flex;
-    /* justify-content: center; */
     align-items: center;
 
     width: 300px;
