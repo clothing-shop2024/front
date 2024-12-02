@@ -91,3 +91,27 @@
     width: 300px;
     gap: 10px;
 }
+
+.sign-up-terms {
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+.terms {
+    max-height: 300px;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    font-size: 12px;
+    margin: 10px 0px 10px 0px;
+    padding: 20px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+}
+
+.terms-agree {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    
+    margin-bottom: 20px;
+    color: rgba(0, 0, 0, 0.7);
+}
