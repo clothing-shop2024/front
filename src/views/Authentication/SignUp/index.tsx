@@ -9,6 +9,7 @@ import { SIGN_IN_ABSOLUTE_PATH } from "../../../constant";
 import { getYYYYMMDD } from "src/utils";
 import "./style.css";
 import useAuthStore from "src/stores/auth.store";
+import { termsOfUse, personalInformation, shoppingInformation } from "src/utils"
 
 //                    component : 회원가입               //
 export default function SignUp() {
@@ -25,7 +26,6 @@ export default function SignUp() {
     const [authNumber, setAuthNumber] = useState<string>('');
 
     const today = new Date();
-    const [isBirthdayChecked, setIsBirthdayChecked] = useState(false);
     const [birthDay, setBirthDay] = useState<string | null>(null);
     const { setUserBirthDay } = useAuthStore();
     const dateInputRef = useRef<HTMLInputElement>(null);
@@ -43,6 +43,13 @@ export default function SignUp() {
     const [isEmailCheck, setEmailCheck] = useState<boolean>(false);
     const [isEmailPattern, setEmailPattern] = useState<boolean>(false);
     const [isAuthNumberCheck, setAuthNumberCheck] = useState<boolean>(false);
+    const [isBirthdayChecked, setIsBirthdayChecked] = useState(false);
+    const [isAllTermsChecked, setIsAllTermsChecked] = useState(false);
+    const [termsChecked, setTermsChecked] = useState({
+        termsOfUse: false,
+        personalInformation: false,
+        shoppingInformation: false,
+    });
 
     const [idMessage, setIdMessage] = useState<string>('');
     const [passwordMessage, setPasswordMessage] = useState<string>('');
@@ -58,7 +65,7 @@ export default function SignUp() {
     const [isAuthNumberError, setAuthNumberError] = useState<boolean>(false);
 
     const isSignUpActive = isIdCheck && isEqualPassword && isPasswordPattern && isNicknameCheck && isEmailCheck && isEmailPattern && isAuthNumberCheck &&
-    (!isBirthdayChecked || !!birthDay);
+    (!isBirthdayChecked || !!birthDay) && termsChecked.termsOfUse && termsChecked.personalInformation;
     const signUpButtonClass = `${isSignUpActive ? 'primary' : 'disable'}-button full-width`;
 
     //                    function                    //
@@ -292,6 +299,24 @@ export default function SignUp() {
         }
     };
 
+    const onAllTermsChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        const isChecked = event.target.checked;
+
+        setIsAllTermsChecked(isChecked);
+        setTermsChecked({
+            termsOfUse: isChecked,
+            personalInformation: isChecked,
+            shoppingInformation: isChecked,
+        });
+    }
+
+    const onTermChangeHandler = (event: ChangeEvent<HTMLInputElement>, term: string) => {
+        const isChecked = event.target.checked;
+        const updatedTerms = { ...termsChecked, [term]: isChecked };
+        setTermsChecked(updatedTerms);
+        setIsAllTermsChecked(Object.values(updatedTerms).every((value) => value));
+    };
+
     const onSignUpButtonClickHandler = () => {
         if (!isSignUpActive) return;
 
@@ -462,6 +487,54 @@ export default function SignUp() {
                         </div>
                         
                     </div>
+
+                    <div className="sign-up-terms">
+                        <div className="terms-agree">
+                            <input
+                                type="checkbox"
+                                checked={isAllTermsChecked}
+                                onChange={onAllTermsChangeHandler}
+                            />&nbsp;
+                            전체 약관 동의
+                        </div>
+                        <div className="terms-title">[필수]이용약관</div>
+                        <div className="terms">{termsOfUse}</div>
+                        <div className="terms-agree">
+                            이용약관에 동의하십니까?
+                            &nbsp;
+                            <input
+                                type="checkbox"
+                                checked={termsChecked.termsOfUse}
+                                onChange={(e) => onTermChangeHandler(e, "termsOfUse")}
+                            />&nbsp;
+                            동의함
+                        </div>
+                        <div className="terms-title">[필수]개인정보 수집 및 이용 동의</div>
+                        <div className="terms">{personalInformation}</div>
+                        <div className="terms-agree">
+                            개인정보 수집 및 이용에 동의하십니까?
+                            &nbsp;
+                            <input
+                                type="checkbox"
+                                checked={termsChecked.personalInformation}
+                                onChange={(e) => onTermChangeHandler(e, "personalInformation")}
+                            />&nbsp;
+                            동의함
+                        </div>
+                        <div className="terms-title">[선택]쇼핑정보 수신 동의</div>
+                        <div className="terms">{shoppingInformation}</div>
+                        <div className="terms-agree">
+                            쇼핑정보 수신 동의하십니까?
+                            &nbsp;
+                            <input
+                                type="checkbox"
+                                checked={termsChecked.shoppingInformation}
+                                onChange={(e) => onTermChangeHandler(e, "shoppingInformation")}
+                            />&nbsp;
+                            동의함
+                        </div>
+                    </div>
+
                     <div className="authentication-button-container">
                         <div className={signUpButtonClass} onClick={ onSignUpButtonClickHandler }>가입하기</div>
                     </div>
