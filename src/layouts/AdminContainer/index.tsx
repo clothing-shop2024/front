@@ -1,7 +1,7 @@
 import { Outlet, useLocation, useNavigate } from 'react-router';
 import './style.css';
 import { useEffect, useState } from 'react';
-import { ADMIN_COUPON_LIST_ABSOLUTE_PATH, ADMIN_ORDER_LIST_ABSOLUTE_PATH, ADMIN_CLOTH_LIST_ABSOLUTE_PATH, ADMIN_USER_LIST_ABSOLUTE_PATH } from 'src/constant';
+import { ADMIN_CLOTH_LIST_ABSOLUTE_PATH, ADMIN_USER_LIST_ABSOLUTE_PATH, ADMIN_USER_MANAGE_ABSOLUTE_PATH, ADMIN_CLOTH_MANAGE_ABSOLUTE_PATH, ADMIN_ORDER_MANAGE_ABSOLUTE_PATH, ADMIN_COUPON_MANAGE_ABSOLUTE_PATH } from 'src/constant';
 
 type Path = '회원관리' | '상품관리' | '주문관리' |  '쿠폰관리' | '';
 interface Props {
@@ -52,10 +52,10 @@ export default function AdminContainer() {
     //                    effect                       //
     useEffect(() => {
         const path =
-            pathname.startsWith(ADMIN_USER_LIST_ABSOLUTE_PATH) ? '회원관리' :
-            pathname.startsWith(ADMIN_CLOTH_LIST_ABSOLUTE_PATH) ? '상품관리' :
-            pathname.startsWith(ADMIN_ORDER_LIST_ABSOLUTE_PATH) ? '주문관리' :
-            pathname.startsWith(ADMIN_COUPON_LIST_ABSOLUTE_PATH) ? '쿠폰관리' : '';
+            pathname.startsWith(ADMIN_USER_MANAGE_ABSOLUTE_PATH) ? '회원관리' :
+            pathname.startsWith(ADMIN_CLOTH_MANAGE_ABSOLUTE_PATH) ? '상품관리' :
+            pathname.startsWith(ADMIN_ORDER_MANAGE_ABSOLUTE_PATH) ? '주문관리' :
+            pathname.startsWith(ADMIN_COUPON_MANAGE_ABSOLUTE_PATH) ? '쿠폰관리' : '';
 
         setPath(path);
     }, [pathname]);
