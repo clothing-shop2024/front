@@ -1,6 +1,6 @@
 import axios from "axios";
 import { bearerAuthorization, requestErrorHandler, requestHandler } from "..";
-import { GET_ADMIN_USER_GRADE_SEARCH_LIST_URL, GET_ADMIN_USER_ID_SEARCH_LIST_URL, GET_ADMIN_USER_LIST_URL, GET_ADMIN_USER_NAME_SEARCH_LIST_URL, GET_MY_INFO_REQUEST_URL, GET_MY_QNA_LIST_URL, GET_USER_INFO_REQUEST_URL, PATCH_MY_INFO_UPDATE_REQUEST_URL, POST_EMAIL_AUTH_REQUEST_URL, POST_MY_INFO_DELETE_REQUEST_URL, PUT_MY_INFO_EMAIL_MODIFY_REQUEST_URL, PUT_MY_INFO_PASSWORD_MODIFY_REQUEST_URL } from "../../constant";
+import { GET_ADMIN_USER_ASC_LIST_URL, GET_ADMIN_USER_DETAIL_URL, GET_ADMIN_USER_GRADE_SEARCH_LIST_URL, GET_ADMIN_USER_ID_SEARCH_LIST_URL, GET_ADMIN_USER_LIST_URL, GET_ADMIN_USER_NAME_SEARCH_LIST_URL, GET_MY_INFO_REQUEST_URL, GET_MY_QNA_LIST_URL, GET_USER_INFO_REQUEST_URL, PATCH_MY_INFO_UPDATE_REQUEST_URL, POST_EMAIL_AUTH_REQUEST_URL, POST_MY_INFO_DELETE_REQUEST_URL, PUT_MY_INFO_EMAIL_MODIFY_REQUEST_URL, PUT_MY_INFO_PASSWORD_MODIFY_REQUEST_URL } from "../../constant";
 import ResponseDto from "../response.dto";
 import { DeleteUserRequestDto, EmailAuthRequestDto, PatchUserInfoRequestDto, PutMyInfoEmailRequestDto, PutMyInfoPasswordRequestDto } from "./dto/request";
 import { GetAdminUserListResponseDto, GetMyInfoResponseDto, GetMyQnaListResponseDto, GetSignInUserResponseDto, } from "./dto/response";
@@ -76,10 +76,19 @@ export const getMyQnaListRequest = async(accessToken: string) => {
     return result;
 };
 
-// function: 관리자페이지 회원 리스트 불러오기 API 함수
+// function: 관리자페이지 최신 회원순 회원 관리 리스트 불러오기 API 함수
 export const getUserListRequest = async(accessToken: string) => {
     const result = await axios
         .get(GET_ADMIN_USER_LIST_URL, bearerAuthorization(accessToken))
+        .then(requestHandler<GetAdminUserListResponseDto>)
+        .catch(requestErrorHandler);
+    return result;
+};
+
+// function : 관리자페이지 오래된 회원순 회원 관리 리스트 불러오기 API 함수
+export const getUserAscListRequest = async(accessToken: string) => {
+    const result = await axios
+        .get(GET_ADMIN_USER_ASC_LIST_URL, bearerAuthorization(accessToken))
         .then(requestHandler<GetAdminUserListResponseDto>)
         .catch(requestErrorHandler);
     return result;
@@ -129,6 +138,15 @@ export const getUserGradeSearchListRequest = async(accessToken: string, word: st
     const result = await axios
         .get(GET_ADMIN_USER_GRADE_SEARCH_LIST_URL, config)
         .then(requestHandler<GetAdminUserListResponseDto>)
+        .catch(requestErrorHandler);
+    return result;
+};
+
+// function: 관리자페이지 회원 상세 정보 불러오기 API 함수
+export const getUserDetailRequest = async (accessToken: string, nickname: string) => {
+    const result = await axios
+        .get(GET_ADMIN_USER_DETAIL_URL(nickname), bearerAuthorization(accessToken))
+        .then(requestHandler<GetMyInfoResponseDto>)
         .catch(requestErrorHandler);
     return result;
 };

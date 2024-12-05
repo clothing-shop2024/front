@@ -1,0 +1,45 @@
+
+.user-detail-info {
+    
+    display: flex;
+    flex-direction: column;
+    margin-left: 300px;
+    margin-right: 500px;
+}
+
+.user-detail-contents {
+
+    display: table;
+    border-collapse: collapse;
+}
+
+.user-detail-title {
+    
+    display: table-cell;
+    text-align: center; /* 셀의 수평 중앙정렬 */
+    vertical-align: middle; /* 셀의 수직 중앙정렬 */
+    border: 1px solid #ccc;
+    font-weight: bold;
+    background-color: rgb(238, 232, 232);
+
+    width: 200px;
+    height: 40px;
+}
+
+.user-detail-content {
+
+    display: table-cell;
+    text-align: center; /* 셀의 수평 중앙정렬 */
+    vertical-align: middle; /* 셀의 수직 중앙정렬 */
+    border: 1px solid #ccc;
+
+    width: 400px;
+    height: 40px;
+}
+
+.user-detail-more-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}

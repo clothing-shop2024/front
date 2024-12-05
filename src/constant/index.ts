@@ -90,7 +90,7 @@ export const ADMIN_LIST_PATH = 'list';
 
 // description : 관리자 - 회원관리
 export const ADMIN_USER_PATH = 'user';
-export const ADMIN_USER_DATAIL_PATH = ':userId';
+export const ADMIN_USER_DETAIL_PATH = ':nickname';
 export const ADMIN_ORDER_PATH = 'order';
 export const ADMIN_COUPON_PATH = 'coupon';
 
@@ -174,6 +174,14 @@ export const ADMIN_USER_ASC_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${A
 export const ADMIN_CLOTH_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_CLOTH_PATH}/list`;
 export const ADMIN_ORDER_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_ORDER_PATH}/list`;
 export const ADMIN_COUPON_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_COUPON_PATH}/list`;
+export const ADMIN_USER_DETAIL_ABSOLUTE_PATH = (nickname: string) => `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_USER_PATH}/${nickname}`;
+
+// description : 관리자페이지 절대 URL PATH (사이드바를 위해)
+export const ADMIN_USER_MANAGE_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_USER_PATH}`;
+export const ADMIN_CLOTH_MANAGE_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_CLOTH_PATH}`;
+export const ADMIN_ORDER_MANAGE_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_ORDER_PATH}`;
+export const ADMIN_COUPON_MANAGE_ABSOLUTE_PATH = `${MAIN_PATH}/${ADMIN_PATH}/${ADMIN_COUPON_PATH}`;
+
 
 // description: API URL PATH
 export const SERVER_DOMAIN_URL ='http://localhost:4000';
@@ -272,6 +280,7 @@ export const GET_ADMIN_USER_ASC_LIST_URL = `${SERVER_USER_MANAGE_MODULE_URL}/lis
 export const GET_ADMIN_USER_ID_SEARCH_LIST_URL = `${SERVER_USER_MANAGE_MODULE_URL}/list/userId/search`;
 export const GET_ADMIN_USER_NAME_SEARCH_LIST_URL = `${SERVER_USER_MANAGE_MODULE_URL}/list/userName/search`;
 export const GET_ADMIN_USER_GRADE_SEARCH_LIST_URL = `${SERVER_USER_MANAGE_MODULE_URL}/list/grade/search`;
+export const GET_ADMIN_USER_DETAIL_URL = (nickname: string) => `${SERVER_USER_MANAGE_MODULE_URL}/list/${nickname}`
 
 // description: PAGE
 export const COUNT_PER_PAGE = 10;
