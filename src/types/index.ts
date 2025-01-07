@@ -1,25 +1,31 @@
 // 옷 리스트
-export interface ClothDetailListItem {
-    clothDetailNumber: string;
-    clothDetailName: string;
-    clothCategory1: string;
-    clothCategory2: string;
+export interface ClothListItem {
+    clothId: string;
+    clothNumber: number;
+    clothName: string;
+    category1: string;
+    category2: string;
+    clothFeatures: string;
     price: number;
     discountPrice: number;
+    clothImageNumber: number;
+    clothMainImage: string;
+    clothDate: string;
+    viewCount: number;
+    // ?
     ratingAvg: number;
-    clothImage1: string;
-    // clothNumber형식이 number이고 string형식은 받을 수 없음
-    clothNumber : number;
+    reviewCount: number;
+    favoriteCount: number;
 }
 
 // description : 옷 정보 리스트
-export interface ClothListItem {
-    clothNumber : number | string;
-    clothName : string;
-    clothImage : string;
-    clothCategory1: string;
-    clothCategory2: string;
-}
+// export interface ClothListItem {
+//     clothNumber : number | string;
+//     clothName : string;
+//     clothImage : string;
+//     clothCategory1: string;
+//     clothCategory2: string;
+// }
 
 // description : 공지사항 리스트
 export interface NoticeListItem {

@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { getBestClothDetailCategory1ListRequest, getClothDetailCategory1ListRequest, getClothDetailCategory2ListRequest, getPriceAscClothDetailCategory1ListRequest, getPriceAscClothDetailCategory2ListRequest, getPriceDescClothDetailCategory1ListRequest, getPriceDescClothDetailCategory2ListRequest } from "src/apis/clothDetail";
-import { GetClothDetailListResponseDto } from "src/apis/clothDetail/dto/response";
+import { getBestClothCategory1ListRequest, getClothCategory1ListRequest, getClothCategory2ListRequest, getPriceAscClothCategory1ListRequest, getPriceAscClothCategory2ListRequest, getPriceDescClothCategory1ListRequest, getPriceDescClothCategory2ListRequest } from "src/apis/cloth";
+import { GetClothListResponseDto } from "src/apis/cloth/dto/response";
 import ResponseDto from "src/apis/response.dto";
 import { CLOTH_INFO_ABSOLUTE_PATH } from "src/constant";
-import { ClothDetailListItem } from "src/types";
+import { ClothListItem } from "src/types";
 import './style.css';
 
 //                    component                    //
-function ListItem (props: ClothDetailListItem) {
+function ListItem (props: ClothListItem) {
 
     //                   state                //
     const {
-        clothDetailName,
-        clothImage1,
+        clothName,
         price,
         discountPrice,
-        ratingAvg
+        ratingAvg,
+        clothImageNumber,
+        clothMainImage
     } = props;
 
     //                  render                  //
@@ -24,11 +25,11 @@ function ListItem (props: ClothDetailListItem) {
         <>
             <div className='cloth-detail-list'>
                 <div className='cloth-detail-image'>
-                    <img style={{ width: '230px', height: '180px'}} src={clothImage1} />
+                    <img style={{ width: '230px', height: '180px'}} src={clothMainImage} />
                 </div>
                 
                 <div className='cloth-detail-bottom'>
-                    <div className='cloth-detail-name'>{clothDetailName}</div>
+                    <div className='cloth-detail-name'>{clothName}</div>
                     <div className='cloth-detail-all-price'>
                         <div className='cloth-detail-price'>{price}</div>
                         <div className='cloth-detail-discount-price'>{discountPrice}</div>
@@ -42,26 +43,26 @@ function ListItem (props: ClothDetailListItem) {
 };
 
 //                    component                    //
-export default function ClothDetailList() {
+export default function ClothList() {
 
     //                      state                      //
-    const [bestClothDetailList, setBestClothDetailList] = useState<ClothDetailListItem[]>([]);
-    const [clothDetailList, setClothDetailList] = useState<ClothDetailListItem[]>([]);
+    const [bestClothList, setBestClothList] = useState<ClothListItem[]>([]);
+    const [clothList, setClothList] = useState<ClothListItem[]>([]);
     // 현재 화면에 보여지는 리스트
-    const [currentItems1, setCurrentItems1] = useState<ClothDetailListItem[]>([]);
+    const [currentItems1, setCurrentItems1] = useState<ClothListItem[]>([]);
     // 처음에는 16개만 표시
     const [itemsToShow, setItemsToShow] = useState<number>(8);
-    const { clothCategory1 } = useParams();
+    const { category1 } = useParams();
     // const [clothCategory1, setClothCategory1] = useState<string>('');
 
     // best 슬라이드 관리
     const [currentIndex, setCurrentIndex] = useState<number>(0);
-    const [currentItems2, setCurrentItems2] = useState<ClothDetailListItem[]>([]);
+    const [currentItems2, setCurrentItems2] = useState<ClothListItem[]>([]);
 
     // 동적 스타일 -> 해당 필터 클릭 시 진하게 표시
     const [activeFilter, setActiveFilter] = useState<string | null>(null);
 
-    // clothCategory1에 따른 clothCategory2 동적 관리
+    // category1에 따른 clothCategory2 동적 관리
     const categories = {
         "TOP": ["티셔츠", "셔츠/블라우스", "니트", "맨투맨/후드", "슬리브리스"],
         "BOTTOM": ["데님", "슬랙스", "트레이닝팬츠", "쇼츠"],
@@ -69,67 +70,67 @@ export default function ClothDetailList() {
         "OPS/SKI": ["원피스", "미니스커트", "미디/롱스커트"],
         "ACC": ["악세서리", "슈즈", "가방", "etc"]
     };
-    const selectedCategory2 = categories[clothCategory1 as keyof typeof categories] || [];
-    const [clothCategory2, setClothCategory2] = useState<string>('');
+    const selectedCategory2 = categories[category1 as keyof typeof categories] || [];
+    const [category2, setCategory2] = useState<string>('');
     const [activeCategory2, setActiveCategory2] = useState<string | null>(null);
 
     //                    function                     //
     const navigator = useNavigate();
 
-    const clothDetailCategory1ListResponse = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
+    const clothCategory1ListResponse = (result: GetClothListResponseDto | ResponseDto | null) => {
         if (!result || result.code !== 'SU') return;
 
-        const { clothDetailList: fetchedClothDetailList } = result as GetClothDetailListResponseDto;
-        if (Array.isArray(fetchedClothDetailList)) {
-            setClothDetailList(fetchedClothDetailList); // 상태 업데이트
-            setCurrentItems1(fetchedClothDetailList.slice(0, itemsToShow)); // 초기 화면에 보여줄 아이템 설정
+        const { clothList: fetchedClothList } = result as GetClothListResponseDto;
+        if (Array.isArray(fetchedClothList)) {
+            setClothList(fetchedClothList); // 상태 업데이트
+            setCurrentItems1(fetchedClothList.slice(0, itemsToShow)); // 초기 화면에 보여줄 아이템 설정
         } else {
             console.error("Fetched cloth detail list is not an array");
         }
     };
 
-    const getBestClothDetailCategory1ListResponse = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
+    const getBestClothCategory1ListResponse = (result: GetClothListResponseDto | ResponseDto | null) => {
 
         if (!result || result.code !== 'SU') return;
 
-        const { clothDetailList } = result as GetClothDetailListResponseDto;
+        const { clothList } = result as GetClothListResponseDto;
 
-        if (Array.isArray(clothDetailList)) {
-            setBestClothDetailList(clothDetailList);
+        if (Array.isArray(clothList)) {
+            setBestClothList(clothList);
         } else {
             console.error("Fetched cloth detail list is not an array");
         }
     };
 
-    const getPriceAscClothDetailCategory1ListRespone = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
+    const getPriceAscClothCategory1ListRespone = (result: GetClothListResponseDto | ResponseDto | null) => {
 
         if (!result || result.code !== 'SU') return;
 
-        const { clothDetailList } = result as GetClothDetailListResponseDto;
+        const { clothList } = result as GetClothListResponseDto;
 
-        if (Array.isArray(clothDetailList)) {
-            setClothDetailList(clothDetailList);
-            setCurrentItems1(clothDetailList.slice(0, itemsToShow));
+        if (Array.isArray(clothList)) {
+            setClothList(clothList);
+            setCurrentItems1(clothList.slice(0, itemsToShow));
         } else {
             console.error("Fetched cloth detail list is not an array");
         }
     };
 
-    const getPriceDescClothDetailCategory1ListRespone = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
+    const getPriceDescClothCategory1ListRespone = (result: GetClothListResponseDto | ResponseDto | null) => {
 
         if (!result || result.code !== 'SU') return;
 
-        const { clothDetailList } = result as GetClothDetailListResponseDto;
+        const { clothList } = result as GetClothListResponseDto;
 
-        if (Array.isArray(clothDetailList)) {
-            setClothDetailList(clothDetailList);
-            setCurrentItems1(clothDetailList.slice(0, itemsToShow));
+        if (Array.isArray(clothList)) {
+            setClothList(clothList);
+            setCurrentItems1(clothList.slice(0, itemsToShow));
         } else {
             console.error("Fetched cloth detail list is not an array");
         }
     };
 
-    const clothDetailCategory2ListResponse = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
+    const clothCategory2ListResponse = (result: GetClothListResponseDto | ResponseDto | null) => {
         const message = 
             !result ? '서버에 문제가 있습니다.' :
             result.code === 'VF' ? '존재하지 않는 카테고리를 선택하셨습니다.' :
@@ -141,38 +142,38 @@ export default function ClothDetailList() {
             return;
         }
 
-        const { clothDetailList: fetchedClothDetailList } = result as GetClothDetailListResponseDto;
-        if (Array.isArray(fetchedClothDetailList)) {
-            setClothDetailList(fetchedClothDetailList); // 상태 업데이트
-            setCurrentItems1(fetchedClothDetailList.slice(0, itemsToShow)); // 초기 화면에 보여줄 아이템 설정
+        const { clothList: fetchedClothList } = result as GetClothListResponseDto;
+        if (Array.isArray(fetchedClothList)) {
+            setClothList(fetchedClothList); // 상태 업데이트
+            setCurrentItems1(fetchedClothList.slice(0, itemsToShow)); // 초기 화면에 보여줄 아이템 설정
         } else {
             console.error("Fetched cloth detail list is not an array");
         }
     };
 
-    const getPriceAscClothDetailCategory2ListRespone = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
+    const getPriceAscClothCategory2ListRespone = (result: GetClothListResponseDto | ResponseDto | null) => {
 
         if (!result || result.code !== 'SU') return;
 
-        const { clothDetailList } = result as GetClothDetailListResponseDto;
+        const { clothList } = result as GetClothListResponseDto;
 
-        if (Array.isArray(clothDetailList)) {
-            setClothDetailList(clothDetailList);
-            setCurrentItems1(clothDetailList.slice(0, itemsToShow));
+        if (Array.isArray(clothList)) {
+            setClothList(clothList);
+            setCurrentItems1(clothList.slice(0, itemsToShow));
         } else {
             console.error("Fetched cloth detail list is not an array");
         }
     };
 
-    const getPriceDescClothDetailCategory2ListRespone = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
+    const getPriceDescClothCategory2ListRespone = (result: GetClothListResponseDto | ResponseDto | null) => {
 
         if (!result || result.code !== 'SU') return;
 
-        const { clothDetailList } = result as GetClothDetailListResponseDto;
+        const { clothList } = result as GetClothListResponseDto;
 
-        if (Array.isArray(clothDetailList)) {
-            setClothDetailList(clothDetailList);
-            setCurrentItems1(clothDetailList.slice(0, itemsToShow));
+        if (Array.isArray(clothList)) {
+            setClothList(clothList);
+            setCurrentItems1(clothList.slice(0, itemsToShow));
         } else {
             console.error("Fetched cloth detail list is not an array");
         }
@@ -182,39 +183,39 @@ export default function ClothDetailList() {
 
     //                event handler                    //
     const onPriceAscClickHandler = (category1: string) => {
-        if (!clothCategory1) return;
+        if (!category1) return;
         setItemsToShow(8);
         setActiveFilter('asc');
-        if (!clothCategory2) {
-            getPriceAscClothDetailCategory1ListRequest(clothCategory1).then(getPriceAscClothDetailCategory1ListRespone);
+        if (!category2) {
+            getPriceAscClothCategory1ListRequest(category1).then(getPriceAscClothCategory1ListRespone);
         } else {
-            getPriceAscClothDetailCategory2ListRequest(clothCategory2).then(getPriceAscClothDetailCategory2ListRespone);
+            getPriceAscClothCategory2ListRequest(category2).then(getPriceAscClothCategory2ListRespone);
         }
     }
     
     const onPriceDescClickHandler = (category1: string) => {
-        if (!clothCategory1) return;
+        if (!category1) return;
         setItemsToShow(8);
         setActiveFilter('desc');
-        if (!clothCategory2) {
-            getPriceDescClothDetailCategory1ListRequest(clothCategory1).then(getPriceDescClothDetailCategory1ListRespone);
+        if (!category2) {
+            getPriceDescClothCategory1ListRequest(category1).then(getPriceDescClothCategory1ListRespone);
         } else {
-            getPriceDescClothDetailCategory2ListRequest(clothCategory2).then(getPriceDescClothDetailCategory2ListRespone);
+            getPriceDescClothCategory2ListRequest(category2).then(getPriceDescClothCategory2ListRespone);
         }
         
     }
 
     const onAllCategory2ClickHandler = () => {
-        setClothCategory2('');
+        setCategory2('');
         setItemsToShow(8);
         setActiveCategory2(null);
         setActiveFilter(null);
-        getClothDetailCategory1ListRequest(clothCategory1!).then(clothDetailCategory1ListResponse);
+        getClothCategory1ListRequest(category1!).then(clothCategory1ListResponse);
     }
 
     const onCategory2ClickHandler = (selectedCategory2: string) => {
         setItemsToShow(8);
-        setClothCategory2(selectedCategory2);
+        setCategory2(selectedCategory2);
         setActiveCategory2(selectedCategory2);
         setActiveFilter(null);
     };
@@ -222,50 +223,50 @@ export default function ClothDetailList() {
     const handleLoadMore = () => {
         const newItemsToShow = itemsToShow + 8;
         setItemsToShow(newItemsToShow);
-        setCurrentItems1(clothDetailList.slice(0, newItemsToShow)); // 새로운 아이템 설정
+        setCurrentItems1(clothList.slice(0, newItemsToShow)); // 새로운 아이템 설정
     };
 
     // effect //
     useEffect(() => {
-        setCurrentItems1(clothDetailList.slice(0, itemsToShow));
-    }, [clothDetailList, itemsToShow]);
+        setCurrentItems1(clothList.slice(0, itemsToShow));
+    }, [clothList, itemsToShow]);
 
     useEffect(() => {
-        if (!clothCategory1) return;
-        getClothDetailCategory1ListRequest(clothCategory1).then(clothDetailCategory1ListResponse);
-        getBestClothDetailCategory1ListRequest(clothCategory1).then(getBestClothDetailCategory1ListResponse);
-    }, [clothCategory1]);
+        if (!category1) return;
+        getClothCategory1ListRequest(category1).then(clothCategory1ListResponse);
+        getBestClothCategory1ListRequest(category1).then(getBestClothCategory1ListResponse);
+    }, [category1]);
 
     useEffect(() => {
-        if (!clothCategory2) return;
-        getClothDetailCategory2ListRequest(clothCategory2).then(clothDetailCategory2ListResponse);
-    }, [clothCategory2]);
+        if (!category2) return;
+        getClothCategory2ListRequest(category2).then(clothCategory2ListResponse);
+    }, [category2]);
 
     // 슬라이드
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prevIndex) => 
-                (prevIndex + 1) % bestClothDetailList.length
+                (prevIndex + 1) % bestClothList.length
             );
         }, 3000); // 3초마다 슬라이드
 
         return () => clearInterval(interval); // Clean up
-    }, [bestClothDetailList]);
+    }, [bestClothList]);
 
     useEffect(() => {
         // 슬라이드로 현재 4개의 아이템을 표시
-        const visibleItems = bestClothDetailList.slice(currentIndex, currentIndex + 4);
+        const visibleItems = bestClothList.slice(currentIndex, currentIndex + 4);
         if (visibleItems.length < 4) {
-            visibleItems.push(...bestClothDetailList.slice(0, 4 - visibleItems.length)); // 리스트 끝에 도달하면 처음부터 가져옴
+            visibleItems.push(...bestClothList.slice(0, 4 - visibleItems.length)); // 리스트 끝에 도달하면 처음부터 가져옴
         }
         setCurrentItems2(visibleItems);
-    }, [currentIndex, bestClothDetailList]);
+    }, [currentIndex, bestClothList]);
 
     //                  render                  //
     return (
         <div>
             <div className='page-title-outside'>
-                <div className='page-big-title' onClick={ () => window.location.reload() }>{clothCategory1}</div>
+                <div className='page-big-title' onClick={ () => window.location.reload() }>{category1}</div>
             </div>
 
             <div className='cloth-detail-list-container'>
@@ -273,7 +274,7 @@ export default function ClothDetailList() {
                     <div className='best-cloth-detail-list-title'>best Item</div>
                     <div className='cloth-detail-list-wrap'>
                         {currentItems2.map(item => (
-                            <ListItem key={item.clothDetailName} {...item} />
+                            <ListItem key={item.clothName} {...item} />
                         ))}
                     </div>
                 </div>
@@ -294,13 +295,13 @@ export default function ClothDetailList() {
                     
                     <div className='cloth-detail-list-filter'>
                         <div 
-                            onClick={() => onPriceAscClickHandler(clothCategory1 || '')} 
+                            onClick={() => onPriceAscClickHandler(category1 || '')} 
                             className={activeFilter === 'asc' ? 'active-filter' : ''}
                         >
                             낮은가격
                         </div>
                         <div 
-                            onClick={() => onPriceDescClickHandler(clothCategory1 || '')} 
+                            onClick={() => onPriceDescClickHandler(category1 || '')} 
                             className={activeFilter === 'desc' ? 'active-filter' : ''}
                         >
                             높은가격
@@ -318,7 +319,7 @@ export default function ClothDetailList() {
                <div className='cloth-detail-list-wrap'>
                     {currentItems1.map(item => (
                         <div
-                            key={item.clothDetailName}
+                            key={item.clothName}
                             className="cloth-item"
                             onClick={() => onItemClickHandler(item.clothNumber)}  // 클릭 시 이동
                         >
@@ -327,7 +328,7 @@ export default function ClothDetailList() {
                     ))}
                 </div>
 
-                {itemsToShow < clothDetailList.length && (
+                {itemsToShow < clothList.length && (
                     <div className='board-button' onClick={handleLoadMore}>MORE+
                     </div>
                 )}

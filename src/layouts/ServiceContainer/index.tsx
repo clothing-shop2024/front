@@ -5,7 +5,7 @@ import ResponseDto from "src/apis/response.dto";
 import { getMyInfoRequest, getSignInUserRequest } from "src/apis/user";
 import { GetMyInfoResponseDto, GetSignInUserResponseDto } from "src/apis/user/dto/response";
 import AllCategoryPopup from "src/components/AllCategoryPopup";
-import { ADMIN_USER_LIST_ABSOLUTE_PATH, CLOTH_DETAIL_SEARCH_LIST_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from "src/constant";
+import { ADMIN_USER_LIST_ABSOLUTE_PATH, CLOTH_SEARCH_LIST_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH } from "src/constant";
 import useClothSearchStore from "src/stores/cloth-search.store";
 import useUserStore from "src/stores/user.store";
 import { MY_PAGE_INFO_ABSOLUTE_PATH } from '../../constant/index';
@@ -66,7 +66,7 @@ function TopBar() {
 
     const onSearchButtonClickHandler = () => {
         setSearchWord(inputSearchWord);
-        navigator(CLOTH_DETAIL_SEARCH_LIST_ABSOLUTE_PATH + `?search=${searchWord}`);
+        navigator(CLOTH_SEARCH_LIST_ABSOLUTE_PATH + `?search=${searchWord}`);
     };
 
     const onSignInClickHandler = () => navigator(SIGN_IN_ABSOLUTE_PATH);

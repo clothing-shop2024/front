@@ -1,6 +1,5 @@
 
 .user-detail-info {
-    
     display: flex;
     flex-direction: column;
     margin-left: 300px;
@@ -8,13 +7,11 @@
 }
 
 .user-detail-contents {
-
     display: table;
     border-collapse: collapse;
 }
 
 .user-detail-title {
-    
     display: table-cell;
     text-align: center; /* 셀의 수평 중앙정렬 */
     vertical-align: middle; /* 셀의 수직 중앙정렬 */
@@ -27,7 +24,6 @@
 }
 
 .user-detail-content {
-
     display: table-cell;
     text-align: center; /* 셀의 수평 중앙정렬 */
     vertical-align: middle; /* 셀의 수직 중앙정렬 */
