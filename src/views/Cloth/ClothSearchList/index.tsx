@@ -1,23 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { GetClothDetailListResponseDto } from 'src/apis/clothDetail/dto/response';
+import { GetClothListResponseDto } from 'src/apis/cloth/dto/response';
 import ResponseDto from 'src/apis/response.dto';
-import { ClothDetailListItem } from 'src/types';
+import { ClothListItem } from 'src/types';
 import { MAIN_PATH } from 'src/constant';
 import useClothSearchStore from 'src/stores/cloth-search.store';
-import { getClothDetailSearchListRequest } from 'src/apis/clothDetail';
+import { getClothSearchListRequest } from 'src/apis/cloth';
 import './style.css';
 
 //                    component                    //
-function ListItem (props: ClothDetailListItem) {
+function ListItem (props: ClothListItem) {
 
     //                   function                 //
     const {
-        clothDetailName,
-        clothImage1,
+        clothName,
         price,
         discountPrice,
-        ratingAvg
+        ratingAvg,
+        clothImageNumber,
+        clothMainImage
     } = props;
 
     //                  render                  //
@@ -25,10 +26,10 @@ function ListItem (props: ClothDetailListItem) {
       <>
           <div className='cloth-detail-list'>
               <div className='cloth-detail-image'>
-                  <img style={{ width: '230px', height: '180px'}} src={clothImage1} />
+                  <img style={{ width: '230px', height: '180px'}} src={clothMainImage} />
               </div>
               <div className='cloth-detail-bottom'>
-                  <div className='cloth-detail-name'>{clothDetailName}</div>
+                  <div className='cloth-detail-name'>{clothName}</div>
                   <div className='cloth-detail-all-price'>
                       <div className='cloth-detail-price'>{price}</div>
                       <div className='cloth-detail-discount-price'>{discountPrice}</div>
@@ -42,11 +43,11 @@ function ListItem (props: ClothDetailListItem) {
 };
 
 //                    component                    //
-export default function ClothDetailSearchList() {
+export default function ClothSearchList() {
 
     //                      state                      //
-    const [clothDetailList, setClothDetailList] = useState<ClothDetailListItem[]>([]);
-    const [currentItems1, setCurrentItems1] = useState<ClothDetailListItem[]>([]);
+    const [clothList, setClothList] = useState<ClothListItem[]>([]);
+    const [currentItems1, setCurrentItems1] = useState<ClothListItem[]>([]);
     const [itemsToShow, setItemsToShow] = useState<number>(8);
     // window 추가
     const queryParams = new URLSearchParams(window.location.search);
@@ -56,7 +57,7 @@ export default function ClothDetailSearchList() {
     //                    function                     //
     const navigator = useNavigate();
     
-    const getSearchClothDetailListResponse = (result: GetClothDetailListResponseDto | ResponseDto | null) => {
+    const getSearchClothListResponse = (result: GetClothListResponseDto | ResponseDto | null) => {
 
         const message =
             !result ? '서버에 문제가 있습니다.' :
@@ -70,10 +71,10 @@ export default function ClothDetailSearchList() {
             return;
         }
 
-        const { clothDetailList } = result as GetClothDetailListResponseDto;
+        const { clothList } = result as GetClothListResponseDto;
         
-        if (Array.isArray(clothDetailList)) {
-            setClothDetailList(clothDetailList);
+        if (Array.isArray(clothList)) {
+            setClothList(clothList);
         } else {
             console.error("Fetched cloth detail list is not an array");
         }
@@ -81,12 +82,12 @@ export default function ClothDetailSearchList() {
 
     useEffect(() => {
         if(!searchWord) return;
-        getClothDetailSearchListRequest(searchWord).then(getSearchClothDetailListResponse);
+        getClothSearchListRequest(searchWord).then(getSearchClothListResponse);
     }, [searchWord]);
 
     useEffect(() => {
-        setCurrentItems1(clothDetailList.slice(0, 8)); // clothDetailList의 첫 8개 항목을 설정
-    }, [clothDetailList]);
+        setCurrentItems1(clothList.slice(0, 8)); // clothList의 첫 8개 항목을 설정
+    }, [clothList]);
 
     //                  render                  //
     return (
@@ -102,7 +103,7 @@ export default function ClothDetailSearchList() {
             {currentItems1.length > 0 ? (
                 <div className='best-cloth-detail-list-wrap'>
                     {currentItems1.map(item => (
-                        <ListItem key={item.clothDetailName} {...item} />
+                        <ListItem key={item.clothName} {...item} />
                     ))}
                 </div>
             ) : (

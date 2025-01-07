@@ -1,6 +1,6 @@
 import { useCookies } from "react-cookie";
 import { useLocation, useNavigate } from "react-router";
-import { CLOTH_DETAIL_CATEGORY1_LIST_ABSOLUTE_PATH, FAQ_LIST_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH, NOTICE_LIST_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH, SIGN_UP_ABSOLUTE_PATH } from "src/constant";
+import { CLOTH_CATEGORY1_LIST_ABSOLUTE_PATH, FAQ_LIST_ABSOLUTE_PATH, MAIN_ABSOLUTE_PATH, NOTICE_LIST_ABSOLUTE_PATH, QNA_LIST_ABSOLUTE_PATH, SIGN_IN_ABSOLUTE_PATH, SIGN_UP_ABSOLUTE_PATH } from "src/constant";
 import useUserStore from "src/stores/user.store";
 import './style.css';
 
@@ -19,15 +19,15 @@ export const AllCategoryPopup = ({ onClose }: { onClose: () => void }) => {
     const notLoginInState = loginUserRole !== 'ROLE_USER' && loginUserRole !== 'ROLE_ADMIN';
     const loginInState = loginUserRole === 'ROLE_USER' || loginUserRole === 'ROLE_ADMIN';
 
-    const onOuterClickHandler = () => navigator(CLOTH_DETAIL_CATEGORY1_LIST_ABSOLUTE_PATH('OUTER'));
+    const onOuterClickHandler = () => navigator(CLOTH_CATEGORY1_LIST_ABSOLUTE_PATH('OUTER'));
 
-    const onTopClickHandler = () => navigator(CLOTH_DETAIL_CATEGORY1_LIST_ABSOLUTE_PATH('TOP'));
+    const onTopClickHandler = () => navigator(CLOTH_CATEGORY1_LIST_ABSOLUTE_PATH('TOP'));
 
-    const onBottomClickHandler = () => navigator(CLOTH_DETAIL_CATEGORY1_LIST_ABSOLUTE_PATH('BOTTOM'));
+    const onBottomClickHandler = () => navigator(CLOTH_CATEGORY1_LIST_ABSOLUTE_PATH('BOTTOM'));
     
-    const onOpsClickHandler = () => navigator(CLOTH_DETAIL_CATEGORY1_LIST_ABSOLUTE_PATH('OPS/SKIRT'));
+    const onOpsClickHandler = () => navigator(CLOTH_CATEGORY1_LIST_ABSOLUTE_PATH('OPS/SKIRT'));
 
-    const onAccClickHandler = () => navigator(CLOTH_DETAIL_CATEGORY1_LIST_ABSOLUTE_PATH('ACC'));
+    const onAccClickHandler = () => navigator(CLOTH_CATEGORY1_LIST_ABSOLUTE_PATH('ACC'));
 
     const onNoticeClickHandler = () => {
         onClose();

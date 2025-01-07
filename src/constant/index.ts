@@ -17,7 +17,7 @@ export const CLOTH_LIST_PATH = 'list';
 export const CLOTH_INFO_PATH = 'info/:clothNumber';
 export const CLOTH_INFO_REGIST_PATH = 'regist';
 export const CLOTH_INFO_UPDATE_PATH = 'update/:clothNumber';
-export const CLOTH_CATEGORY1_PATH = ':clothCategory1';
+export const CLOTH_CATEGORY1_PATH = ':category1';
 export const CLOTH_SEARCH_PATH = 'search';
 
 // description : 찜 페이지 URL 
@@ -132,9 +132,9 @@ export const MY_PAGE_COUPON_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${MY_P
 export const MY_PAGE_QNA_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${MY_PAGE_PATH}/${QNA_PATH}/${QNA_LIST_PATH}`;
 
 // description: 옷 상세 리스트 절대 URL PATH
-export const CLOTH_DETAIL_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${CLOTH_PATH}/list`;
-export const CLOTH_DETAIL_CATEGORY1_LIST_ABSOLUTE_PATH = (clothCategory1: string) => `${MAIN_PATH}/${CLOTH_PATH}/list/${clothCategory1}`;
-export const CLOTH_DETAIL_SEARCH_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${CLOTH_PATH}/list/search`;
+export const CLOTH_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${CLOTH_PATH}/list`;
+export const CLOTH_CATEGORY1_LIST_ABSOLUTE_PATH = (category1: string) => `${MAIN_PATH}/${CLOTH_PATH}/list/${category1}`;
+export const CLOTH_SEARCH_LIST_ABSOLUTE_PATH = `${MAIN_PATH}/${CLOTH_PATH}/list/search`;
 
 // description: 옷 주문 페이지 URL PATH
 export const CLOTH_INFO_ABSOLUTE_PATH = (clothId: number) => `${MAIN_PATH}/${CLOTH_PATH}/${CLOTH_LIST_PATH}/info/${clothId}`;
@@ -219,17 +219,17 @@ export const GET_CLOTH_INFO_URL = (clothId : string | number) => `${SERVER_CLOTH
 export const POST_CLOTH_INFO_URL = `{SERVER_CLOTH_INFO_MODULE_URL}/order`;
 
 // description : 옷 상세 전체 리스트 URL
-export const SERVER_CLOTH_MODULE_URL = `${SERVER_API_URL}/cloth-detail`;
-export const GET_CLOTH_DETAIL_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/list`;
-export const GET_BEST_CLOTH_DETAIL_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/list/best`;
-export const GET_BEST_CLOTH_DETAIL_CATEGORY1_LIST_URL = (clothCategory1: string) => `${SERVER_CLOTH_MODULE_URL}/list/category1/${clothCategory1}/best`;
-export const GET_CLOTH_DETAIL_CATEGORY1_LIST_URL = (clothCategory1: string) => `${SERVER_CLOTH_MODULE_URL}/list/category1/${clothCategory1}`;
-export const GET_PRICE_ASC_CLOTH_DETAIL_CATEGORY1_LIST_URL = (clothCategory1: string) => `${SERVER_CLOTH_MODULE_URL}/list/category1/${clothCategory1}/price-asc`;
-export const GET_PRICE_DESC_CLOTH_DETAIL_CATEGORY1_LIST_URL = (clothCategory1: string) => `${SERVER_CLOTH_MODULE_URL}/list/category1/${clothCategory1}/price-desc`;
-export const GET_CLOTH_DETAIL_SEARCH_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/list/search`;
-export const GET_CLOTH_DETAIL_CATEGORY2_LIST_URL = (clothCategory2: string) => `${SERVER_CLOTH_MODULE_URL}/list/category2/${clothCategory2}`;
-export const GET_PRICE_ASC_CLOTH_DETAIL_CATEGORY2_LIST_URL = (clothCategory2: string) => `${SERVER_CLOTH_MODULE_URL}/list/category2/${clothCategory2}/price-asc`;
-export const GET_PRICE_DESC_CLOTH_DETAIL_CATEGORY2_LIST_URL = (clothCategory2: string) => `${SERVER_CLOTH_MODULE_URL}/list/category2/${clothCategory2}/price-desc`;
+export const SERVER_CLOTH_MODULE_URL = `${SERVER_API_URL}/cloth`;
+export const GET_CLOTH_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/list`;
+export const GET_BEST_CLOTH_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/list/best`;
+export const GET_BEST_CLOTH_CATEGORY1_LIST_URL = (category1: string) => `${SERVER_CLOTH_MODULE_URL}/list/category1/${category1}/best`;
+export const GET_CLOTH_CATEGORY1_LIST_URL = (category1: string) => `${SERVER_CLOTH_MODULE_URL}/list/category1/${category1}`;
+export const GET_PRICE_ASC_CLOTH_CATEGORY1_LIST_URL = (category1: string) => `${SERVER_CLOTH_MODULE_URL}/list/category1/${category1}/price-asc`;
+export const GET_PRICE_DESC_CLOTH_CATEGORY1_LIST_URL = (category1: string) => `${SERVER_CLOTH_MODULE_URL}/list/category1/${category1}/price-desc`;
+export const GET_CLOTH_SEARCH_LIST_URL = `${SERVER_CLOTH_MODULE_URL}/list/search`;
+export const GET_CLOTH_CATEGORY2_LIST_URL = (category2: string) => `${SERVER_CLOTH_MODULE_URL}/list/category2/${category2}`;
+export const GET_PRICE_ASC_CLOTH_CATEGORY2_LIST_URL = (category2: string) => `${SERVER_CLOTH_MODULE_URL}/list/category2/${category2}/price-asc`;
+export const GET_PRICE_DESC_CLOTH_CATEGORY2_LIST_URL = (category2: string) => `${SERVER_CLOTH_MODULE_URL}/list/category2/${category2}/price-desc`;
 
 // description: FAVORITE 모듈 내의 기능 URL
 export const SERVER_FAVORITE_MODULE_URL = `${SERVER_CLOTH_INFO_MODULE_URL}/favorite`;
@@ -273,14 +273,18 @@ export const PUT_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODULE_
 export const DELETE_FAQ_URL = (faqNumber: number | string) => `${SERVER_FAQ_MODULE_URL}/${faqNumber}/delete`;
 
 // description : 관리자페이지 회원관리
-export const SERVER_ADMIN_MODULE_URL = `${SERVER_API_URL}/admin`;
-export const SERVER_USER_MANAGE_MODULE_URL = `${SERVER_ADMIN_MODULE_URL}/user`;
+// export const SERVER_ADMIN_MODULE_URL = `${SERVER_API_URL}/admin`;
+export const SERVER_USER_MANAGE_MODULE_URL = `${SERVER_API_URL}/user/admin`;
 export const GET_ADMIN_USER_LIST_URL = `${SERVER_USER_MANAGE_MODULE_URL}/list/desc`;
 export const GET_ADMIN_USER_ASC_LIST_URL = `${SERVER_USER_MANAGE_MODULE_URL}/list/asc`;
 export const GET_ADMIN_USER_ID_SEARCH_LIST_URL = `${SERVER_USER_MANAGE_MODULE_URL}/list/userId/search`;
 export const GET_ADMIN_USER_NAME_SEARCH_LIST_URL = `${SERVER_USER_MANAGE_MODULE_URL}/list/userName/search`;
 export const GET_ADMIN_USER_GRADE_SEARCH_LIST_URL = `${SERVER_USER_MANAGE_MODULE_URL}/list/grade/search`;
 export const GET_ADMIN_USER_DETAIL_URL = (nickname: string) => `${SERVER_USER_MANAGE_MODULE_URL}/list/${nickname}`
+// description : 관리자페이지 상품관리
+export const SERVER_CLOTH_MANAGE_MODULE_URL = `${SERVER_API_URL}/cloth/admin`;
+export const GET_ADMIN_CLOTH_LIST_URL = `${SERVER_CLOTH_MANAGE_MODULE_URL}/list`;
+export const GET_ADMIN_CLOTH_DETAIL_URL = (clothId: string) => `${SERVER_CLOTH_MANAGE_MODULE_URL}/${clothId}`;
 
 // description: PAGE
 export const COUNT_PER_PAGE = 10;

@@ -22,8 +22,8 @@ import QnaDetail from './views/Board/Qna/QnaDetail';
 import QnaList from './views/Board/Qna/QnaList';
 import QnaRegist from './views/Board/Qna/QnaRegist';
 import QnaUpdate from './views/Board/Qna/QnaUpdate';
-import ClothDetailList from './views/Cloth-detail/ClothCategory1List';
-import ClothDetailSearchList from './views/Cloth-detail/ClothDetailSearchList';
+import ClothList from './views/Cloth/ClothCategory1List';
+import ClothSearchList from './views/Cloth/ClothSearchList';
 import Main from './views/Main';
 import EmailModify from './views/MyPage/EmailModify';
 import MyPageCoupon from './views/MyPage/MyPageCoupon';
@@ -31,7 +31,7 @@ import MyPageInfo from './views/MyPage/MyPageInfo';
 import MyPageInfoDelete from './views/MyPage/MyPageInfoDelete';
 import MyPageInfoUpdate from './views/MyPage/MyPageInfoUpdate';
 import PasswordModify from './views/MyPage/PasswordModify';
-import ClothInfo from './views/cloth/ClothInfo/index';
+// import ClothInfo from './views/cloth/ClothInfo/index';
 import MyPageQna from './views/MyPage/MyPageQna';
 import ClothMange from './views/Admin/ClothManage/List';
 import UserDetail from './views/Admin/UserManage/Detail';
@@ -85,9 +85,9 @@ function App() {
                 {/* 옷 페이지 */}
                 <Route path={CLOTH_PATH}>
                     <Route path={CLOTH_LIST_PATH}>
-                        <Route path={CLOTH_CATEGORY1_PATH} element={<ClothDetailList />} />
-                        <Route path={CLOTH_SEARCH_PATH} element={<ClothDetailSearchList />} />
-                        <Route path={CLOTH_INFO_PATH} element={<ClothInfo />} />
+                        <Route path={CLOTH_CATEGORY1_PATH} element={<ClothList />} />
+                        <Route path={CLOTH_SEARCH_PATH} element={<ClothSearchList />} />
+                        {/* <Route path={CLOTH_INFO_PATH} element={<ClothInfo />} /> */}
                     </Route>
                 </Route>
 
